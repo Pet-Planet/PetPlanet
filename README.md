@@ -8,5 +8,5 @@
 ### ✏️ Commit Type
 |   Type   |내용|
 |:--------:|---|
-|   Feat   |새로운 기능 추가|
-|   Fix    |버그 수정 또는 typo|
+|   Add   |새로운 기능 추가|
+|   Edit    |버그 수정 또는 typo|
