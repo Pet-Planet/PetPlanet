@@ -1,0 +1,25 @@
+# port
+server:
+  port: 8088
+
+
+spring:
+  datasource:         # Oracle dataSource
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@dblab_high?TNS_ADMIN=C:/Oracle/Wallet_DBLab   # use Oracle Wallet
+    username: ss230106
+    password: Spring_61258
+
+  jpa:
+    database: oracle
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+#        format_sql: true
+  logging.level:
+    org.hibernate.SQL: debug
+
+
