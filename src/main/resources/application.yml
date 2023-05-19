@@ -22,4 +22,10 @@ spring:
   logging.level:
     org.hibernate.SQL: debug
 
+# kakao
+  kakao:
+    authUrl: https://kauth.kakao.com/oauth/token
+    userApiUrl: https://kapi.kakao.com/v2/user/me
+    restapiKey: 07aa811862cf244772a3a4e798f03b54
+    redirectUrl: http://localhost:3000/callback
 
