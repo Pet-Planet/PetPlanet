@@ -1,8 +1,6 @@
 package com.example.pet.domain.member;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +15,7 @@ public class Member {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private String id;
 
@@ -36,9 +35,5 @@ public class Member {
     private URL imgUrl;
 
     private String status;  //탈퇴여부
-
-
-
-
 
 }
