@@ -1,11 +1,14 @@
 package com.example.pet.domain.member;
 
+import com.example.pet.domain.reservation.Reservation;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,5 +38,9 @@ public class Member {
     private URL imgUrl;
 
     private String status;  //탈퇴여부
+
+
+    @OneToMany(mappedBy = "reservation")
+    private List<Reservation> goals = new ArrayList<>();
 
 }
