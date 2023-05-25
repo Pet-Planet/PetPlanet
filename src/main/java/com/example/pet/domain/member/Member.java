@@ -1,6 +1,7 @@
 package com.example.pet.domain.member;
 
 import com.example.pet.domain.reservation.Reservation;
+import com.example.pet.domain.review.Review;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,8 @@ public class Member {
 
 
     @OneToMany(mappedBy = "reservation")
-    private List<Reservation> goals = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
 
+    @OneToMany(mappedBy = "review")
+    private List<Review> reviews = new ArrayList<>();
 }
