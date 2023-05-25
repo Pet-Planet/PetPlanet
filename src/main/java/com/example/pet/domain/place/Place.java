@@ -15,7 +15,7 @@ public class Place {
 
     @Id
     @Column(name = "place_id")
-    private int id;
+    private int placeId;
 
     @Column
     private String placeContent;
