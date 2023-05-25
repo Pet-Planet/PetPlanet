@@ -5,7 +5,7 @@ server:
 spring:
   datasource:         # Oracle dataSource
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@dblab_high?TNS_ADMIN=C:/Oracle/Wallet_DBLab   # use Oracle Wallet
+    url: jdbc:oracle:thin:@dblab_high?TNS_ADMIN=E:/Oracle/Wallet_DBLab   # use Oracle Wallet
     username: ss230106
     password: Spring_61258
 
