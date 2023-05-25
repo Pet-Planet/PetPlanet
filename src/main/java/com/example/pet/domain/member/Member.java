@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Member {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -41,9 +40,9 @@ public class Member {
     private String status;  //탈퇴여부
 
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "member")
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 }

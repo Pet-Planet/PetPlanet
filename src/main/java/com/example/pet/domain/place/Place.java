@@ -40,10 +40,10 @@ public class Place {
     @PrimaryKeyJoinColumn(name="region_id")
     private Region region;
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "place")
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "place")
     private List<Review> reviews = new ArrayList<>();
 
 }
