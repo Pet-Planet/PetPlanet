@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.net.URL;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +18,15 @@ import java.util.List;
 public class Place {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")
     private int placeId;
 
     @Column
     private String placeContent;
 
-    @Column
-    private double avgGrade;
+    @Column(precision = 2, scale = 1)
+    private BigDecimal avgRating;
 
     @Column
     private String placeTitle;
@@ -35,6 +36,9 @@ public class Place {
 
     @Column
     private String reviewCnt;
+
+    @Column
+    private int price;
 
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name="region_id")
