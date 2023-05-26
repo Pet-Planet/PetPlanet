@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.math.BigDecimal;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class Place {
     @Column
     private String placeContent;
 
-    @Column
-    private double avgGrade;
+    @Column(precision = 2, scale = 1)
+    private BigDecimal avgRating;
 
     @Column
     private String placeTitle;
@@ -35,6 +36,9 @@ public class Place {
 
     @Column
     private String reviewCnt;
+
+    @Column
+    private int price;
 
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name="region_id")
