@@ -19,10 +19,11 @@ public class Note extends BaseEntity {
     private int noteId;
     
     @ManyToOne // Many = Note, One = Member 한명의 유저는 여러개의 쪽지를 받을 수 있다.
-    @JoinColumn(name="member_id") // foreign key (receiveUserId) references Member (id)
+    @JoinColumn(name="recev_id") // foreign key (receiveUserId) references Member (id)
     private Member receiveUserId;
-    
-    @Column
+
+    @ManyToOne
+    @JoinColumn(name="send_id")
     private Member sendUserId;
     
     @Column

@@ -20,10 +20,12 @@ public class Window implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "window_id")
     private int windowId;
-    
-    @Column
+
+    @ManyToOne
+    @JoinColumn(name="recev_id")
     private Member receiveUserId;
-    
-    @Column
+
+    @ManyToOne
+    @JoinColumn(name="send_id")
     private Member sendUserId;
 }
