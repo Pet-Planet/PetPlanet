@@ -35,13 +35,13 @@ public class Place {
     private String placeType;
 
     @Column
-    private String reviewCnt;
+    private int reviewCnt;
 
     @Column
     private int price;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name="region_id")
+    @OneToOne(cascade = CascadeType.ALL)  //한 장소는 하나의 지역만을 가진다.
+    @JoinColumn(name = "region_id")
     private Region region;
 
     @OneToMany(mappedBy = "place")
