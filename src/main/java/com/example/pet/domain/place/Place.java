@@ -2,7 +2,7 @@ package com.example.pet.domain.place;
 
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

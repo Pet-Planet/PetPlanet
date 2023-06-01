@@ -2,7 +2,7 @@ package com.example.pet.domain.board;
 
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
