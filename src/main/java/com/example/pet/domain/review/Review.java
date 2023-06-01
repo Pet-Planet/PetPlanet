@@ -3,7 +3,7 @@ package com.example.pet.domain.review;
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
