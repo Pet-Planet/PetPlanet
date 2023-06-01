@@ -2,13 +2,15 @@ package com.example.pet.domain.member;
 
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
-import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private int memberId;
+    private Long memberId;
 
     @Column(name = "kakao_id")
     private Long kakaoId;
@@ -37,6 +39,11 @@ public class Member {
 
     @Column(name = "user_role")
     private String userRole;
+
+    @Column(name = "create_time")
+    // current_timestamp를 설정했다면 어노테이션 설정할 것
+    @CreationTimestamp
+    private Timestamp createTime;
     @Column
     private String nickname;
 
@@ -48,9 +55,6 @@ public class Member {
 
     @Column
     private String petName;
-
-    @Column
-    private URL imgUrl;
 
     @OneToMany(mappedBy = "member")
     private List<Reservation> reservations = new ArrayList<>();
