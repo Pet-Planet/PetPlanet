@@ -1,5 +1,6 @@
 package com.example.pet.config;
 
+import com.example.pet.config.jwt.CustomAuthenticationEntryPoint;
 import com.example.pet.config.jwt.JwtRequestFilter;
 import com.example.pet.repository.MemberRepository;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //@Autowired
     private MemberRepository memberRepository;
 
-    public static final String FRONT_URL = "http://localhost:3000";
+    public static final String FRONT_URL = "http://localhost:8088";
 
     private CorsFilter corsFilter;
 

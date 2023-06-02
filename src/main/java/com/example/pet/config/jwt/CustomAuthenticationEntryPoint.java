@@ -1,4 +1,4 @@
-package com.example.pet.config;
+package com.example.pet.config.jwt;
 
 import com.example.pet.config.jwt.JwtProperties;
 import org.springframework.security.core.AuthenticationException;

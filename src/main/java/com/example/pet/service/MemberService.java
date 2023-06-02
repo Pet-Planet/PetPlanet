@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Service
-@RequiredArgsConstructor
 public class MemberService {
     @Value("${kakao.clientId}")
     String client_id;
@@ -36,46 +36,46 @@ public class MemberService {
     @Value("http://localhost:8088/oauth/token")
     private String RedirectUrl;
 
-    private final MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     public OauthToken getAccessToken(String code) {
+        //(2)RestTemplate 객체를 만든다. 통신에 유용한 클래스이다. 클래스에 대해 자세히 알고싶다면 구글에 서치!
+        RestTemplate rt = new RestTemplate();
+
+        //(3)HttpHeader 객체를 생성한다. 헤더에 들어가야하는 정보는 공식 문서를 잘 찾아보자.
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        //(4)HttpBody 객체를 생성한다. 바디에도 참 많은..🤤 파라미터가 요구된다. 마찬가지로 공식 문서를 찾아보면 나와있다. Required 항목에 필수라고 체크된 것만 넣으면 된다. 만약 앱을 등록할 때 시크릿 키를 만들었다면 반드시 넣어야 한다.
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", client_id);
+        params.add("redirect_uri", RedirectUrl);
+        params.add("code", code);
+        params.add("client_secret", client_secret);
+
+        //(5)HttpEntity 객체를 생성한다. 앞서 만든 HttpHeader 와 HttpBody 정보를 하나의 객체에 담기 위해서이다.
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
+                new HttpEntity<>(params, headers);
+
+        //(6)ResponseEntity 객체를 String 형만 받도록 생성해준다. 이유는 응답받는 값이 Json 형식이기 때문이다.
+        ResponseEntity<String> accessTokenResponse = rt.exchange(
+                "https://kauth.kakao.com/oauth/token",
+                HttpMethod.POST,
+                kakaoTokenRequest,
+                String.class
+        );
+        //(7)String으로 받은 Json 형식의 데이터를 ObjectMapper 라는 클래스를 사용해 객체로 변환해줄 것이다. 그러기 위해서는 해당 Json 형식과 맞는 OauthToken 이라는 클래스를 만들어 줘야한다(👇아래 참고).
+        //.readValue(Json 데이터, 변환할 클래스) 메소드를 이용해 바디값을 읽어온다.
+        ObjectMapper objectMapper = new ObjectMapper();
         OauthToken oauthToken = null;
         try {
-            //(2)RestTemplate 객체를 만든다. 통신에 유용한 클래스이다. 클래스에 대해 자세히 알고싶다면 구글에 서치!
-            RestTemplate rt = new RestTemplate();
-
-            //(3)HttpHeader 객체를 생성한다. 헤더에 들어가야하는 정보는 공식 문서를 잘 찾아보자.
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-            //(4)HttpBody 객체를 생성한다. 바디에도 참 많은..🤤 파라미터가 요구된다. 마찬가지로 공식 문서를 찾아보면 나와있다. Required 항목에 필수라고 체크된 것만 넣으면 된다. 만약 앱을 등록할 때 시크릿 키를 만들었다면 반드시 넣어야 한다.
-            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-            params.add("grant_type", "authorization_code");
-            params.add("client_id", client_id);
-            params.add("redirect_uri", RedirectUrl);
-            params.add("code", code);
-            params.add("client_secret", client_secret);
-
-            //(5)HttpEntity 객체를 생성한다. 앞서 만든 HttpHeader 와 HttpBody 정보를 하나의 객체에 담기 위해서이다.
-            HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
-                    new HttpEntity<>(params, headers);
-
-            ObjectMapper objectMapper =
-                    new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-            //(6)ResponseEntity 객체를 String 형만 받도록 생성해준다. 이유는 응답받는 값이 Json 형식이기 때문이다.
-            ResponseEntity<String> accessTokenResponse = rt.exchange(
-                    "https://kauth.kakao.com/oauth/token",
-                    HttpMethod.POST,
-                    kakaoTokenRequest,
-                    String.class
-            );
-            //(7)String으로 받은 Json 형식의 데이터를 ObjectMapper 라는 클래스를 사용해 객체로 변환해줄 것이다. 그러기 위해서는 해당 Json 형식과 맞는 OauthToken 이라는 클래스를 만들어 줘야한다(👇아래 참고).
-            //.readValue(Json 데이터, 변환할 클래스) 메소드를 이용해 바디값을 읽어온다.
             oauthToken = objectMapper.readValue(accessTokenResponse.getBody(), OauthToken.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
         return oauthToken; //(8)Json 데이터가 OauthToken 객체에 잘 담기면 리턴해준다.
     }
 
