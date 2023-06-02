@@ -12,10 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class MemberController {
     @Value("${kakao.clientId}")
@@ -30,7 +31,7 @@ public class MemberController {
     @Value("https://kauth.kakao.com")
     private String KakaoAuthUrl;
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @GetMapping(value = "/login")
     public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request) {
@@ -41,6 +42,7 @@ public class MemberController {
     //프론트에서 인가코드 받아오는 url
     @GetMapping("/oauth/token")
     public ResponseEntity getLogin(@RequestParam(value = "code") String code) {
+
         //넘어온 인가 코드를 통해 access_token 발급
         OauthToken oauthToken = memberService.getAccessToken(code);
 
