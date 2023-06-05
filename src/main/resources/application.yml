@@ -1,0 +1,20 @@
+# port
+server:
+  port: 8088
+
+spring:
+  jpa:
+    database: oracle
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+  config:
+    import: application-local.yml # DB, Kakao
+#        format_sql: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+
