@@ -1,5 +1,7 @@
 package com.example.pet.domain.member;
 
+import com.example.pet.domain.BaseEntity;
+import com.example.pet.domain.Role;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import lombok.Builder;
@@ -9,7 +11,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +38,9 @@ public class Member {
     @Column(name = "kakao_email")
     private String kakaoEmail;
 
-    @Column(name = "user_role")
-    private String userRole;
+    @Column(name="role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "create_time")
     // current_timestamp를 설정했다면 어노테이션 설정할 것
@@ -64,11 +66,11 @@ public class Member {
 
     @Builder
     public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
-                String kakaoEmail, String userRole) {
+                String kakaoEmail, Role role) {
         this.kakaoId = kakaoId;
         this.kakaoProfileImg = kakaoProfileImg;
         this.kakaoNickname = kakaoNickname;
         this.kakaoEmail = kakaoEmail;
-        this.userRole = userRole;
+        this.role = role;
     }
 }

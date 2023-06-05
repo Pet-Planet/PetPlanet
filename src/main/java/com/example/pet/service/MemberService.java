@@ -3,14 +3,13 @@ package com.example.pet.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.pet.config.jwt.JwtProperties;
+import com.example.pet.domain.Role;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.oauth.KakaoProfile;
 import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -91,7 +90,7 @@ public class MemberService {
                     .kakaoProfileImg(profile.getKakao_account().getProfile().getProfile_image_url())
                     .kakaoNickname(profile.getKakao_account().getProfile().getNickname())
                     .kakaoEmail(profile.getKakao_account().getEmail())
-                    .userRole("ROLE_USER")
+                    .role(Role.USER)
                     .build();
 
             memberRepository.save(member);
