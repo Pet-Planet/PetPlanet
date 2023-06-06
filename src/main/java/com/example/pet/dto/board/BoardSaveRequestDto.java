@@ -1,28 +1,28 @@
 package com.example.pet.dto.board;
 
 import com.example.pet.domain.board.Board;
+import com.example.pet.domain.member.Member;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @NoArgsConstructor
 public class BoardSaveRequestDto {
     private String title;
     private String content;
     private String category;
-    @Builder
-    public BoardSaveRequestDto(String title, String content, String category) {
-        this.title = title;
-        this.content = content;
-        this.category = category;
-    }
+    private String writer;
+    private Member member;
 
     public Board toEntity(){
         return Board.builder()
                 .title(title)
                 .content(content)
                 .category(category)
+                .writer(writer)
+                .member(member)
                 .build();
     }
 }
