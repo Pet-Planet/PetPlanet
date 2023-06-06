@@ -11,20 +11,25 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardListResponseDto {
-
+    private Long postId;
     private String title;
     private String content;
     private String category;
+    private String writer;
 
     public BoardListResponseDto(Board board) {
+        this.postId = board.getPostId();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.category = board.getCategory();
+        this.writer = board.getWriter();
     }
 
     public BoardListResponseDto(Optional<Board> board) {
+        this.postId = board.get().getPostId();
         this.title = board.get().getTitle();
         this.content = board.get().getContent();
         this.category = board.get().getCategory();
+        this.writer = board.get().getWriter();
     }
 }

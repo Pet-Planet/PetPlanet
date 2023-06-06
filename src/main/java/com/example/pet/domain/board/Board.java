@@ -31,6 +31,8 @@ public class Board extends BaseEntity {
     @Column
     private String content;
     @Column
+    private String writer;
+    @Column
     private String category;
     @Column
     private URL imageUrl1;
@@ -42,10 +44,12 @@ public class Board extends BaseEntity {
     private int status; //글 삭제 여부
 
     @Builder
-    public Board(String title, String content, String category) {
+    public Board(String title, String content, String category, String writer, Member member) {
         this.title = title;
         this.content = content;
         this.category = category;
+        this.writer = writer;
+        this.member = member;
     }
 
     public void update(String title, String content, String category) {

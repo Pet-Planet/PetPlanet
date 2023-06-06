@@ -1,10 +1,12 @@
 package com.example.pet.service;
 
 import com.example.pet.domain.board.Board;
+import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.board.BoardSaveRequestDto;
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;
+import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     // 전체 게시글 조회하기
     public List<BoardListResponseDto> findAllBoard() {
