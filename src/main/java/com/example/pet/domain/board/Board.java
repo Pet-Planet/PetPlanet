@@ -4,6 +4,7 @@ import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import javax.persistence.*;
 
+import com.example.pet.dto.board.BoardUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,9 +53,9 @@ public class Board extends BaseEntity {
         this.member = member;
     }
 
-    public void update(String title, String content, String category) {
-        this.title = title;
-        this.content = content;
-        this.category = category;
+    public void update(BoardUpdateRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+        this.category = requestDto.getCategory();
     }
 }

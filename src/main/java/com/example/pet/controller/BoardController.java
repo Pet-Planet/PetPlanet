@@ -3,6 +3,7 @@ package com.example.pet.controller;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
+import com.example.pet.dto.board.BoardResponseDto;
 import com.example.pet.dto.board.BoardSaveRequestDto;
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.service.BoardService;
@@ -39,6 +40,11 @@ public class BoardController {
         return boardService.findAllBoard();
     }
 
+    // 게시글 하나 조회
+    @GetMapping("/posts/{postId}")
+    public BoardResponseDto getOneBoard(@PathVariable Long postId) {
+        return boardService.findOneBoard(postId);
+    }
 
     // 게시판 글 등록
     @PostMapping("/post")
@@ -55,7 +61,16 @@ public class BoardController {
 
     // 게시판 글 수정
     @PutMapping("/update/{postId}")
-    public Board boardUpdate(@PathVariable Long postId, @RequestBody BoardUpdateRequestDto requestDto) {
-        return boardService.boardUpdate(postId, requestDto);
+    public ResponseEntity boardUpdate(@PathVariable Long postId, @RequestBody BoardUpdateRequestDto requestDto) {
+        Board board = boardService.boardUpdate(postId, requestDto);
+
+        return ResponseEntity.ok().body(board);
+    }
+
+    // 게시판 글 삭제
+    @DeleteMapping("/delete/{postId}")
+    public String boradDelete(@PathVariable Long postId) {
+        boardService.boardDelete(postId);
+        return postId + " : 글이 삭제되었습니다.";
     }
 }
