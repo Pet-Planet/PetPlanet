@@ -11,4 +11,5 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("SELECT b FROM Board b ORDER BY b.postId DESC")
     List<BoardListResponseDto> findAllDesc();
+    public Board findByPostId(Long postId);
 }

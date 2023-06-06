@@ -3,6 +3,7 @@ package com.example.pet.service;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
+import com.example.pet.dto.board.BoardResponseDto;
 import com.example.pet.dto.board.BoardSaveRequestDto;
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;
@@ -36,7 +37,13 @@ public class BoardService {
         return null;
     }
 
-    // 글 조회하기
+    // 글 하나 조회하기
+    public BoardResponseDto findOneBoard(Long id) {
+        Board board = boardRepository.findById(id).orElseThrow(
+                ()->new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
+        );
+        return new BoardResponseDto(board);
+    }
 
     // 게시판에 글 등록하기
     public Board boardSave(BoardSaveRequestDto requestDto) {
@@ -47,14 +54,18 @@ public class BoardService {
     // 글 수정하기
     public Board boardUpdate(Long id, BoardUpdateRequestDto requestDto) {
         Board board = boardRepository.findById(id).orElseThrow
-                (() -> new IllegalArgumentException("해당 게시글이 없습니다. id = "+id));
-        //board.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getCategory());
-        board.setContent(requestDto.getContent());
-        board.setCategory(requestDto.getCategory());
-        board.setTitle(requestDto.getTitle());
+                (() -> new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = "+id));
+        board.update(requestDto);
+
         return board;
     }
     // 글 삭제하기
+    public void boardDelete(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = " + id));
+        //존재하는 글인지 확인 후 삭제
+        boardRepository.delete(board);
+    }
 
 
 
