@@ -4,6 +4,8 @@ import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +29,7 @@ public class Review extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 리뷰 가능
     @JoinColumn(name = "member_id")
+    @JsonBackReference // 순환참조 방지
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)  //하나의 숙소는 여러개의 리뷰를 가짐

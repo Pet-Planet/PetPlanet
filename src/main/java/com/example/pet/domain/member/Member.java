@@ -4,6 +4,7 @@ import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.Role;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,9 +60,11 @@ public class Member extends BaseEntity {
     private String petName;
 
     @OneToMany(mappedBy = "member")
+    @JsonManagedReference
     private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
+    @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
     @Builder
