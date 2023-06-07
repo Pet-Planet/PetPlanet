@@ -5,6 +5,7 @@ import com.example.pet.domain.member.Member;
 import javax.persistence.*;
 
 import com.example.pet.dto.board.BoardUpdateRequestDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Board extends BaseEntity {
     private Long postId;
     @ManyToOne // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
     @JoinColumn(name="user_id") // foreign key (userId) references User (id)
+    @JsonBackReference
     private Member member;
     @Column
     private String title;
