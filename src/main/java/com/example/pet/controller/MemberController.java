@@ -3,16 +3,14 @@ package com.example.pet.controller;
 import com.example.pet.config.jwt.JwtProperties;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.oauth.OauthToken;
+import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -58,13 +56,5 @@ public class MemberController {
         return ResponseEntity.ok().headers(headers).body("success");
     }
 
-    // jwt 토큰으로 유저정보 요청하기
-    @GetMapping("/me")
-    public ResponseEntity<Object> getCurrentUser(HttpServletRequest request) {
-        Member member = memberService.getMember(request);
-
-        System.out.println("회원 : " + member);
-        return ResponseEntity.ok().body(member);
-    }
 
 }
