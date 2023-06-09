@@ -3,6 +3,8 @@ package com.example.pet.domain.place;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,9 +47,11 @@ public class Place {
     private Region region;
 
     @OneToMany(mappedBy = "place")
+    @JsonManagedReference
     private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(mappedBy = "place")
+    @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
 }
