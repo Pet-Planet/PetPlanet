@@ -11,7 +11,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardListResponseDto {
-    private Long postId;
+    private int postId;
     private String title;
     private String content;
     private String category;

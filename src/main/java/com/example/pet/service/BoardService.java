@@ -38,7 +38,7 @@ public class BoardService {
     }
 
     // 글 하나 조회하기
-    public BoardResponseDto findOneBoard(Long id) {
+    public BoardResponseDto findOneBoard(int id) {
         Board board = boardRepository.findById(id).orElseThrow(
                 ()->new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
         );
@@ -52,15 +52,15 @@ public class BoardService {
     }
 
     // 글 수정하기
-    public Board boardUpdate(Long id, BoardUpdateRequestDto requestDto) {
+    public Board boardUpdate(int id, BoardUpdateRequestDto requestDto) {
         Board board = boardRepository.findById(id).orElseThrow
                 (() -> new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = "+id));
         board.update(requestDto);
 
-        return board;
+        return boardRepository.save(board);
     }
     // 글 삭제하기
-    public void boardDelete(Long id) {
+    public void boardDelete(int id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = " + id));
         //존재하는 글인지 확인 후 삭제
