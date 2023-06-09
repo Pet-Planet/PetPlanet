@@ -42,7 +42,7 @@ public class BoardController {
 
     // 게시글 하나 조회
     @GetMapping("/posts/{postId}")
-    public BoardResponseDto getOneBoard(@PathVariable Long postId) {
+    public BoardResponseDto getOneBoard(@PathVariable int postId) {
         return boardService.findOneBoard(postId);
     }
 
@@ -61,7 +61,7 @@ public class BoardController {
 
     // 게시판 글 수정
     @PutMapping("/update/{postId}")
-    public ResponseEntity boardUpdate(@PathVariable Long postId, @RequestBody BoardUpdateRequestDto requestDto) {
+    public ResponseEntity boardUpdate(@PathVariable int postId, @RequestBody BoardUpdateRequestDto requestDto) {
         Board board = boardService.boardUpdate(postId, requestDto);
 
         return ResponseEntity.ok().body(board);
@@ -69,7 +69,7 @@ public class BoardController {
 
     // 게시판 글 삭제
     @DeleteMapping("/delete/{postId}")
-    public String boradDelete(@PathVariable Long postId) {
+    public String boradDelete(@PathVariable int postId) {
         boardService.boardDelete(postId);
         return postId + " : 글이 삭제되었습니다.";
     }

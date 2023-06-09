@@ -25,7 +25,7 @@ public class MemberController {
     @Value("${kakao.secret}")
     String client_secret;
 
-    @Value("http://localhost:8088/oauth/token")
+    @Value("${kakao.redirectUrl}")
     private String RedirectUrl;
 
     @Value("https://kauth.kakao.com")

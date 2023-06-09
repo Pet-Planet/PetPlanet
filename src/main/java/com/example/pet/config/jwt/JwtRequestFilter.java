@@ -38,11 +38,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String token = jwtHeader.replace(JwtProperties.TOKEN_PREFIX, "");
 
-        Long memberId = null;
+        int memberId = 0;
 
         try {
             memberId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
-                    .getClaim("id").asLong();
+                    .getClaim("id").asInt();
         } catch (TokenExpiredException e){
             e.printStackTrace();
             request.setAttribute(JwtProperties.HEADER_STRING, "토큰 만료");

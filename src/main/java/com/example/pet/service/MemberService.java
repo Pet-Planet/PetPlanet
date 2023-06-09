@@ -120,7 +120,7 @@ public class MemberService {
     }
 
     public Member getMember(HttpServletRequest request) {
-        Long memberId = (Long) request.getAttribute("memberId");
+        int memberId = (int) request.getAttribute("memberId");
 
         Member member = memberRepository.findByMemberId(memberId);
 

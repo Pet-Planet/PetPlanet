@@ -24,7 +24,7 @@ public class Board extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private Long postId;
+    private int postId;
     @ManyToOne // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
     @JoinColumn(name="user_id") // foreign key (userId) references User (id)
     @JsonBackReference

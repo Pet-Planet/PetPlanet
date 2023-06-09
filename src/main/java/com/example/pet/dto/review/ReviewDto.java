@@ -15,7 +15,7 @@ public class ReviewDto {
 
     private int reviewId;
 
-    private Long memberId;
+    private int memberId;
 
     private int placeId;
     private int rating; //평점 1~5
