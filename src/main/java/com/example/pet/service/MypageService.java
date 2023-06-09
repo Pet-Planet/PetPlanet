@@ -1,8 +1,6 @@
 package com.example.pet.service;
 
-import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.member.MemberBoradListDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;
@@ -11,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
