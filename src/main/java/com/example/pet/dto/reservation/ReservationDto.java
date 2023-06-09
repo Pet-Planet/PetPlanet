@@ -1,0 +1,46 @@
+package com.example.pet.dto.reservation;
+
+import com.example.pet.domain.reservation.Reservation;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReservationDto {
+
+    private int revId;
+    private int memberId;
+    private int placeId;
+    private String revName;
+    private String phoneNum;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate checkInDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate checkOutDate;
+    private int guestCnt;
+    private int totalPrice;
+    private int status;
+
+
+    //dto -> entity
+    public Reservation toEntity(){
+
+        return Reservation.builder()
+                .Id(revId)
+                .revName(revName)
+                .phoneNum(phoneNum)
+                .checkInDate(checkInDate)
+                .checkOutDate(checkOutDate)
+                .guestCnt(guestCnt)
+                .build();
+
+    }
+
+}

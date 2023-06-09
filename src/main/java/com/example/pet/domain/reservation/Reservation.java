@@ -6,18 +6,19 @@ import com.example.pet.domain.place.Place;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-@Entity
+@Entity @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Reservation extends BaseEntity {
 
     @Id
@@ -29,6 +30,9 @@ public class Reservation extends BaseEntity {
     private String revName;
 
     @Column(nullable = false)
+    private String phoneNum;
+
+    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkInDate;
 
@@ -36,23 +40,26 @@ public class Reservation extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
 
-    @ColumnDefault("0")
     private int totalPrice;
 
     @ColumnDefault("0")
-    private int status; //예약 취소 여부, cancle: 1
+    private int status; //예약 완료(0) 및 취소(1) 여부
+
+    private int guestCnt;   //투숙객 인원
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 예약이 가능
     @JoinColumn(name = "member_id")
-    @JsonBackReference
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)  //하나의 숙소는 여러개의 예약을 가짐
     @JoinColumn(name = "place_id")
-    @JsonBackReference
     private Place place;
 
 
+    // 예약상태 변경
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
 
 }
