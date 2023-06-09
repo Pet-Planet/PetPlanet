@@ -4,6 +4,7 @@ import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.Role;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
+import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
@@ -75,5 +76,12 @@ public class Member extends BaseEntity {
         this.kakaoNickname = kakaoNickname;
         this.kakaoEmail = kakaoEmail;
         this.role = role;
+    }
+
+    public void memberUpdate(MemberUpdateRequestDto requestDto) {
+        this.nickname = requestDto.getNickname();
+        this.address = requestDto.getAddress();
+        this.petName = requestDto.getPetName();
+        this.petType = requestDto.getPetType();
     }
 }

@@ -30,10 +30,12 @@ public class Review extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 리뷰 가능
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)  //하나의 숙소는 여러개의 리뷰를 가짐
     @JoinColumn(name = "place_id")
+    @JsonBackReference
     private Place place;
 
 

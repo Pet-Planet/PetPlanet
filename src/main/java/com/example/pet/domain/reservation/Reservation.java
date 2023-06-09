@@ -4,6 +4,8 @@ import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,10 +44,12 @@ public class Reservation extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 예약이 가능
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)  //하나의 숙소는 여러개의 예약을 가짐
     @JoinColumn(name = "place_id")
+    @JsonBackReference
     private Place place;
 
 
