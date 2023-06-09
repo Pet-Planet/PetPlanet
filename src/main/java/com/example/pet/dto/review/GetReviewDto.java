@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class GetReviewDto {
 
-    private Long memberId;
+    private int memberId;
 
     private String placeTitle;
 
