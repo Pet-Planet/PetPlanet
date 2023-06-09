@@ -3,6 +3,7 @@ package com.example.pet.service;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.member.MemberBoradListDto;
+import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;
 import com.example.pet.repository.MemberRepository;
@@ -25,6 +26,13 @@ public class MypageService {
         Member member = memberRepository.findByMemberId(memberId);
 
         return member;
+    }
+    // 내 정보 보기
+    public MemberResponseDto findMe(int id) {
+        Member member = memberRepository.findById(id).orElseThrow(
+                ()->new IllegalArgumentException("해당 회원이 존재하지 않습니다.")
+        );
+        return new MemberResponseDto(member);
     }
 
     // 회원정보 수정하기

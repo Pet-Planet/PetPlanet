@@ -3,6 +3,7 @@ package com.example.pet.controller;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.member.MemberBoradListDto;
+import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.service.BoardService;
 import com.example.pet.service.MemberService;
@@ -22,13 +23,13 @@ public class MypageController {
     private final MypageService mypageService;
     private final BoardService boardService;
     // jwt 토큰으로 유저정보 요청하기
-    @GetMapping("")
-    public ResponseEntity<Object> getCurrentUser(HttpServletRequest request) {
-        Member member = mypageService.getMember(request);
-
-        System.out.println("회원 : " + member);
-        return ResponseEntity.ok().body(member);
-    }
+//    @GetMapping("")
+//    public ResponseEntity<Object> getCurrentUser(HttpServletRequest request) {
+//        Member member = mypageService.getMember(request);
+//
+//        System.out.println("회원 : " + member);
+//        return ResponseEntity.ok().body(member);
+//    }
 
     // 유저 정부 추가 및 수정하기
     @PutMapping("/edit")
@@ -37,6 +38,13 @@ public class MypageController {
         Member member = mypageService.memberUpdate(id, requestDto);
 
         return ResponseEntity.ok().body(member);
+    }
+
+    // 내 개인정보 보기 => 상세보기 눌러야함
+    @GetMapping("")
+    public MemberResponseDto findMe(HttpServletRequest request) {
+        int id = mypageService.getMember(request).getMemberId();
+        return mypageService.findMe(id);
     }
 
     // 유저가 작성한 글 모두 보기
