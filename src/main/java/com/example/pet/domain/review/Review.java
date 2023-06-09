@@ -39,11 +39,8 @@ public class Review extends BaseEntity {
     private Place place;
 
 
-    public void changeRating(int rating){
+    public void editReview(int rating, String content){
         this.rating = rating;
-    }
-
-    public void changeText(String content){
         this.content = content;
     }
 }
