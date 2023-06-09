@@ -13,8 +13,12 @@ spring:
         show_sql: true
   config:
     import: application-local.yml # DB, Kakao
-#        format_sql: true
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix=: .jsp
+
 logging:
   level:
     org.hibernate.SQL: debug
-
