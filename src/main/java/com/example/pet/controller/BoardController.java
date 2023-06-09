@@ -50,11 +50,9 @@ public class BoardController {
     @PostMapping("/post")
     public ResponseEntity boardSave(HttpServletRequest request, @RequestBody BoardSaveRequestDto saveRequestDto) {
         Member member = memberService.getMember(request);
-        String writer = member.getKakaoNickname();
+        int memberId = member.getMemberId();
 
-        saveRequestDto.setWriter(writer);
-        saveRequestDto.setMember(member);
-        Board board = boardService.boardSave(saveRequestDto);
+        Board board = boardService.boardSave(memberId, saveRequestDto);
 
         return ResponseEntity.ok().body(board);
     }

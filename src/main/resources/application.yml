@@ -17,7 +17,9 @@ spring:
         show_sql: true
   config:
     import: application-local.yml # DB, Kakao
-
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
   mvc:
     view:
       prefix: /WEB-INF/jsp/

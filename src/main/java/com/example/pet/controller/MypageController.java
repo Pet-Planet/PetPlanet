@@ -1,12 +1,10 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.BoardListResponseDto;
-import com.example.pet.dto.member.MemberBoradListDto;
+import com.example.pet.dto.board.GetBoardDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.service.BoardService;
-import com.example.pet.service.MemberService;
 import com.example.pet.service.MypageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -39,12 +37,12 @@ public class MypageController {
         return mypageService.findMe(id);
     }
 
-    // 유저가 작성한 글 모두 보기
-//    @GetMapping("/posts")
-//    public List<MemberBoradListDto> memberPosts(HttpServletRequest request) {
-//        int id = mypageService.getMember(request).getMemberId();
+    // 내가 쓴 글 조회
+//    @GetMapping("/boards")
+//    public List<GetBoardDto> getBoard(HttpServletRequest request) {
+//        int memberId = mypageService.getMember(request).getMemberId();
 //
-//        return mypageService.getBoardList(id);
+//        return boardService.getBoardList(memberId);
 //    }
 
 }

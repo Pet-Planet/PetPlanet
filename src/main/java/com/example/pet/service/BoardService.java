@@ -2,17 +2,16 @@ package com.example.pet.service;
 
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.BoardListResponseDto;
-import com.example.pet.dto.board.BoardResponseDto;
-import com.example.pet.dto.board.BoardSaveRequestDto;
-import com.example.pet.dto.board.BoardUpdateRequestDto;
+import com.example.pet.dto.board.*;
 import com.example.pet.repository.BoardRepository;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +35,25 @@ public class BoardService {
         }
         return null;
     }
+    // 특정 회원이 쓴 글 조회하기
+//    @Transactional(readOnly = true)
+//    public List<GetBoardDto> getBoardList(int memberId) {
+//        List<Board> boardList = boardRepository.findBoardByMemberId(memberId);
+//
+//        List<GetBoardDto> boardDtoList = new ArrayList<>();
+//        for(Board board : boardList) {
+//            GetBoardDto boardDto = new GetBoardDto(
+//                    board.getPostId(),
+//                    board.getTitle(),
+//                    board.getContent(),
+//                    board.getMember().getMemberId(),
+//                    board.getWriter(),
+//                    board.getCreatedDate()
+//            );
+//            boardDtoList.add(boardDto);
+//        }
+//        return boardDtoList;
+//    }
 
     // 글 하나 조회하기
     public BoardResponseDto findOneBoard(int id) {
@@ -46,9 +64,17 @@ public class BoardService {
     }
 
     // 게시판에 글 등록하기
-    public Board boardSave(BoardSaveRequestDto requestDto) {
-        Board newBoard = boardRepository.save(requestDto.toEntity());
-        return newBoard;
+    public Board boardSave(int memberId, BoardSaveRequestDto requestDto) {
+        Optional<Member> member = memberRepository.findById(memberId);
+
+        requestDto.setWriter(member.get().getKakaoNickname());
+        requestDto.setMemberId(memberId);
+
+        Board board = boardRepository.save(requestDto.toEntity());
+
+        board.setMember(member.get());
+
+        return board;
     }
 
     // 글 수정하기

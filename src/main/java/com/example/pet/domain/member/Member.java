@@ -2,6 +2,7 @@ package com.example.pet.domain.member;
 
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.Role;
+import com.example.pet.domain.board.Board;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -11,13 +12,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -67,6 +69,10 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    @JsonManagedReference
+    private List<Board> boards = new ArrayList<>();
 
     @Builder
     public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
