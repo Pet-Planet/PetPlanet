@@ -17,19 +17,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/me")
+@RequestMapping("/myPage")
 public class MypageController {
 
     private final MypageService mypageService;
     private final BoardService boardService;
-    // jwt 토큰으로 유저정보 요청하기
-//    @GetMapping("")
-//    public ResponseEntity<Object> getCurrentUser(HttpServletRequest request) {
-//        Member member = mypageService.getMember(request);
-//
-//        System.out.println("회원 : " + member);
-//        return ResponseEntity.ok().body(member);
-//    }
 
     // 유저 정부 추가 및 수정하기
     @PutMapping("/edit")
