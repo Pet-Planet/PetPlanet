@@ -6,14 +6,15 @@ import com.example.pet.domain.place.Place;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
+@Entity @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Review extends BaseEntity {
 
     @Id
@@ -25,14 +26,22 @@ public class Review extends BaseEntity {
     private int rating; //평점 1~5
 
     @Column(nullable = false)
-    private String Content; //리뷰 내용
+    private String content; //리뷰 내용
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 리뷰 가능
     @JoinColumn(name = "member_id")
-    @JsonBackReference // 순환참조 방지
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)  //하나의 숙소는 여러개의 리뷰를 가짐
     @JoinColumn(name = "place_id")
     private Place place;
+
+
+    public void changeRating(int rating){
+        this.rating = rating;
+    }
+
+    public void changeText(String content){
+        this.content = content;
+    }
 }
