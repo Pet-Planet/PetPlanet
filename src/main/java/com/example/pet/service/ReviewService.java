@@ -55,8 +55,7 @@ public class ReviewService {
 
         Review review = optionalReview.get();
 
-        review.changeRating(reviewEditDto.getRating());
-        review.changeText(reviewEditDto.getContent());
+        review.editReview(reviewEditDto.getRating(), reviewEditDto.getContent());
 
         return reviewRepository.save(review);
 
