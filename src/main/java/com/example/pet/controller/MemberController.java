@@ -55,6 +55,13 @@ public class MemberController {
 
         return ResponseEntity.ok().headers(headers).body("success");
     }
+    // jwt 토큰으로 유저정보 요청하기
+    @GetMapping("/memberinfo")
+    public ResponseEntity<Object> getCurrentUser(HttpServletRequest request) {
+        Member member = memberService.getMember(request);
 
+        System.out.println("회원 : " + member);
+        return ResponseEntity.ok().body(member);
+    }
 
 }
