@@ -68,7 +68,7 @@ public class ReviewService {
      */
 
     @Transactional(readOnly = true)
-    public List<GetReviewDto> getReviewList(Long memberId){
+    public List<GetReviewDto> getReviewList(int memberId){
 
         List<Review> reviewList = reviewRepository.findByMember_MemberId(memberId);
 

@@ -60,7 +60,7 @@ public class ReviewController {
      */
 
     @GetMapping("/myPage/review/{memberId}")
-    public List<GetReviewDto> getReview(@PathVariable Long memberId){
+    public List<GetReviewDto> getReview(@PathVariable int memberId){
 
         return reviewService.getReviewList(memberId);
 
