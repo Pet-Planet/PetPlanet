@@ -23,6 +23,7 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final MemberService memberService;
 
+
     /*
     리뷰 작성 폼
      */
@@ -31,14 +32,17 @@ public class ReviewController {
         return "reviewForm";
     }
 
+
     /*
     리뷰 작성 API
      */
 
-    @PostMapping("/review")   //restApi
-    public String createReview(@RequestBody ReviewDto reviewDto){
+    @PostMapping("/review")
+    public String createReview(HttpServletRequest request, @RequestBody ReviewDto reviewDto){
 
-       reviewService.createReview(reviewDto);
+        int memberId = memberService.getMember(request).getMemberId();
+
+        reviewService.createReview(memberId, reviewDto);
 
        return reviewDto.getMemberId() + " success";
     }
@@ -53,7 +57,6 @@ public class ReviewController {
 
         return reviewId + " success";
 
-//        return "redirect:/reviewList";
     }
 
 
@@ -67,7 +70,6 @@ public class ReviewController {
 
         return reviewService.getReviewList(memberId);
 
-//        return "redirect:/reviewList";
     }
 
     /*
