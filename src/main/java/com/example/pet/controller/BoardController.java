@@ -51,7 +51,7 @@ public class BoardController {
     public ResponseEntity boardSave(HttpServletRequest request, @RequestBody BoardSaveRequestDto saveRequestDto) {
         Member member = memberService.getMember(request);
         int memberId = member.getMemberId();
-        //saveRequestDto.setWriter(member.getKakaoNickname());
+
         Board board = boardService.boardSave(memberId, saveRequestDto);
 
         return ResponseEntity.ok().body(board);
