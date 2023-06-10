@@ -38,11 +38,11 @@ public class MypageController {
     }
 
     // 내가 쓴 글 조회
-//    @GetMapping("/boards")
-//    public List<GetBoardDto> getBoard(HttpServletRequest request) {
-//        int memberId = mypageService.getMember(request).getMemberId();
-//
-//        return boardService.getBoardList(memberId);
-//    }
+    @GetMapping("/boards")
+    public List<GetBoardDto> getBoard(HttpServletRequest request) {
+        int memberId = mypageService.getMember(request).getMemberId();
+
+        return mypageService.getBoardList(memberId);
+    }
 
 }
