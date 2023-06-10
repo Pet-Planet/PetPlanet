@@ -56,22 +56,23 @@ public class BoardService {
 //    }
 
     // 글 하나 조회하기
-    public BoardResponseDto findOneBoard(int id) {
+    public Board findOneBoard(int id) {
         Board board = boardRepository.findById(id).orElseThrow(
                 ()->new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
         );
-        return new BoardResponseDto(board);
+        return board;
     }
 
     // 게시판에 글 등록하기
     public Board boardSave(int memberId, BoardSaveRequestDto requestDto) {
         Optional<Member> member = memberRepository.findById(memberId);
 
+        requestDto.setMemberId(memberId);
         requestDto.setWriter(member.get().getKakaoNickname());
-
         Board board = boardRepository.save(requestDto.toEntity());
 
         board.setMember(member.get());
+
 
         return board;
     }

@@ -2,17 +2,17 @@ package com.example.pet.dto.board;
 
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class BoardSaveRequestDto {
     private String title;
     private String content;
     private String category;
+    private int memberId;
     private String writer;
 
     public Board toEntity(){

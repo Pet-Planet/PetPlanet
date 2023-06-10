@@ -14,5 +14,5 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<BoardListResponseDto> findAllDesc();
     public Board findByPostId(int postId);
 
-//    List<Board> findBoardByMemberId(int memberId);
+    List<Board> findByMember_MemberId(int memberId);
 }

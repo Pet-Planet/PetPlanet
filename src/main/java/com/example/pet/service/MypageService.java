@@ -1,6 +1,8 @@
 package com.example.pet.service;
 
+import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.GetBoardDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;
@@ -9,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,17 +46,21 @@ public class MypageService {
     }
 
     // 내가 쓴 글
-//    public List<MemberBoradListDto> getBoardList(int memberId) {
-//        List<Board> boardList = boardRepository.findBoardByMemberId(memberId);
-//
-//        List<MemberBoradListDto> boradListDto = new ArrayList<>();
-//        for(Board board : boardList) {
-//            MemberBoradListDto requestDto = new MemberBoradListDto(
-//                    board.getPostId(),
-//                    board.getTitle()
-//            );
-//            boradListDto.add(requestDto);
-//        }
-//        return boradListDto;
-//    }
+    public List<GetBoardDto> getBoardList(int memberId) {
+        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
+
+        List<GetBoardDto> boradListDto = new ArrayList<>();
+        for(Board board : boardList) {
+            GetBoardDto requestDto = new GetBoardDto(
+                    board.getPostId(),
+                    board.getTitle(),
+                    board.getContent(),
+                    board.getMember().getMemberId(),
+                    board.getWriter(),
+                    board.getCreatedDate()
+            );
+            boradListDto.add(requestDto);
+        }
+        return boradListDto;
+    }
 }

@@ -42,7 +42,7 @@ public class BoardController {
 
     // 게시글 하나 조회
     @GetMapping("/posts/{postId}")
-    public BoardResponseDto getOneBoard(@PathVariable int postId) {
+    public Board getOneBoard(@PathVariable int postId) {
         return boardService.findOneBoard(postId);
     }
 

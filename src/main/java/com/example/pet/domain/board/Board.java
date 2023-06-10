@@ -6,10 +6,7 @@ import javax.persistence.*;
 
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,6 +18,8 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Board extends BaseEntity {
 
     @Id
@@ -47,15 +46,6 @@ public class Board extends BaseEntity {
     private URL imageUrl3;
     @Column
     private int status; //글 삭제 여부
-
-    @Builder
-    public Board(String title, String content, String category, String writer, Member member) {
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.writer = writer;
-        this.member = member;
-    }
 
     public void update(BoardUpdateRequestDto requestDto) {
         this.title = requestDto.getTitle();
