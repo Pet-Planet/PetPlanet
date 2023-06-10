@@ -68,7 +68,6 @@ public class BoardService {
         Optional<Member> member = memberRepository.findById(memberId);
 
         requestDto.setWriter(member.get().getKakaoNickname());
-        requestDto.setMemberId(memberId);
 
         Board board = boardRepository.save(requestDto.toEntity());
 

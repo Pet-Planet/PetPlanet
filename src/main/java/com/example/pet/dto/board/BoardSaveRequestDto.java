@@ -14,7 +14,6 @@ public class BoardSaveRequestDto {
     private String content;
     private String category;
     private String writer;
-    private int memberId;
 
     public Board toEntity(){
         return Board.builder()
