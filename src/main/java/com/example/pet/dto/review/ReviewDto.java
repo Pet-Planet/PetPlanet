@@ -13,8 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReviewDto {
 
-    private int reviewId;
-
     private int memberId;
 
     private int placeId;

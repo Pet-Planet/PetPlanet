@@ -36,6 +36,7 @@ public class ReviewService {
         Optional<Place> place = placeRepository.findById(reviewDto.getPlaceId());
 
         reviewDto.setMemberId(memberId);
+
         Review review = reviewRepository.save(reviewDto.toEntity());
 
         review.setMember(member.get());
