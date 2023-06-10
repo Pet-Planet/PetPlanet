@@ -27,10 +27,8 @@ public class ReviewDto {
     public Review toEntity(){
 
         return Review.builder()
-                .Id(reviewId)
                 .rating(rating)
                 .content(content)
                 .build();
-
     }
 }

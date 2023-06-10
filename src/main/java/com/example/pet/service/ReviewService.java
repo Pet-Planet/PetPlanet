@@ -30,11 +30,12 @@ public class ReviewService {
     /*
     리뷰 작성
      */
-    public Review createReview(ReviewDto reviewDto){
+    public Review createReview(int memberId, ReviewDto reviewDto){
 
-        Optional<Member> member = memberRepository.findById(reviewDto.getMemberId());
+        Optional<Member> member = memberRepository.findById(memberId);
         Optional<Place> place = placeRepository.findById(reviewDto.getPlaceId());
 
+        reviewDto.setMemberId(memberId);
         Review review = reviewRepository.save(reviewDto.toEntity());
 
         review.setMember(member.get());

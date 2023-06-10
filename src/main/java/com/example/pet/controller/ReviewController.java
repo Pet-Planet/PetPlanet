@@ -36,9 +36,11 @@ public class ReviewController {
      */
 
     @PostMapping("/review")   //restApi
-    public String createReview(@RequestBody ReviewDto reviewDto){
+    public String createReview(HttpServletRequest request, @RequestBody ReviewDto reviewDto){
 
-       reviewService.createReview(reviewDto);
+        int memberId = memberService.getMember(request).getMemberId();
+
+        reviewService.createReview(memberId, reviewDto);
 
        return reviewDto.getMemberId() + " success";
     }
