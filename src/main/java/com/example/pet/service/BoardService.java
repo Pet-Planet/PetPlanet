@@ -56,11 +56,11 @@ public class BoardService {
 //    }
 
     // 글 하나 조회하기
-    public Board findOneBoard(int id) {
+    public BoardResponseDto findOneBoard(int id) {
         Board board = boardRepository.findById(id).orElseThrow(
                 ()->new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
         );
-        return board;
+        return new BoardResponseDto(board);
     }
 
     // 게시판에 글 등록하기
