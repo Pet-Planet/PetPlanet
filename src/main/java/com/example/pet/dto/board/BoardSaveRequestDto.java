@@ -14,7 +14,6 @@ public class BoardSaveRequestDto {
     private String category;
     private int memberId;
     private String writer;
-    private Member member;
 
     public Board toEntity(){
         return Board.builder()
@@ -22,7 +21,6 @@ public class BoardSaveRequestDto {
                 .content(content)
                 .category(category)
                 .writer(writer)
-                .member(member)
                 .build();
     }
 }

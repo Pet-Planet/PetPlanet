@@ -4,6 +4,7 @@ import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import javax.persistence.*;
 
+import com.example.pet.dto.board.BoardSaveRequestDto;
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
@@ -18,8 +19,6 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Board extends BaseEntity {
 
     @Id
@@ -30,13 +29,13 @@ public class Board extends BaseEntity {
     @JoinColumn(name="member_id") // foreign key (userId) references User (id)
     @JsonBackReference
     private Member member;
-    @Column
+    @Column(nullable = false)
     private String title;
-    @Column
+    @Column(nullable = false)
     private String content;
     @Column
     private String writer;
-    @Column
+    @Column(nullable = false)
     private String category;
     @Column
     private URL imageUrl1;
@@ -46,6 +45,20 @@ public class Board extends BaseEntity {
     private URL imageUrl3;
     @Column
     private int status; //글 삭제 여부
+
+    public void setMember(Member member) {
+        this.member = member;
+        member.getBoards().add(this);
+    }
+    @Builder
+    public Board(String title, String content, String category, String writer, Member member) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.writer = writer;
+        if(this.member != null)
+            member.getBoards().remove(this);
+    }
 
     public void update(BoardUpdateRequestDto requestDto) {
         this.title = requestDto.getTitle();
