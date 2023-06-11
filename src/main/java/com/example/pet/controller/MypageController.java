@@ -34,6 +34,8 @@ public class MypageController {
     @GetMapping("")
     public MemberResponseDto findMe(HttpServletRequest request) {
         int id = mypageService.getMember(request).getMemberId();
+
+        System.out.println(id);
         return mypageService.findMe(id);
     }
 

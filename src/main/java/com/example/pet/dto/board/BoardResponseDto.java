@@ -14,7 +14,7 @@ public class BoardResponseDto {
     private String content;
     private String writer;
     private String category;
-    private LocalDateTime createdDate;
+    private int memberId;
     private LocalDateTime lastModifiedDate;
 
     public BoardResponseDto(Board board) {
@@ -23,7 +23,7 @@ public class BoardResponseDto {
         this.content = board.getContent();
         this.category = board.getCategory();
         this.writer = board.getWriter();
-        this.createdDate = board.getCreatedDate();
+        this.memberId = board.getMember().getMemberId();
         this.lastModifiedDate = board.getLastModifiedDate();
     }
 }

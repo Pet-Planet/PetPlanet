@@ -7,6 +7,7 @@ import com.example.pet.domain.Role;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.oauth.KakaoProfile;
 import com.example.pet.domain.oauth.OauthToken;
+import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -122,7 +123,9 @@ public class MemberService {
     public Member getMember(HttpServletRequest request) {
         int memberId = (int) request.getAttribute("memberId");
 
-        Member member = memberRepository.findByMemberId(memberId);
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                ()->new IllegalArgumentException("해당 회원이 존재하지 않습니다.")
+        );
 
         return member;
     }

@@ -46,25 +46,6 @@ public class BoardService {
         }
         return boardDtoList;
     }
-    // 특정 회원이 쓴 글 조회하기
-//    @Transactional(readOnly = true)
-//    public List<GetBoardDto> getBoardList(int memberId) {
-//        List<Board> boardList = boardRepository.findBoardByMemberId(memberId);
-//
-//        List<GetBoardDto> boardDtoList = new ArrayList<>();
-//        for(Board board : boardList) {
-//            GetBoardDto boardDto = new GetBoardDto(
-//                    board.getPostId(),
-//                    board.getTitle(),
-//                    board.getContent(),
-//                    board.getMember().getMemberId(),
-//                    board.getWriter(),
-//                    board.getCreatedDate()
-//            );
-//            boardDtoList.add(boardDto);
-//        }
-//        return boardDtoList;
-//    }
 
     // 글 하나 조회하기
     public BoardResponseDto findOneBoard(int id) {
@@ -83,8 +64,7 @@ public class BoardService {
         Board board = boardRepository.save(requestDto.toEntity());
         board.setMember(member);
 
-        System.out.println("memberId : " + board.getMember());
-        System.out.println("memberId - dto: " + requestDto.getMemberId());
+        System.out.println("memberId : " + board.getMember().getMemberId());
 
         return board;
     }
