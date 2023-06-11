@@ -7,11 +7,9 @@ import com.example.pet.repository.BoardRepository;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +32,19 @@ public class BoardService {
         } catch (Exception e) {
         }
         return null;
+    }
+
+    // 내가 쓴 글 조회
+    public List<BoardListResponseDto> getBoardList(int memberId) {
+        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
+
+        List<BoardListResponseDto> boardDtoList = new ArrayList<>();
+        for(Board board : boardList) {
+            boardDtoList.add(
+                    new BoardListResponseDto(board)
+            );
+        }
+        return boardDtoList;
     }
     // 특정 회원이 쓴 글 조회하기
 //    @Transactional(readOnly = true)
@@ -64,16 +75,16 @@ public class BoardService {
     }
 
     // 게시판에 글 등록하기
-    public Board boardSave(int memberId, BoardSaveRequestDto requestDto) {
-        Optional<Member> member = memberRepository.findById(memberId);
+    public Board boardSave(int memberId, BoardDto requestDto) {
+        Member member = memberRepository.findByMemberId(memberId);
 
         requestDto.setMemberId(memberId);
-        requestDto.setWriter(member.get().getKakaoNickname());
-        requestDto.setMember(member.get());
+        requestDto.setWriter(member.getKakaoNickname());
         Board board = boardRepository.save(requestDto.toEntity());
-        System.out.println("memberId : " + board.getMember().getMemberId());
-        board.setMember(member.get());
+        board.setMember(member);
 
+        System.out.println("memberId : " + board.getMember());
+        System.out.println("memberId - dto: " + requestDto.getMemberId());
 
         return board;
     }
@@ -93,6 +104,7 @@ public class BoardService {
         //존재하는 글인지 확인 후 삭제
         boardRepository.delete(board);
     }
+
 
 
 

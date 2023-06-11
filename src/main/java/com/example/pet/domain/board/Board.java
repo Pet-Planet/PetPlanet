@@ -4,16 +4,13 @@ import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import javax.persistence.*;
 
-import com.example.pet.dto.board.BoardSaveRequestDto;
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.net.URL;
-import java.sql.Timestamp;
 
 @Entity @EntityListeners(AuditingEntityListener.class)
 @Getter

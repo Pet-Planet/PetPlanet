@@ -1,14 +1,13 @@
 package com.example.pet.dto.board;
 
 import com.example.pet.domain.board.Board;
-import com.example.pet.domain.member.Member;
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardSaveRequestDto {
+public class BoardDto {
     private String title;
     private String content;
     private String category;

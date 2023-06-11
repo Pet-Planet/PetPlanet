@@ -14,10 +14,8 @@ import lombok.Setter;
 public class ReviewDto {
 
     private int memberId;
-
     private int placeId;
     private int rating; //평점 1~5
-
     private String content; //리뷰 내용
 
 

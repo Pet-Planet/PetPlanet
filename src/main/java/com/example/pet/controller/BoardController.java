@@ -2,10 +2,7 @@ package com.example.pet.controller;
 
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.BoardListResponseDto;
-import com.example.pet.dto.board.BoardResponseDto;
-import com.example.pet.dto.board.BoardSaveRequestDto;
-import com.example.pet.dto.board.BoardUpdateRequestDto;
+import com.example.pet.dto.board.*;
 import com.example.pet.service.BoardService;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +43,7 @@ public class BoardController {
 
     // 게시판 글 등록
     @PostMapping("/post")
-    public ResponseEntity boardSave(HttpServletRequest request, @RequestBody BoardSaveRequestDto saveRequestDto) {
+    public ResponseEntity boardSave(HttpServletRequest request, @RequestBody BoardDto saveRequestDto) {
         Member member = memberService.getMember(request);
         int memberId = member.getMemberId();
 
@@ -70,5 +65,13 @@ public class BoardController {
     public String boradDelete(@PathVariable int postId) {
         boardService.boardDelete(postId);
         return postId + " : 글이 삭제되었습니다.";
+    }
+
+    // 내가 쓴 글 조회
+    @GetMapping("/myPage/boards")
+    public List<BoardListResponseDto> getBoard(HttpServletRequest request) {
+        int memberId = memberService.getMember(request).getMemberId();
+
+        return boardService.getBoardList(memberId);
     }
 }
