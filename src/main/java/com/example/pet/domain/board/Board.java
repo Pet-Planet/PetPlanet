@@ -23,7 +23,7 @@ public class Board extends BaseEntity {
     @Column(name = "post_id")
     private int postId;
     @ManyToOne(fetch = FetchType.LAZY) // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
-    @JoinColumn(name="member_id") // foreign key (userId) references User (id)
+    @JoinColumn(name="member_id") // foreign key (memberId) references Member (id)
     @JsonBackReference
     private Member member;
     @Column(nullable = false)
