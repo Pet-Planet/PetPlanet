@@ -13,6 +13,7 @@ public class MemberResponseDto {
     private String address;
     private String petType;
     private String petName;
+    private String kakaoProfileImg;
 
     public MemberResponseDto(Member member){
         this.kakaoNickname = member.getKakaoNickname();
@@ -21,6 +22,7 @@ public class MemberResponseDto {
         this.address = member.getAddress();
         this.petName = member.getPetName();
         this.petType = member.getPetType();
+        this.kakaoProfileImg = member.getKakaoProfileImg();
     }
 
 }

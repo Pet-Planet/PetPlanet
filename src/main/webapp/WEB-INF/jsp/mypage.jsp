@@ -17,13 +17,16 @@
         tr td {
             padding: 3px;
         }
+        #profile {
+            width: 30px;
+        }
     </style>
 </head>
 <body>
 <h1>마이페이지</h1>
 <table>
     <tr>
-        <td>사진</td>
+        <td><img id="profile" src="${member.kakaoProfileImg}"></td>
         <td>
             ${member.nickname} (${member.kakaoEmail})
                 <br>
