@@ -21,12 +21,7 @@ public class MypageService {
     private final BoardRepository boardRepository;
 
     public Member getMember(HttpServletRequest request) {
-//        int memberId = (int) request.getAttribute("memberId");      //1안 (postman에서 뜸)
-        String aaa = (String)request.getAttribute("memberId");  //2안 (jsp에서 뜸)
-        int memberId = 2;   //원래 0인데 test시 임의로 설정               //
-        if(aaa != null) {                                             //
-            memberId = Integer.parseInt(aaa);                         //
-        }                                                             //
+       int memberId = (int) request.getAttribute("memberId");
 
         Member member = memberRepository.findByMemberId(memberId);
 
