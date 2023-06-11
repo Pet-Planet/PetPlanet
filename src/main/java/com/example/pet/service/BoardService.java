@@ -34,19 +34,6 @@ public class BoardService {
         return null;
     }
 
-    // 내가 쓴 글 조회
-    public List<BoardListResponseDto> getBoardList(int memberId) {
-        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
-
-        List<BoardListResponseDto> boardDtoList = new ArrayList<>();
-        for(Board board : boardList) {
-            boardDtoList.add(
-                    new BoardListResponseDto(board)
-            );
-        }
-        return boardDtoList;
-    }
-
     // 글 하나 조회하기
     public BoardResponseDto findOneBoard(int id) {
         Board board = boardRepository.findById(id).orElseThrow(
@@ -85,7 +72,17 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-
+    // 제목으로 검색하기
+    public List<BoardListResponseDto> getBoardByTitle(String title) {
+        List<Board> boardList = boardRepository.findByTitle(title);
+        List<BoardListResponseDto> boardListResponseDtos = new ArrayList<>();
+        for(Board board : boardList) {
+            boardListResponseDtos.add(
+                    new BoardListResponseDto(board)
+            );
+        }
+        return boardListResponseDtos;
+    }
 
 
 }
