@@ -37,12 +37,4 @@ public class MypageController {
         return mypageService.findMe(id);
     }
 
-    // 내가 쓴 글 조회
-    @GetMapping("/boards")
-    public List<GetBoardDto> getBoard(HttpServletRequest request) {
-        int memberId = mypageService.getMember(request).getMemberId();
-
-        return mypageService.getBoardList(memberId);
-    }
-
 }

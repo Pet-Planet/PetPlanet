@@ -44,23 +44,4 @@ public class MypageService {
 
         return memberRepository.save(member);
     }
-
-    // 내가 쓴 글
-    public List<GetBoardDto> getBoardList(int memberId) {
-        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
-
-        List<GetBoardDto> boradListDto = new ArrayList<>();
-        for(Board board : boardList) {
-            GetBoardDto requestDto = new GetBoardDto(
-                    board.getPostId(),
-                    board.getTitle(),
-                    board.getContent(),
-                    board.getMember().getMemberId(),
-                    board.getWriter(),
-                    board.getCreatedDate()
-            );
-            boradListDto.add(requestDto);
-        }
-        return boradListDto;
-    }
 }
