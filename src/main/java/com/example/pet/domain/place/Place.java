@@ -28,7 +28,7 @@ public class Place {
     private String placeContent;
 
     @Column(precision = 2, scale = 1)
-    private double avgRating;
+    private BigDecimal avgRating;
 
     @Column
     private String placeTitle;
@@ -41,9 +41,6 @@ public class Place {
 
     @Column
     private int price;
-
-    @Column
-    private String imageUrl;
 
     @OneToOne(cascade = CascadeType.ALL)  //한 장소는 하나의 지역만을 가진다.
     @JoinColumn(name = "region_id")
