@@ -49,9 +49,9 @@ public class ReservationService {
     /*
       예약하기
     */
-    public Reservation saveReservation(ReservationDto reservationDto) {
+    public Reservation saveReservation(int memberId, ReservationDto reservationDto) {
 
-        Optional<Member> member = memberRepository.findById(reservationDto.getMemberId());
+        Optional<Member> member = memberRepository.findById(memberId);
         Optional<Place> place = placeRepository.findById(reservationDto.getPlaceId());
 
         Reservation reservation = reservationRepository.save(reservationDto.toEntity());
