@@ -67,11 +67,10 @@ public class BoardController {
         return postId + " : 글이 삭제되었습니다.";
     }
 
-    // 내가 쓴 글 조회
-    @GetMapping("/myPage/boards")
-    public List<BoardListResponseDto> getBoard(HttpServletRequest request) {
-        int memberId = memberService.getMember(request).getMemberId();
-
-        return boardService.getBoardList(memberId);
+    // 제목으로 검색하기
+    @GetMapping("/findTitle")
+    public List<BoardListResponseDto> getBoardByTitle(@RequestParam String title) {
+        //String str = "제목";
+        return boardService.getBoardByTitle(title);
     }
 }
