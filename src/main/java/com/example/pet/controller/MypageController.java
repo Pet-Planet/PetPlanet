@@ -8,14 +8,16 @@ import com.example.pet.service.BoardService;
 import com.example.pet.service.MypageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/myPage")
+@RequestMapping("/mypage")
 public class MypageController {
 
     private final MypageService mypageService;
@@ -31,12 +33,15 @@ public class MypageController {
     }
 
     // 내 개인정보 보기 => 상세보기 눌러야함
+
     @GetMapping("")
-    public MemberResponseDto findMe(HttpServletRequest request) {
+    public String findMe(HttpServletRequest request, Model model) {
         int id = mypageService.getMember(request).getMemberId();
-
         System.out.println(id);
-        return mypageService.findMe(id);
-    }
 
+        MemberResponseDto memberResponseDto = mypageService.findMe(id);
+        model.addAttribute("member", memberResponseDto);
+
+        return "mypage";
+    }
 }

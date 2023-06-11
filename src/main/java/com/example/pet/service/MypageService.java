@@ -21,7 +21,12 @@ public class MypageService {
     private final BoardRepository boardRepository;
 
     public Member getMember(HttpServletRequest request) {
-        int memberId = (int) request.getAttribute("memberId");
+//        int memberId = (int) request.getAttribute("memberId");      //1안 (postman에서 뜸)
+        String aaa = (String)request.getAttribute("memberId");  //2안 (jsp에서 뜸)
+        int memberId = 2;   //원래 0인데 test시 임의로 설정               //
+        if(aaa != null) {                                             //
+            memberId = Integer.parseInt(aaa);                         //
+        }                                                             //
 
         Member member = memberRepository.findByMemberId(memberId);
 
@@ -43,5 +48,24 @@ public class MypageService {
         member.memberUpdate(requestDto);
 
         return memberRepository.save(member);
+    }
+
+    // 내가 쓴 글
+    public List<GetBoardDto> getBoardList(int memberId) {
+        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
+
+        List<GetBoardDto> boradListDto = new ArrayList<>();
+        for(Board board : boardList) {
+            GetBoardDto requestDto = new GetBoardDto(
+                    board.getPostId(),
+                    board.getTitle(),
+                    board.getContent(),
+                    board.getMember().getMemberId(),
+                    board.getWriter(),
+                    board.getCreatedDate()
+            );
+            boradListDto.add(requestDto);
+        }
+        return boradListDto;
     }
 }
