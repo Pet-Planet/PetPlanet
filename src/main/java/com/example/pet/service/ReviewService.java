@@ -71,7 +71,7 @@ public class ReviewService {
     @Transactional(readOnly = true)
     public List<GetReviewDto> getReviewList(int memberId){
 
-        List<Review> reviewList = reviewRepository.findByMember_MemberId(memberId);
+        List<Review> reviewList = reviewRepository.findByMember_MemberIdOrderByCreatedDateDesc(memberId);
 
         List<GetReviewDto> reviewDtoList = new ArrayList<>();
         for(Review review : reviewList) {
