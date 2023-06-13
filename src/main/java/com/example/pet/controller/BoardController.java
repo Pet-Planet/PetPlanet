@@ -25,9 +25,6 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
 
-    //로거 안찍힘 이유 찾아야함
-    final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
     // 전체 글 조회
     @GetMapping("/posts")
@@ -43,13 +40,12 @@ public class BoardController {
 
     // 게시판 글 등록
     @PostMapping("/post")
-    public ResponseEntity boardSave(HttpServletRequest request, @RequestBody BoardDto saveRequestDto) {
+    public ResponseEntity boardSave(HttpServletRequest request, @RequestBody BoardDto boardDto) {
         Member member = memberService.getMember(request);
-        int memberId = member.getMemberId();
 
-        Board board = boardService.boardSave(memberId, saveRequestDto);
+        boardService.boardSave(member, boardDto);
 
-        return ResponseEntity.ok().body(board);
+        return ResponseEntity.ok().body(boardDto.getMemberId() + "success");
     }
 
     // 게시판 글 수정
@@ -73,4 +69,5 @@ public class BoardController {
         //String str = "제목";
         return boardService.getBoardByTitle(title);
     }
+
 }

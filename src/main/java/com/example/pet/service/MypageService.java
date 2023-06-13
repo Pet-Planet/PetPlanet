@@ -2,6 +2,7 @@ package com.example.pet.service;
 
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.board.GetBoardDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -45,22 +46,16 @@ public class MypageService {
         return memberRepository.save(member);
     }
 
-    // 내가 쓴 글
-    public List<GetBoardDto> getBoardList(int memberId) {
+    // 내가 쓴 글 조회
+    public List<BoardListResponseDto> getBoardList(int memberId) {
         List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
 
-        List<GetBoardDto> boradListDto = new ArrayList<>();
+        List<BoardListResponseDto> boardDtoList = new ArrayList<>();
         for(Board board : boardList) {
-            GetBoardDto requestDto = new GetBoardDto(
-                    board.getPostId(),
-                    board.getTitle(),
-                    board.getContent(),
-                    board.getMember().getMemberId(),
-                    board.getWriter(),
-                    board.getCreatedDate()
+            boardDtoList.add(
+                    new BoardListResponseDto(board)
             );
-            boradListDto.add(requestDto);
         }
-        return boradListDto;
+        return boardDtoList;
     }
 }

@@ -8,11 +8,13 @@ import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -43,15 +45,15 @@ public class BoardService {
     }
 
     // 게시판에 글 등록하기
-    public Board boardSave(int memberId, BoardDto requestDto) {
-        Member member = memberRepository.findByMemberId(memberId);
+    public Board boardSave(Member member, BoardDto boardDto) {
+        boardDto.setMemberId(member.getMemberId());
+        boardDto.setWriter(member.getKakaoNickname());
 
-        requestDto.setMemberId(memberId);
-        requestDto.setWriter(member.getKakaoNickname());
-        Board board = boardRepository.save(requestDto.toEntity());
+        Board board = boardRepository.save(boardDto.toEntity());
+
         board.setMember(member);
 
-        System.out.println("memberId : " + board.getMember().getMemberId());
+        System.out.println("저장된 memberId : " + board.getMember().getMemberId());
 
         return board;
     }
@@ -83,6 +85,20 @@ public class BoardService {
         }
         return boardListResponseDtos;
     }
+
+    // 내가 쓴 글 조회
+    public List<BoardListResponseDto> getBoardList(int memberId) {
+        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
+
+        List<BoardListResponseDto> boardDtoList = new ArrayList<>();
+        for(Board board : boardList) {
+            boardDtoList.add(
+                    new BoardListResponseDto(board)
+            );
+        }
+        return boardDtoList;
+    }
+
 
 
 }
