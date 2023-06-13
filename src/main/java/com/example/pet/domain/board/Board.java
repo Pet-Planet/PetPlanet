@@ -45,11 +45,6 @@ public class Board extends BaseEntity {
     @JsonManagedReference
     private List<BoardComment> boardCommentList = new ArrayList<>();
 
-    public void setMember(Member member) {
-        this.member = member;
-        member.getBoards().add(this);
-    }
-
     public void update(BoardUpdateRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
