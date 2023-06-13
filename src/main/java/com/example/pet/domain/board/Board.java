@@ -16,6 +16,8 @@ import java.net.URL;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Board extends BaseEntity {
 
     @Id
@@ -34,27 +36,10 @@ public class Board extends BaseEntity {
     private String writer;
     @Column(nullable = false)
     private String category;
-    @Column
-    private URL imageUrl1;
-    @Column
-    private URL imageUrl2;
-    @Column
-    private URL imageUrl3;
-    @Column
-    private int status; //글 삭제 여부
 
     public void setMember(Member member) {
         this.member = member;
         member.getBoards().add(this);
-    }
-    @Builder
-    public Board(String title, String content, String category, String writer, Member member) {
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.writer = writer;
-        if(this.member != null)
-            member.getBoards().remove(this);
     }
 
     public void update(BoardUpdateRequestDto requestDto) {
