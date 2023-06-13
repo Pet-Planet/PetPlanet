@@ -1,6 +1,7 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.board.GetBoardDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+//@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/mypage")
 public class MypageController {
@@ -43,5 +45,13 @@ public class MypageController {
         model.addAttribute("member", memberResponseDto);
 
         return "mypage";
+    }
+
+    // 내가 쓴 글 조회
+    @GetMapping("/boards")
+    public List<BoardListResponseDto> getBoard(HttpServletRequest request) {
+        int memberId = mypageService.getMember(request).getMemberId();
+
+        return mypageService.getBoardList(memberId);
     }
 }
