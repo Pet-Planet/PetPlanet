@@ -6,11 +6,14 @@ import javax.persistence.*;
 
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -24,10 +27,6 @@ public class Board extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private int postId;
-    @ManyToOne(fetch = FetchType.LAZY) // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
-    @JoinColumn(name="member_id") // foreign key (memberId) references Member (id)
-    @JsonBackReference
-    private Member member;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
@@ -37,10 +36,14 @@ public class Board extends BaseEntity {
     @Column(nullable = false)
     private String category;
 
-    public void setMember(Member member) {
-        this.member = member;
-        member.getBoards().add(this);
-    }
+    @ManyToOne(fetch = FetchType.LAZY) // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
+    @JoinColumn(name="member_id") // foreign key (memberId) references Member (id)
+    @JsonBackReference
+    private Member member;
+
+    @OneToMany
+    @JsonManagedReference
+    private List<BoardComment> boardCommentList = new ArrayList<>();
 
     public void update(BoardUpdateRequestDto requestDto) {
         this.title = requestDto.getTitle();

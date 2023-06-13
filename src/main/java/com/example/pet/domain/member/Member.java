@@ -3,6 +3,7 @@ package com.example.pet.domain.member;
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.Role;
 import com.example.pet.domain.board.Board;
+import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -73,6 +74,10 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     @JsonManagedReference
     private List<Board> boards = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    @JsonManagedReference
+    private List<BoardComment> boardCommentList = new ArrayList<>();
 
     @Builder
     public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
