@@ -3,17 +3,18 @@ package com.example.pet.domain.board;
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-@Entity
-@Table
+@Entity @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BoardComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,5 @@ public class BoardComment extends BaseEntity {
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
-
 
 }
