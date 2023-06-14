@@ -65,9 +65,9 @@ public class MemberController {
 
         System.out.println("headers : " + headers);
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetails userDetails = (UserDetails) principal;
-        String name = userDetails.getUsername();
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        UserDetails userDetails = (UserDetails) principal;
+//        String name = userDetails.getUsername();
         return ResponseEntity.ok().headers(headers).body("success");
     }
     // jwt 토큰으로 유저정보 요청하기
