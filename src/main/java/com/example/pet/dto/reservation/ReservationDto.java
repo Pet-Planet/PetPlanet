@@ -24,8 +24,8 @@ public class ReservationDto {
     private LocalDate checkInDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
-    private int guestCnt;
-    private int totalPrice;
+    private int guests;
+    private int amount;
     private int status;
 
 
@@ -38,7 +38,7 @@ public class ReservationDto {
                 .phoneNum(phoneNum)
                 .checkInDate(checkInDate)
                 .checkOutDate(checkOutDate)
-                .guestCnt(guestCnt)
+                .guestCnt(guests)
                 .build();
 
     }
