@@ -3,9 +3,11 @@ package com.example.pet.config;
 import com.example.pet.config.jwt.CustomAuthenticationEntryPoint;
 import com.example.pet.config.jwt.JwtRequestFilter;
 import com.example.pet.repository.MemberRepository;
+import com.example.pet.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //@Autowired
     private MemberRepository memberRepository;
+    private final MemberService memberService;
 
     public static final String FRONT_URL = "http://localhost:8088";
 
@@ -50,5 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(memberService).passwordEncoder(encodePwd());
     }
 }
