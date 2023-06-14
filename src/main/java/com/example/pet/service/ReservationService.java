@@ -45,6 +45,23 @@ public class ReservationService {
 
     }
 
+    /*
+    날짜, 인원 수 입력 폼
+     */
+
+    public void checkForm(ReservationDto reservationDto){
+
+        Optional<Place> place = placeRepository.findById(reservationDto.getPlaceId());
+
+        LocalDate checkInDate = reservationDto.getCheckInDate();
+        LocalDate checkOutDate = reservationDto.getCheckOutDate();
+
+        int price = place.get().getPrice(); //  총 결제금액 저장 로직
+        reservationDto.setAmount(totalPrice(price, checkInDate, checkOutDate));
+
+
+    }
+
 
     /*
       예약하기
@@ -58,9 +75,6 @@ public class ReservationService {
 
         reservation.setMember(member.get());
         reservation.setPlace(place.get());
-
-        int price = place.get().getPrice(); //  총 결제금액 저장 로직
-        reservation.setTotalPrice(totalPrice(price, reservationDto.getCheckInDate(), reservationDto.getCheckOutDate()));
 
 
         return reservation;
