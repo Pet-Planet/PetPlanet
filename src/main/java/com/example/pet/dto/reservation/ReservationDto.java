@@ -18,6 +18,7 @@ public class ReservationDto {
     private int revId;
     private int memberId;
     private int placeId;
+    private String placeName;
     private String revName;
     private String phoneNum;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -29,6 +30,7 @@ public class ReservationDto {
     private int status;
 
 
+
     //dto -> entity
     public Reservation toEntity(){
 
@@ -38,7 +40,8 @@ public class ReservationDto {
                 .phoneNum(phoneNum)
                 .checkInDate(checkInDate)
                 .checkOutDate(checkOutDate)
-                .guestCnt(guests)
+                .amount(amount)
+                .guests(guests)
                 .build();
 
     }

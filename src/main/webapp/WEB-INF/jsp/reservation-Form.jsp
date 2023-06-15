@@ -7,7 +7,7 @@
 <body>
 <h1>Reservation Form</h1>
 <form action="/reservation/check" method="post">
-<%--    임의--%>
+<%--   임의--%>
     <input type="hidden" name="placeId" value="5">
     <label>Check-in Date: <input type="date" name="checkInDate" required></label><br>
     <label>Check-out Date: <input type="date" name="checkOutDate" required></label><br>
