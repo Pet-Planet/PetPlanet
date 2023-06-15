@@ -54,7 +54,7 @@ public class ReservationController {
 
         reservationService.saveReservation(memberId, reservationDto);
 
-        return"reservation-detail";
+        return"reservation-success";
 
 
     }
