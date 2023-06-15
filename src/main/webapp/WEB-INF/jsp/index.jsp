@@ -7,6 +7,11 @@
     <title>Spring Boot Application with JSP</title>
 </head>
 <body>
-Hello, Spring Boot App
+<%
+    Object name = request.getAttribute("name");
+    out.print(request.getHeader("name"));
+    out.println("=========");
+    out.print(name);
+%>
 </body>
 </html>
