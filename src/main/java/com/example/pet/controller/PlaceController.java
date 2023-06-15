@@ -34,17 +34,5 @@ public class PlaceController {
     public List<PlaceDto> getAllPlaces() {
         return placeService.getAllPlaces();
     }
-//
-//    //타입별 장소 조회
-//    @GetMapping("/place/{placeType}")
-//    public List<PlaceDto> getPlaceByType(@PathVariable String placeType){
-//        return placeService.getPlacesByPlaceType(placeType);
-//    }
-//
-//    //지역별 장소 조회
-//    @GetMapping("/place/region/{regionId}")
-//    public List<PlaceDto> getPlaceByRegion(@PathVariable int regionId){
-//        return placeService.getPlacesByRegion(regionId);
-//    }
 
 }
