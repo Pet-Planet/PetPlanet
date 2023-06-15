@@ -52,12 +52,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             memberId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
                     .getClaim("id").asInt();
-            String id = String.valueOf(memberId);
-            UserDetails userDetails = memberService.loadUserByUsername(id);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            String id = String.valueOf(memberId);
+//            UserDetails userDetails = memberService.loadUserByUsername(id);
+//            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (TokenExpiredException e){
             e.printStackTrace();
             request.setAttribute(JwtProperties.HEADER_STRING, "토큰 만료");

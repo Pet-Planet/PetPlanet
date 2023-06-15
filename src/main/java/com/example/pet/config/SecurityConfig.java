@@ -55,8 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(encodePwd());
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(memberService).passwordEncoder(encodePwd());
+//    }
 }

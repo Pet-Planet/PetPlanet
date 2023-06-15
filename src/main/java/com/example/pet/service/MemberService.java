@@ -25,12 +25,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Service
-public class MemberService implements UserDetailsService {
+public class MemberService {
+//public class MemberService implements UserDetailsService {
+
     @Value("${kakao.clientId}")
     String client_id;
 
@@ -169,11 +174,11 @@ public class MemberService implements UserDetailsService {
         return kakaoProfile;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-        int id = Integer.parseInt(memberId);
-        Member member = memberRepository.findByMemberId(id);
-        // 시큐리티 세션에 유저 정보 저장
-        return new UserAdapter(member);
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+//        int id = Integer.parseInt(memberId);
+//        Member member = memberRepository.findByMemberId(id);
+//        // 시큐리티 세션에 유저 정보 저장
+//        return new UserAdapter(member);
+//    }
 }
