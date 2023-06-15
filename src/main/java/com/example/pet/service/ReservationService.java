@@ -59,6 +59,9 @@ public class ReservationService {
         int price = place.get().getPrice(); //  총 결제금액 저장 로직
         reservationDto.setAmount(totalPrice(price, checkInDate, checkOutDate));
 
+        String placeName = place.get().getPlaceTitle();
+        reservationDto.setPlaceName(placeName);
+
 
     }
 

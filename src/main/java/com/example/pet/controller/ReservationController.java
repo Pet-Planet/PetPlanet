@@ -6,7 +6,6 @@ import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class ReservationController {
     @GetMapping("/reservation")
     public String reservationForm(){
 
-        return "reservationForm";
+        return "reservation-Form";
     }
 
 
@@ -40,7 +39,8 @@ public class ReservationController {
 
         reservationService.checkForm(reservationDto);
 
-        return "reservationConfirm";
+        return "reservation-Confirm";
+
     }
 
 
@@ -54,7 +54,9 @@ public class ReservationController {
 
         reservationService.saveReservation(memberId, reservationDto);
 
-        return"success";
+        return"reservation-detail";
+
+
     }
 
 

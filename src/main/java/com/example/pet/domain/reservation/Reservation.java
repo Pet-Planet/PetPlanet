@@ -40,12 +40,12 @@ public class Reservation extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
 
-    private int totalPrice;
+    private int amount;
 
     @ColumnDefault("0")
     private int status; //예약 완료(0) 및 취소(1) 여부
 
-    private int guestCnt;   //투숙객 인원
+    private int guests;   //투숙객 인원
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 예약이 가능
     @JoinColumn(name = "member_id")
