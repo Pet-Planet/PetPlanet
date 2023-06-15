@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.example.pet.config.jwt.JwtProperties;
 import com.example.pet.domain.Role;
 import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.UserAdapter;
 import com.example.pet.domain.oauth.KakaoProfile;
 import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.dto.member.MemberResponseDto;
@@ -17,16 +18,24 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Service
 public class MemberService {
+//public class MemberService implements UserDetailsService {
+
     @Value("${kakao.clientId}")
     String client_id;
 
@@ -164,4 +173,12 @@ public class MemberService {
 
         return kakaoProfile;
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+//        int id = Integer.parseInt(memberId);
+//        Member member = memberRepository.findByMemberId(id);
+//        // 시큐리티 세션에 유저 정보 저장
+//        return new UserAdapter(member);
+//    }
 }
