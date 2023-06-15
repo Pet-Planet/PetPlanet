@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Reservation Detail</title>
+    <title>Reservation Success</title>
 </head>
 
 <body>
-<h1>Reservation Detail</h1>
+<h1>Reservation Success Page</h1>
 <p>PlaceName: ${rev.placeName}</p>
 <p>Check-in Date: ${rev.checkInDate}</p>
 <p>Check-out Date: ${rev.checkOutDate}</p>
