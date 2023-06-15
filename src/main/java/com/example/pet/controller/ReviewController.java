@@ -44,7 +44,8 @@ public class ReviewController {
 
         reviewService.createReview(memberId, reviewDto);
 
-       return reviewDto.getMemberId() + " success";
+        // 추후 리뷰작성 성공시 장소 상세페이지로 리다이렉트로 수정
+       return "review-success";
     }
 
     /*
@@ -55,7 +56,8 @@ public class ReviewController {
 
         reviewService.editReview(reviewId, reviewDto);
 
-        return reviewId + " success";
+        // 추후 리뷰수정 성공시 장소 상세페이지로 리다이렉트로 수정
+        return "review-success";
 
     }
 
