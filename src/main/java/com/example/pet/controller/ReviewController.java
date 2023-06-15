@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-//@Controller
-@RestController
+@Controller
 @RequiredArgsConstructor
 @Slf4j
 public class ReviewController {
@@ -29,7 +28,8 @@ public class ReviewController {
      */
     @GetMapping("/review")
     public String reviewForm(){
-        return "reviewForm";
+
+        return "review-Form";
     }
 
 
@@ -38,7 +38,7 @@ public class ReviewController {
      */
 
     @PostMapping("/review")
-    public String createReview(HttpServletRequest request, @RequestBody ReviewDto reviewDto){
+    public String createReview(HttpServletRequest request, @ModelAttribute("review") ReviewDto reviewDto){
 
         int memberId = memberService.getMember(request).getMemberId();
 
@@ -51,7 +51,7 @@ public class ReviewController {
     리뷰 수정 API
      */
     @PutMapping("/review/edit/{reviewId}")
-    public String editReview(@PathVariable int reviewId, @RequestBody ReviewEditDto reviewDto){
+    public String editReview(@PathVariable int reviewId, @ModelAttribute("review") ReviewEditDto reviewDto){
 
         reviewService.editReview(reviewId, reviewDto);
 
