@@ -29,7 +29,7 @@ public class ReservationController {
     }
 
 
-       /*
+    /*
     날짜, 인원 입력 폼
     (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
      */

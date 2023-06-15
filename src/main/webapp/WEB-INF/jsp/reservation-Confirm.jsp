@@ -16,6 +16,7 @@
     String token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW5ldWwwODA0QGRhdW0ubmV0Iiwibmlja25hbWUiOiLsoJXrr7zsp4AiLCJpZCI6MywiZXhwIjoxNjg3NjIwNjQ0fQ.eeI6ocSc4I3AFBqeId78XE7GFnRuY5h6QyZqRz6pDp_BquUOqBIefscIOo8rEA5QV4xpOJPgl4lMdj5HtHiMBg";
     response.setHeader("Authorization", token);
 %>
+
 <form action="/reservation" method="post" >
     <label>Name: <input type="text" name="revName" required></label><br>
     <label>Phone Number: <input type="text" name="phoneNum" required></label><br>

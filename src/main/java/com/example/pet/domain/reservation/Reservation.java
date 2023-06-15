@@ -58,6 +58,7 @@ public class Reservation extends BaseEntity {
     private Place place;
 
 
+
     // 예약상태 변경
     public void setStatus(int status) {
         this.status = status;

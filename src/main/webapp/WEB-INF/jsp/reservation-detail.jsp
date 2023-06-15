@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Reservation Detail</title>
 </head>
+
 <body>
 <h1>Reservation Detail</h1>
 <p>PlaceName: ${rev.placeName}</p>
