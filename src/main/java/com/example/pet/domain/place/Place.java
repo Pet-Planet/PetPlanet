@@ -28,7 +28,7 @@ public class Place {
     private String placeContent;
 
     @Column(precision = 2, scale = 1)
-    private BigDecimal avgRating;
+    private double avgRating;
 
     @Column
     private String placeTitle;
