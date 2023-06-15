@@ -17,9 +17,8 @@ public class Region implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id")
-    private int regionid;
+    private int regionId;
 
     @Column
     private String regionName;
-
 }
