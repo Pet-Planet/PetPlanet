@@ -32,20 +32,24 @@ public class Reservation extends BaseEntity {
     @Column(nullable = false)
     private String phoneNum;
 
-    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkInDate;
 
-    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate visitDate; //방문 날짜
+
+    private String time;
 
     private int amount;
 
     @ColumnDefault("0")
     private int status; //예약 완료(0) 및 취소(1) 여부
 
-    private int guests;   //투숙객 인원
+    private int guests;   //방문객 인원
+
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 예약이 가능
     @JoinColumn(name = "member_id")

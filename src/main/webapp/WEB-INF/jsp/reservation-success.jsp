@@ -7,12 +7,14 @@
 
 <body>
 <h1>Reservation Success Page</h1>
-<p>PlaceName: ${rev.placeName}</p>
-<p>Check-in Date: ${rev.checkInDate}</p>
-<p>Check-out Date: ${rev.checkOutDate}</p>
-<p>Amount: ${rev.amount}원</p>
-<p>revName: ${rev.revName}</p>
-<p>phoneNum: ${rev.phoneNum}</p>
-
+<p>숙소명: ${rev.placeName}</p>
+<%--<p>체크인 날짜: ${rev.checkInDate}</p>--%>
+<%--<p>체크아웃 날짜: ${rev.checkOutDate}</p>--%>
+<p>방문 날짜: ${rev.visitDate}</p>
+<p>방문 시간: ${rev.time}</p>
+<p>숙박 인원: ${rev.guests}명</p>
+<p>예약자: ${rev.revName}</p>
+<p>전화번호: ${rev.phoneNum}</p>
+<%--<p>결제 금액: ${rev.amount}원</p>--%>
 </body>
 </html>
