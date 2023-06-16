@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -30,11 +31,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.util.Date;
 
+@Transactional
 @Service
-public class MemberService {
-//public class MemberService implements UserDetailsService {
+public class MemberService implements UserDetailsService {
 
     @Value("${kakao.clientId}")
     String client_id;
@@ -105,28 +107,32 @@ public class MemberService {
 
             memberRepository.save(member);
         }
+
         return createToken(member);
     }
 
+//    public String createToken(Member member) {
+//        // (2-2)
+//        String jwtToken = JWT.create()
+//
+//                // (2-3)Payload에 들어갈 등록된 클레임을 설정한다
+//                // sub 는 자유롭게 지정한다
+//                .withSubject(member.getKakaoEmail())
+//                .withExpiresAt(new Date(System.currentTimeMillis()+ JwtProperties.EXPIRATION_TIME))
+//
+//                //(2-4)Payload 에 들어갈 개인 클레임 을 설정한다.
+//                //.withClaim(이름, 내용) 형태로 작성한다. 사용자를 식별할 수 있는 값과, 따로 추가하고 싶은 값을 자유롭게 넣는다.
+//                .withClaim("id", member.getMemberId())
+//                .withClaim("nickname", member.getKakaoNickname())
+//
+//                //(2-5)Signature 를 설정한다. 위와 같이 알고리즘을 명시하고 앞서 만든 JwtProperties 의 비밀 키 필드를 불러와 넣어준다.
+//                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+//
+//        // (2-6) 만들어진 JWT 를 반환한다
+//        return jwtToken;
+//    }
     public String createToken(Member member) {
-        // (2-2)
-        String jwtToken = JWT.create()
-
-                // (2-3)Payload에 들어갈 등록된 클레임을 설정한다
-                // sub 는 자유롭게 지정한다
-                .withSubject(member.getKakaoEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis()+ JwtProperties.EXPIRATION_TIME))
-
-                //(2-4)Payload 에 들어갈 개인 클레임 을 설정한다.
-                //.withClaim(이름, 내용) 형태로 작성한다. 사용자를 식별할 수 있는 값과, 따로 추가하고 싶은 값을 자유롭게 넣는다.
-                .withClaim("id", member.getMemberId())
-                .withClaim("nickname", member.getKakaoNickname())
-
-                //(2-5)Signature 를 설정한다. 위와 같이 알고리즘을 명시하고 앞서 만든 JwtProperties 의 비밀 키 필드를 불러와 넣어준다.
-                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
-        
-        // (2-6) 만들어진 JWT 를 반환한다
-        return jwtToken;
+        return "하";
     }
 
     public Member getMember(HttpServletRequest request) {
@@ -174,11 +180,11 @@ public class MemberService {
         return kakaoProfile;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-//        int id = Integer.parseInt(memberId);
-//        Member member = memberRepository.findByMemberId(id);
-//        // 시큐리티 세션에 유저 정보 저장
-//        return new UserAdapter(member);
-//    }
+    @Override
+    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+        int id = Integer.parseInt(memberId);
+        Member member = memberRepository.findByMemberId(id);
+        // 시큐리티 세션에 유저 정보 저장
+        return new UserAdapter(member);
+    }
 }
