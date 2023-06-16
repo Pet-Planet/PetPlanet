@@ -6,10 +6,11 @@
 </head>
 <body>
 <h1>Reservation Confirmation</h1>
-<p>PlaceName: ${rev.placeName}</p>
-<p>Check-in Date: ${rev.checkInDate}</p>
-<p>Check-out Date: ${rev.checkOutDate}</p>
-<p>Amount: ${rev.amount}원</p>
+<p>숙소명: ${rev.placeName}</p>
+<p>체크인 날짜: ${rev.checkInDate}</p>
+<p>체크아웃 날짜: ${rev.checkOutDate}</p>
+<p>숙박 인원: ${rev.guests}명</p>
+<p>결제 금액: ${rev.amount}원</p>
 
 <%--헤더 정보가 안넘어감--%>
 <%
@@ -17,12 +18,13 @@
     response.setHeader("Authorization", token);
 %>
 
-<form action="/reservation" method="post" >
+<form action="/reservation/b" method="post" >
     <label>Name: <input type="text" name="revName" required></label><br>
     <label>Phone Number: <input type="text" name="phoneNum" required></label><br>
     <input type="hidden" name="checkInDate" value="${rev.checkInDate}">
     <input type="hidden" name="checkOutDate" value="${rev.checkOutDate}">
     <input type="hidden" name="amount" value="${rev.amount}">
+    <input type="hidden" name="amount" value="${rev.guests}">
     <input type="hidden" name="amount" value="${rev.placeName}">
 
     <input type="submit" value="Reserve">

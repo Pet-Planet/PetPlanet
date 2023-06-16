@@ -13,8 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDto {
-
+public class ReservationResortDto {
 
     private int revId;
     private int memberId;
@@ -23,24 +22,28 @@ public class ReservationDto {
     private String revName;
     private String phoneNum;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate visitDate;
-    private String time;
+    private LocalDate checkInDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate checkOutDate;
     private int guests;
+    private int amount;
     private int status;
 
 
+
     //dto -> entity
-    public Reservation toEntity() {
+    public Reservation toEntity(){
 
         return Reservation.builder()
                 .Id(revId)
                 .revName(revName)
                 .phoneNum(phoneNum)
-                .visitDate(visitDate)
-                .time(time)
+                .checkInDate(checkInDate)
+                .checkOutDate(checkOutDate)
+                .amount(amount)
                 .guests(guests)
                 .build();
+
     }
 
 }
-
