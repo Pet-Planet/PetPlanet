@@ -30,12 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private CorsFilter corsFilter;
 
-    // 추가된 jwt 관련 친구들을 security config 에 추가
-    private final JwtTokenProvider jwtTokenProvider;
-
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder encodePwd() {
     // 비밀번호 암호화를 위한 코드
         return new BCryptPasswordEncoder();
     }
@@ -65,11 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
-        http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+        http
+                .addFilter(new JwtRequestFilter(authenticationManager(), memberRepository));
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.pet.controller;
 
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.dto.board.*;
 import com.example.pet.service.BoardService;
 import com.example.pet.service.MemberService;
@@ -11,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +28,14 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
 
+    // 현재 멤버 조회
+    @GetMapping("/member")
+    public String findMember() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        PrincipalDetails userDetails = (PrincipalDetails) principal;
+
+        return ((UserDetails) principal).getUsername();
+    }
 
     // 전체 글 조회
     @GetMapping("/posts")

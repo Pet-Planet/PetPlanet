@@ -10,23 +10,17 @@ import java.util.Collection;
 import java.util.Map;
 
 @Data
-public class CustomUserDetails implements UserDetails, OAuth2User {
+public class PrincipalDetails implements UserDetails {
     private Member member;
-    private Map<String, Object> attributes;
 
-    public CustomUserDetails(Member member) {
+    public PrincipalDetails(Member member) {
         this.member = member;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return member.getRole().toString();
-            }
-        });
+        collection.add(()->{ return member.getRole().toString();});
         return collection;
     }
 
@@ -49,13 +43,13 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
     // 계정 잠겼는지 확인 -> true 면 아니요.
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     // 계정 만료됐는지 확인 -> true 면 아니요.
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     // 계정 만료됐는지 확인 -> true 면 아니요.
@@ -64,8 +58,4 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
         return true;
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
 }
