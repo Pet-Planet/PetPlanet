@@ -55,5 +55,4 @@ public class Place {
     @OneToMany(mappedBy = "place")
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
-
 }
