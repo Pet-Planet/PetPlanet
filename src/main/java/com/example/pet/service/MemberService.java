@@ -36,7 +36,7 @@ import java.util.Date;
 
 @Transactional
 @Service
-public class MemberService implements UserDetailsService {
+public class MemberService {
 
     @Value("${kakao.clientId}")
     String client_id;
@@ -184,13 +184,5 @@ public class MemberService implements UserDetailsService {
         }
 
         return kakaoProfile;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-        int id = Integer.parseInt(memberId);
-        Member member = memberRepository.findByMemberId(id);
-        // 시큐리티 세션에 유저 정보 저장
-        return new UserAdapter(member);
     }
 }

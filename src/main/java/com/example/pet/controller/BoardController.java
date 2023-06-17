@@ -28,15 +28,6 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
 
-    // 현재 멤버 조회
-    @GetMapping("/member")
-    public String findMember() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        PrincipalDetails userDetails = (PrincipalDetails) principal;
-
-        return ((UserDetails) principal).getUsername();
-    }
-
     // 전체 글 조회
     @GetMapping("/posts")
     public List<BoardListResponseDto> getAllBoard() {
