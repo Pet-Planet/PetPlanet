@@ -27,6 +27,7 @@ public class ReservationController {
     public String reservationFormA(){
 
 //        model.addAttribute("placeId", placeId);
+//        추후 requestparam으로 placeId 받는걸로 수정
 
         return "reservation-FormA";
     }
