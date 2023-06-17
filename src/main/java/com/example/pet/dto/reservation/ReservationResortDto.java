@@ -22,10 +22,11 @@ public class ReservationResortDto {
     private String revName;
     private String phoneNum;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate checkInDate;
+    private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate checkOutDate;
+    private LocalDate endDate;
     private int guests;
+    private int pets;
     private int amount;
     private int status;
 
@@ -38,10 +39,11 @@ public class ReservationResortDto {
                 .Id(revId)
                 .revName(revName)
                 .phoneNum(phoneNum)
-                .checkInDate(checkInDate)
-                .checkOutDate(checkOutDate)
+                .startDate(startDate)
+                .endDate(endDate)
                 .amount(amount)
                 .guests(guests)
+                .pets(pets)
                 .build();
 
     }

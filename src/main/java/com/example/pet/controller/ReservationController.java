@@ -32,38 +32,24 @@ public class ReservationController {
     }
 
 
-    /*
-   예약 작성 폼(숙소)
-    */
-    @GetMapping("/reservation/b")
-    public String reservationFormB(){
 
-//        model.addAttribute("placeId", placeId);
-
-        return "reservation-FormB";
-    }
-
-
-
-
-    /*
-    날짜, 인원 입력 폼 (숙소 전용)
+        /*
+    예약 정보 입력 폼 (카페, 운동장, 식당 전용)
     (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
      */
 
-    @PostMapping("/reservation/check")
-    public String checkReservationForm(@ModelAttribute("rev") ReservationResortDto reservationResortDto){
+    @PostMapping("/reservation/confirm/a")
+    public String checkReservationFormA(@ModelAttribute("rev") ReservationDto reservationDto){
 
-        reservationService.checkForm(reservationResortDto);
+        reservationService.checkFormA(reservationDto);
 
-        return "reservation-Confirm";
+        return "reservation-ConfirmA";
 
     }
 
 
-
-        /*
-    카페, 운동장, 식당 예약 API
+    /*
+        카페, 운동장, 식당 예약 API
      */
     @PostMapping("/reservation/a")
     public String saveReservationA(HttpServletRequest request, @ModelAttribute("rev") ReservationDto reservationDto){
@@ -77,6 +63,36 @@ public class ReservationController {
 
 
     }
+
+
+
+    /*
+   예약 작성 폼(숙소)
+    */
+    @GetMapping("/reservation/b")
+    public String reservationFormB(){
+
+//        model.addAttribute("placeId", placeId);
+
+        return "reservation-FormB";
+    }
+
+
+
+    /*
+    예약 정보 입력 폼 (숙소 전용)
+    (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
+     */
+
+    @PostMapping("/reservation/confirm/b")
+    public String checkReservationFormB(@ModelAttribute("rev") ReservationResortDto reservationResortDto){
+
+        reservationService.checkFormB(reservationResortDto);
+
+        return "reservation-ConfirmB";
+
+    }
+
 
 
     /*

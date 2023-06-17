@@ -6,14 +6,15 @@
 </head>
 <body>
 <h1>Reservation Form</h1>
-<form action="/reservation/check" method="post">
+<form action="/reservation/confirm/b" method="post">
 <%--   임의--%>
     <input type="hidden" name="placeId" value="5">
-    <label>Check-in Date: <input type="date" name="checkInDate" required></label><br>
-    <label>Check-out Date: <input type="date" name="checkOutDate" required></label><br>
-    <input type="time" name="time" >
+    <label>Check-in Date: <input type="date" name="startDate" required>
+        Check-out Date: <input type="date" name="endDate" required></label><br>
+    <label><input type="tim" name="time" ></label><br>
+
     <label>Guests: <input type="number" name="guests" required></label><br>
-    <input type="submit" value="Confirm">
+    <input type="submit" value="등록">
 </form>
 </body>
 </html>
