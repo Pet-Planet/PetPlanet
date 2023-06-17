@@ -1,15 +1,65 @@
 package com.example.pet.controller;
 
+import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
+import com.example.pet.dto.member.MemberResponseDto;
+import com.example.pet.service.BoardCommentService;
+import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @RestController
+@RequestMapping("/board/post/{postId}")
 @RequiredArgsConstructor
-@RequestMapping("/board")
 public class BoardCommentController {
 
+    private final BoardCommentService boardCommentService;
+    private final MemberService memberService;
 
+    // 댓글 등록
+    @PostMapping("/comment")
+    public ResponseEntity<BoardComment> saveBoardComment(HttpServletRequest request, @PathVariable int postId, @RequestBody BoardCommentSaveDto dto) {
+        Member member = memberService.getMember(request);
+
+        // 필요한 처리가 있을 경우 member 정보를 dto에 설정
+        dto.setMemberId(member.getMemberId());
+        dto.setPostId(postId);  // 게시물 ID 설정
+
+        BoardComment comment = boardCommentService.saveBoardComment(dto);
+
+        return ResponseEntity.ok(comment);
+    }
+
+    // 게시물에 대한 댓글 리스트 조회
+    @GetMapping("/comments")
+    public ResponseEntity<List<BoardComment>> getBoardComments(@PathVariable int postId) {
+        List<BoardComment> comments = boardCommentService.getBoardCommentsByPostId(postId);
+
+        return ResponseEntity.ok(comments);
+    }
+
+    // 댓글 수정
+    @PutMapping("/update/{commentId}")
+    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int postId, @PathVariable int commentId, @RequestBody String newContent) {
+        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, newContent);
+        if (updatedComment != null) {
+            return ResponseEntity.ok(updatedComment);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/delete/{commentId}")
+    public ResponseEntity<Void> deleteBoardComment(@PathVariable int postId, @PathVariable int commentId) {
+        boardCommentService.deleteBoardComment(commentId);
+
+        return ResponseEntity.noContent().build();
+    }
 }
