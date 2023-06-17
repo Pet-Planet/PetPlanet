@@ -4,15 +4,18 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.example.pet.domain.member.CustomUserDetails;
+import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.repository.MemberRepository;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -22,13 +25,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@RequiredArgsConstructor
+@Slf4j
 // Bean을 따로 등록하지 않아도 사용가능
 @Component
-public class JwtRequestFilter extends OncePerRequestFilter {
+public class JwtRequestFilter extends BasicAuthenticationFilter {
 
-    @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
+
+    public JwtRequestFilter(AuthenticationManager authenticationManager, MemberRepository memberRepository) {
+        super(authenticationManager);
+        this.memberRepository = memberRepository;
+    }
 
     @Autowired
     MemberService memberService;
@@ -52,12 +59,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             memberId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
                     .getClaim("id").asInt();
-//            String id = String.valueOf(memberId);
-//            UserDetails userDetails = memberService.loadUserByUsername(id);
-//            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
+
         } catch (TokenExpiredException e){
             e.printStackTrace();
             request.setAttribute(JwtProperties.HEADER_STRING, "토큰 만료");
@@ -66,7 +68,24 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             request.setAttribute(JwtProperties.HEADER_STRING, "유효하지않는 토큰");
         }
 
+        // 원래 하던 방식
         request.setAttribute("memberId", memberId);
+
+        // 새로 추가한 방식
+        if (memberId != 0) {
+            Member member = memberRepository.findByMemberId(memberId);
+
+            // 인증은 토큰 검증시 끝. 인증을 하기 위해서가 아닌 스프링 시큐리티가 수행해주는 권한처리를 위해
+            // 아래와 같이 토큰을 만들어서 Authentication 객체를 강제로 만들고 그걸 세션에 저장한다
+            PrincipalDetails principalDetails = new PrincipalDetails(member);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails,
+                    null, // 패스워드는 모르니까 null 처리
+                    principalDetails.getAuthorities());
+
+            // 강제로 시큐리티의 세션에 접근하여 값 저장
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
 
         filterChain.doFilter(request, response);
     }

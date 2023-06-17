@@ -1,6 +1,7 @@
 package com.example.pet.service;
 
 import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.domain.member.UserAdapter;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,15 +16,17 @@ import javax.servlet.http.HttpSession;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-class CustomUserDetailsService implements UserDetailsService {
+class PrincipalDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    private final HttpSession session;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByKakaoNickname(username);
         // 시큐리티 세션에 유저 정보 저장
-        return new UserAdapter(member);
+        if (member == null) {
+            return null;
+        }
+        return new PrincipalDetails(member);
     }
 }

@@ -1,31 +1,18 @@
 package com.example.pet.controller;
 
 import com.example.pet.config.jwt.JwtProperties;
-import com.example.pet.domain.member.CustomUserDetails;
 import com.example.pet.domain.member.Member;
-import com.example.pet.domain.member.UserAdapter;
 import com.example.pet.domain.oauth.OauthToken;
-import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.service.MemberService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 
 //@RestController
