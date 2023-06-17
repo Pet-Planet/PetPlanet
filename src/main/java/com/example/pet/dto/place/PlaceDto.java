@@ -11,10 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PlaceDto {
     private int placeId;
+    private String placeContent;
+    private double avgRating;
     private String placeTitle;
     private String placeType;
-    private double avgRating;
     private int reviewCnt;
+    private int price;
     private String imageUrl;
-    private String regionName;
 }

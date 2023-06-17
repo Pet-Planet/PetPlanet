@@ -33,13 +33,10 @@ public class Reservation extends BaseEntity {
     private String phoneNum;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate checkInDate;
+    private LocalDate startDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate checkOutDate;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate visitDate; //방문 날짜
+    private LocalDate endDate;
 
     private String time;
 
@@ -48,7 +45,9 @@ public class Reservation extends BaseEntity {
     @ColumnDefault("0")
     private int status; //예약 완료(0) 및 취소(1) 여부
 
-    private int guests;   //방문객 인원
+    private int guests;
+
+    private int pets;
 
 
     @ManyToOne(fetch = FetchType.LAZY)  //한명의 멤버는 여러개의 예약이 가능

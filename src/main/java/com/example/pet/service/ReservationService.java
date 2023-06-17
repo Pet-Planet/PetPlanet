@@ -28,9 +28,32 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
 
+    /*
+    예약정보 입력 폼 (카페, 운동장, 식당 전용)
+     */
+
+    public void checkFormA(ReservationDto reservationDto){
+
+        Optional<Place> place = placeRepository.findById(reservationDto.getPlaceId());
+
+        //총 이용금액 구하기
+        int guests = reservationDto.getGuests();
+        int price = place.get().getPrice();
+
+        int amount = 0;
+        amount = guests * price;
+
+        reservationDto.setAmount(amount);
+
+        String placeName = place.get().getPlaceTitle();
+        reservationDto.setPlaceName(placeName);
+
+
+    }
+
 
     /*
-    숙소 예약하기
+    카페, 운동장, 식당 예약
     */
     public Reservation saveReservationA(int memberId, ReservationDto reservationDto) {
 
@@ -48,18 +71,18 @@ public class ReservationService {
 
 
     /*
-    날짜, 인원 수 입력 폼 (숙소 전용)
+    예약정보 입력 폼 (숙소 전용)
      */
 
-    public void checkForm(ReservationResortDto reservationResortDto){
+    public void checkFormB(ReservationResortDto reservationResortDto){
 
         Optional<Place> place = placeRepository.findById(reservationResortDto.getPlaceId());
 
-        LocalDate checkInDate = reservationResortDto.getCheckInDate();
-        LocalDate checkOutDate = reservationResortDto.getCheckOutDate();
+        LocalDate checkInDate = reservationResortDto.getStartDate();
+        LocalDate checkOutDate = reservationResortDto.getEndDate();
 
         int price = place.get().getPrice(); //  총 결제금액 저장 로직
-        reservationResortDto.setAmount(totalPrice(price, checkInDate, checkOutDate));
+        reservationResortDto.setAmount(resortAmount(price, checkInDate, checkOutDate));
 
         String placeName = place.get().getPlaceTitle();
         reservationResortDto.setPlaceName(placeName);
@@ -70,7 +93,7 @@ public class ReservationService {
         /*
     결제 금액 구하기
      */
-    public int totalPrice(int price, LocalDate checkIn, LocalDate checkOut) {
+    public int resortAmount(int price, LocalDate checkIn, LocalDate checkOut) {
 
         int totalPrice = 0;
         LocalDateTime date1 = checkIn.atStartOfDay();

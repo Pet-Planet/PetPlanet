@@ -1,16 +1,23 @@
 package com.example.pet.service;
 
+import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
 import com.example.pet.domain.place.Region;
+import com.example.pet.domain.reservation.Reservation;
+import com.example.pet.dto.board.BoardDto;
+import com.example.pet.dto.place.PlaceAddDto;
 import com.example.pet.dto.place.PlaceDetailDto;
 import com.example.pet.dto.place.PlaceDto;
 import com.example.pet.dto.region.RegionDto;
 import com.example.pet.repository.PlaceRepository;
 import com.example.pet.repository.RegionRepository;
+import com.example.pet.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,26 +30,8 @@ public class PlaceService {
     private PlaceRepository placeRepository;
     @Autowired
     private RegionRepository regionRepository;
-
-    //전체 장소 조회
-    public List<PlaceDto> getAllPlaces() {
-        List<Place> placeList = placeRepository.findAll();
-        List<PlaceDto> placeDtoList = new ArrayList<>();
-
-        for (Place place : placeList) {
-            PlaceDto placeDto = new PlaceDto();
-            placeDto.setPlaceId(place.getPlaceId());
-            placeDto.setAvgRating(place.getAvgRating());
-            placeDto.setReviewCnt(place.getReviewCnt());
-            placeDto.setPlaceTitle(place.getPlaceTitle());
-            placeDto.setPlaceType(place.getPlaceType());
-            placeDto.setImageUrl(place.getImageUrl());
-
-            placeDtoList.add(placeDto);
-        }
-
-        return placeDtoList;
-    }
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     // 장소 상세 조회하기
     public PlaceDetailDto getPlaceDetail(int placeId) {
@@ -74,5 +63,63 @@ public class PlaceService {
             return placeDetailDto;
         }
         return null;
+    }
+
+    //전체 장소 조회
+    public List<PlaceDto> getAllPlaces() {
+        List<Place> placeList = placeRepository.findAll();
+        updateReviewStats(placeList);
+        return convertToPlaceDtoList(placeList);
+    }
+
+    //타입별 장소 조회
+    public List<PlaceDto> getPlacesByPlaceType(String placeType) {
+        List<Place> placeList = placeRepository.findByPlaceType(placeType);
+        updateReviewStats(placeList);
+        return convertToPlaceDtoList(placeList);
+    }
+
+    // 지역별 장소 조회
+    public List<PlaceDto> getPlacesByRegionId(int regionId) {
+        List<Place> placeList = placeRepository.findByRegionId(regionId);
+        updateReviewStats(placeList);
+        return convertToPlaceDtoList(placeList);
+    }
+
+    //타입 & 지역별 장소 조회
+    public List<PlaceDto> getPlacesByTypeAndRegion(String placeType, Integer regionId) {
+        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionId(placeType, regionId);
+        updateReviewStats(placeList);
+        return convertToPlaceDtoList(placeList);
+    }
+
+    // Place 리스트를 PlaceDto 리스트로 변환하는 메서드
+    private List<PlaceDto> convertToPlaceDtoList(List<Place> placeList) {
+        List<PlaceDto> placeDtoList = new ArrayList<>();
+        for (Place place : placeList) {
+            PlaceDto placeDto = new PlaceDto();
+            placeDto.setPlaceId(place.getPlaceId());
+            placeDto.setAvgRating(place.getAvgRating());
+            placeDto.setReviewCnt(place.getReviewCnt());
+            placeDto.setPlaceTitle(place.getPlaceTitle());
+            placeDto.setPlaceType(place.getPlaceType());
+            placeDto.setImageUrl(place.getImageUrl());
+
+            placeDtoList.add(placeDto);
+        }
+        return placeDtoList;
+    }
+
+    // 각 장소의 리뷰 개수와 평균 평점을 계산하여 PlaceDto에 설정
+    public void updateReviewStats(List<Place> placeList) {
+        for (Place place : placeList) {
+            int reviewCount = reviewRepository.countByPlaceId(place.getPlaceId());
+            double averageRating = reviewRepository.calculateAverageRatingByPlaceId(place.getPlaceId());
+
+            place.setReviewCnt(reviewCount);
+            place.setAvgRating(averageRating);
+
+            placeRepository.save(place);  // 변경 사항 저장
+        }
     }
 }
