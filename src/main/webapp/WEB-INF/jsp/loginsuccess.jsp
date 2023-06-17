@@ -23,7 +23,7 @@
             },
             success: function (id) {
                 console.log(id);
-                location.href = "http://localhost:8088/mypage/" + id;
+                location.href = "http://localhost:8088/main/" + id;
             }
         })
     }

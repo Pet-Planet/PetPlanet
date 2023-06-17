@@ -69,7 +69,7 @@ public class MemberController {
 
         log.info("headers : " + headers);
 
-        return "main";
+        return "loginsuccess";
     }
     // jwt 토큰으로 유저정보 요청하기
     @GetMapping("/memberinfo")

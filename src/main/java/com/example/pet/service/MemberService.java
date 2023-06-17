@@ -141,6 +141,14 @@ public class MemberService {
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
     }
 
+    public Member findMe(int memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                ()->new IllegalArgumentException("해당 회원이 존재하지 않습니다.")
+        );
+
+        return member;
+    }
+
     public Member getMember(HttpServletRequest request) {
         int memberId = (int) request.getAttribute("memberId");
 
