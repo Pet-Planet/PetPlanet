@@ -1,9 +1,6 @@
 <% String jwtToken = response.getHeader("Authorization"); %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.Enumeration" %>
-<%@ page import="org.springframework.http.HttpHeaders" %>
-<%@ page import="org.springframework.http.ResponseEntity" %>
 <!DOCTYPE html>
 <html>
 <head>
