@@ -22,7 +22,7 @@ public class MypageService {
     private final BoardRepository boardRepository;
 
     public Member getMember(HttpServletRequest request) {
-       int memberId = (int) request.getAttribute("memberId");
+        int memberId = (int) request.getAttribute("memberId");
 
         Member member = memberRepository.findByMemberId(memberId);
 
