@@ -1,7 +1,6 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.board.GetBoardDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -16,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-//@Controller
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/mypage")
 public class MypageController {
@@ -25,21 +23,10 @@ public class MypageController {
     private final MypageService mypageService;
     private final BoardService boardService;
 
-    // 유저 정부 추가 및 수정하기
-    @PutMapping("/edit")
-    public ResponseEntity memberUpdate(HttpServletRequest request, @RequestBody MemberUpdateRequestDto requestDto) {
-        int id = mypageService.getMember(request).getMemberId();
-        Member member = mypageService.memberUpdate(id, requestDto);
-
-        return ResponseEntity.ok().body(member);
-    }
-
     // 내 개인정보 보기 => 상세보기 눌러야함
-
     @GetMapping("")
     public String findMe(HttpServletRequest request, Model model) {
         int id = mypageService.getMember(request).getMemberId();
-        System.out.println(id);
 
         MemberResponseDto memberResponseDto = mypageService.findMe(id);
         model.addAttribute("member", memberResponseDto);
@@ -47,11 +34,29 @@ public class MypageController {
         return "mypage";
     }
 
-    // 내가 쓴 글 조회
-    @GetMapping("/boards")
-    public List<BoardListResponseDto> getBoard(HttpServletRequest request) {
+    @GetMapping("/edit")
+    public String showEditForm(HttpServletRequest request, Model model) {
         int memberId = mypageService.getMember(request).getMemberId();
 
-        return mypageService.getBoardList(memberId);
+        // 기존 회원 정보 가져오기
+        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
+        model.addAttribute("member", memberResponseDto);
+
+        return "mypageEdit";
+    }
+
+    @PostMapping("/edit")
+    public String memberUpdate(HttpServletRequest request, @ModelAttribute("member") MemberUpdateRequestDto memberUpdateDto, Model model) {
+        int memberId = mypageService.getMember(request).getMemberId();
+
+        // 회원 정보 업데이트
+        mypageService.memberUpdate(memberId, memberUpdateDto);
+
+        // 수정된 회원 정보 가져오기
+        MemberResponseDto updatedMember = mypageService.findMe(memberId);
+
+        model.addAttribute("member", updatedMember);
+
+        return "mypage";
     }
 }
