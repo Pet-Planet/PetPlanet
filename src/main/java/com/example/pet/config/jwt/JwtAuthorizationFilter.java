@@ -3,8 +3,13 @@
 //import com.auth0.jwt.JWT;
 //import com.auth0.jwt.algorithms.Algorithm;
 //import com.example.pet.repository.MemberRepository;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.AuthenticationException;
+//import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 //import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 //
 //import javax.servlet.FilterChain;
@@ -14,28 +19,20 @@
 //import java.io.IOException;
 //
 //@Slf4j
-//public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
+//@RequiredArgsConstructor
+//public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter {
 //
-//    private MemberRepository memberRepository;
+//    private final AuthenticationManager authenticationManager;
 //
-//    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, MemberRepository memberRepository) {
-//        super(authenticationManager);
-//        this.memberRepository = memberRepository;
-//    }
-//
+//    // login 요청을 하면 로그인 시도를 위해서 실행되는 함수
 //    @Override
-//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-//        // 요청 헤더의 Authorization 항목 값을 가져와 jwtHeader 변수에 담음.
-//        String jwtHeader = ((HttpServletRequest)request).getHeader(JwtProperties.HEADER_STRING);
+//    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+//        log.info("로그인시도 : JwtAuthorizationFilter.attemptAuthentication");
 //
-//        if(jwtHeader == null || !jwtHeader.startsWith(JwtProperties.TOKEN_PREFIX)){
-//            chain.doFilter(request, response);
-//            return;
+//        ObjectMapper om = new ObjectMapper();
+//        try {
+//            //1. username, password 받는다.
+//            // 2. 정상적인 로그인 여부를 검증한다
 //        }
-//
-//        String token = jwtHeader.replace(JwtProperties.TOKEN_PREFIX, "");
-//
-//        int memberId = 0;
-//        PrincipalDetails
 //    }
-//}
+// }

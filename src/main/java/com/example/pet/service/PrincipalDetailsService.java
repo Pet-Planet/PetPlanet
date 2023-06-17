@@ -16,12 +16,14 @@ import javax.servlet.http.HttpSession;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-class PrincipalDetailsService implements UserDetailsService {
+public class PrincipalDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("PrincipalDetailService.loadUserByUsername");
+        log.info("LOGIN");
         Member member = memberRepository.findByKakaoNickname(username);
         // 시큐리티 세션에 유저 정보 저장
         if (member == null) {

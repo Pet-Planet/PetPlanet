@@ -42,7 +42,7 @@
         <td style="width : 120px; text-align: center;">나의 리뷰</td>
     </tr>
     <tr>
-        <td colspan="2"><a href='<c:url value="/"/>'>회원 정보 수정</a></td>
+        <td colspan="2"><a href='<c:url value="/mypage/${memberId}/edit"/>'>회원 정보 수정</a></td>
     </tr>
     <tr>
         <td colspan="2">내가 쓴 글</td>

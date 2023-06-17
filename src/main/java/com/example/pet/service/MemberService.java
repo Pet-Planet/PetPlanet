@@ -36,7 +36,7 @@ import java.util.Date;
 
 @Transactional
 @Service
-public class MemberService implements UserDetailsService {
+public class MemberService {
 
     @Value("${kakao.clientId}")
     String client_id;
@@ -141,6 +141,14 @@ public class MemberService implements UserDetailsService {
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
     }
 
+    public Member findMe(int memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                ()->new IllegalArgumentException("해당 회원이 존재하지 않습니다.")
+        );
+
+        return member;
+    }
+
     public Member getMember(HttpServletRequest request) {
         int memberId = (int) request.getAttribute("memberId");
 
@@ -184,13 +192,5 @@ public class MemberService implements UserDetailsService {
         }
 
         return kakaoProfile;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-        int id = Integer.parseInt(memberId);
-        Member member = memberRepository.findByMemberId(id);
-        // 시큐리티 세션에 유저 정보 저장
-        return new UserAdapter(member);
     }
 }
