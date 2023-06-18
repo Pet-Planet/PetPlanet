@@ -1,4 +1,3 @@
-<% String jwtToken = response.getHeader("Authorization"); %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -7,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
 </head>
+<% String jwtToken = response.getHeader("Authorization"); %>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
     function sendRequest(){
