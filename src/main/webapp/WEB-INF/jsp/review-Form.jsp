@@ -2,17 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <jsp:include page="header.jsp" />
     <title>Create Review</title>
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
         }
 
         .review-form {
             text-align: center;
+            margin-top: auto;
         }
 
         .rating-star {
@@ -31,7 +33,7 @@
             resize: none;
         }
 
-        .submit-button {
+        .review-button {
             background-color: #B9E9FC;
             color: white;
             padding: 10px 20px;
@@ -56,7 +58,8 @@
         <textarea name="content" placeholder="리뷰를 입력해 주세요."></textarea><br>
         <input type="hidden" name="placeId" value="${placeId}">
         <input type="hidden" id="rating" name="rating" value="0">
-        <input type="submit" value="Submit" class="submit-button">
+        <input type="submit" value="등록" class="review-button">
+        <button type="button" onclick="history.back()" class="review-button">취소</button>
     </form>
 </div>
 

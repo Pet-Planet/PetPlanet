@@ -2,17 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <jsp:include page="header.jsp" />
     <title>Edit Review</title>
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
         }
 
         .review-form {
             text-align: center;
+            margin-top: auto;
         }
 
         .rating-star {
@@ -31,7 +33,7 @@
             resize: none;
         }
 
-        .submit-button {
+        .review-button {
             background-color: #B9E9FC;
             color: white;
             padding: 10px 20px;
@@ -44,7 +46,7 @@
 <body>
 <div class="review-form">
     <h1>리뷰 수정</h1>
-    <form action="/review/${memberId}/edit/${reviewId}" method="put">
+    <form action="/review/${memberId}/edit/${reviewId}" method="post">
         <label>별점과 이용 후기를 남겨주세요</label><br/>
         <div>
             <span class="rating-star" data-rating="1" onclick="setRating(1, this)">☆</span>
@@ -53,9 +55,11 @@
             <span class="rating-star" data-rating="4" onclick="setRating(4, this)">☆</span>
             <span class="rating-star" data-rating="5" onclick="setRating(5, this)">☆</span>
         </div><br/>
-        <textarea name="content" placeholder="리뷰를 입력해 주세요.">${review.content}</textarea><br>
+        <textarea name="content">${review.content}</textarea><br>
         <input type="hidden" id="rating" name="rating" value="${review.rating}">
-        <input type="submit" value="Submit" class="submit-button">
+        <input type="hidden" name="placeId" value="${placeId}">
+        <input type="submit" value="수정" class="review-button">
+        <button type="button" onclick="history.back()" class="review-button">취소</button>
     </form>
 </div>
 
@@ -68,7 +72,7 @@
             });
         }
 
-        var initialRating = parseInt("${review.rating}");
+        var initialRating = parseInt(document.getElementById("rating").value);
         if (initialRating > 0) {
             setRating(initialRating, document.querySelector('.rating-star[data-rating="' + initialRating + '"]'));
         }
@@ -88,3 +92,8 @@
 </script>
 </body>
 </html>
+
+
+
+
+
