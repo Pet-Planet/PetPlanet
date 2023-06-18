@@ -25,8 +25,8 @@ public class ReservationController {
        /*
       예약 작성 폼 placeType==hetel -> reservation-FormB.jsp로 이동
         */
-    @GetMapping("/reservation/{memberId]")
-    public String reservationFormA(@PathVariable int memberId, @RequestParam int placeId, Model model){
+    @GetMapping("/reservation/{memberId}")
+    public String reservationForm(@PathVariable int memberId, @RequestParam int placeId, Model model){
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("placeId", placeId);
@@ -47,7 +47,7 @@ public class ReservationController {
     (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
      */
 
-    @PostMapping("/reservation/{memberId]/confirm/a")
+    @PostMapping("/reservation/{memberId}/confirm/a")
     public String checkReservationFormA(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto, Model model){
 
         model.addAttribute("memberId", memberId);
