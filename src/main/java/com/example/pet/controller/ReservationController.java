@@ -4,6 +4,7 @@ import com.example.pet.domain.place.Place;
 import com.example.pet.dto.reservation.ReservationDto;
 import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.repository.PlaceRepository;
+import com.example.pet.repository.ReservationRepository;
 import com.example.pet.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class ReservationController {
 
     private final ReservationService reservationService;
     private final PlaceRepository placeRepository;
+    private final ReservationRepository reservationRepository;
 
 
        /*
@@ -64,7 +66,7 @@ public class ReservationController {
     (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
      */
 
-    @PostMapping("/reservation/confirm/b")
+    @PostMapping("/reservation/{memberId}/confirm/b")
     public String checkReservationFormB(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto){
 
         reservationService.checkFormB(reservationDto);
@@ -79,7 +81,7 @@ public class ReservationController {
      예약하기 API
   */
     @PostMapping("/reservation/{memberId}")
-    public String saveReservationA(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto){
+    public String saveReservation(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto){
 
         reservationService.saveReservation(memberId, reservationDto);
 
@@ -92,15 +94,30 @@ public class ReservationController {
 
 
     /*
-    내가 쓴 예약 조회 API
+    나의 예약 조회 API
      */
 
     @GetMapping("/myPage/{memberId}/reservations")
-    public List<ReservationListDto> getReview(@PathVariable int memberId){
+    public String getReview(@PathVariable int memberId, Model model){
 
-        return reservationService.getMyReservation(memberId);
+        List<ReservationListDto> reservationList = reservationService.getMyReservation(memberId);
+
+        model.addAttribute("reservationList", reservationList);
+
+        return "mypageReservations";
 
     }
 
 
+    /*
+    예약 취소
+     */
+
+    @DeleteMapping("/reservation/{revId}")
+    public String cancelReservation(@PathVariable int revId){
+
+        reservationService.cancelReservation(revId);
+
+        return "redirect:/mypageReservations";
+    }
 }

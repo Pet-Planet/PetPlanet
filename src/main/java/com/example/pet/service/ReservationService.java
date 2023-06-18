@@ -149,6 +149,16 @@ public class ReservationService {
 
 
 
+    /*
+    예약 취소
+     */
+
+    public int cancelReservation(int revId){
+
+        reservationRepository.deleteById(revId);
+
+        return revId;
+    }
 
     }
 

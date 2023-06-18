@@ -15,14 +15,10 @@
 <p>동반 반려동물 수: ${rev.pets}마리</p>
 <p>총 이용금액: ${rev.amount}원</p>
 
-<%--헤더 정보가 안넘어감--%>
-<%
-    String token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW5ldWwwODA0QGRhdW0ubmV0Iiwibmlja25hbWUiOiLsoJXrr7zsp4AiLCJpZCI6MywiZXhwIjoxNjg3NjIwNjQ0fQ.eeI6ocSc4I3AFBqeId78XE7GFnRuY5h6QyZqRz6pDp_BquUOqBIefscIOo8rEA5QV4xpOJPgl4lMdj5HtHiMBg";
-    response.setHeader("Authorization", token);
-%>
 
-<form action="/reservation" method="post" >
+<form action="/reservation/${memberId}" method="post" >
     <input type="hidden" name="placeId" value="${rev.placeId}">
+    <input type="hidden" name="placeName" value="${rev.placeName}">
     <input type="hidden" name="startDate" value="${rev.startDate}">
     <input type="hidden" name="time" value="${rev.time}">
     <input type="hidden" name="revName" value="${rev.revName}">
