@@ -2,14 +2,15 @@ package com.example.pet.domain.board;
 
 import com.example.pet.domain.member.Member;
 import javax.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table
 public class BookMark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
