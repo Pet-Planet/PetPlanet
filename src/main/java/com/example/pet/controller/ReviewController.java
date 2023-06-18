@@ -86,7 +86,7 @@ public class ReviewController {
     내가 쓴 리뷰 조회 API
      */
 
-    @GetMapping("/myPage/{memberId}/reviews")
+    @GetMapping("/mypage/{memberId}/reviews")
     public String getReview(@PathVariable int memberId, Model model){
 
         List<GetReviewDto> reviewList = reviewService.getReviewList(memberId);
