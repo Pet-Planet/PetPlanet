@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/mypage/{memberId}")
+@RequestMapping("/mypage")
 public class MypageController {
 
     private final MypageService mypageService;
