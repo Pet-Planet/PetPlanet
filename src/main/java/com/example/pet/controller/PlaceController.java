@@ -1,18 +1,12 @@
 package com.example.pet.controller;
 
-import com.example.pet.dto.place.PlaceAddDto;
 import com.example.pet.dto.place.PlaceDetailDto;
 import com.example.pet.dto.place.PlaceDto;
-import com.example.pet.dto.reservation.ReservationDto;
 import com.example.pet.service.PlaceService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,8 +35,9 @@ public class PlaceController {
         return "places";
     }
 
-    @PostMapping("/place/filter")
-    public String getPlacesByTypeAndRegion(@RequestParam(value = "placeType", required = false) String placeType,
+    @PostMapping("/places/filter/{memberId}")
+    public String getPlacesByTypeAndRegion(@PathVariable int memberId,
+                                           @RequestParam(value = "placeType", required = false) String placeType,
                                            @RequestParam(value = "regionId", required = false) Integer regionId,
                                            @RequestParam(value = "sortOption", required = false) String sortOption,
                                            Model model) {

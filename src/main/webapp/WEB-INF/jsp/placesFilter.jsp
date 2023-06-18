@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body class="text-center">
-<form id="filterForm" action="/place/filter" method="POST">
+<form id="filterForm" action="/places/filter/${memberId}" method="POST">
     <select class="form-select" aria-label="Default select example" name="placeType">
         <option selected>장소 타입 선택</option>
         <option value="all">전체 선택</option>
