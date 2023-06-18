@@ -48,7 +48,7 @@ public class ReviewController {
 
         reviewService.createReview(memberId, reviewDto);
 
-        return "redirect:/place/placeDetail/" + reviewDto.getPlaceId();
+        return "redirect:/places/" + memberId + "/placeDetail/" + reviewDto.getPlaceId();
     }
 
 
@@ -76,10 +76,7 @@ public class ReviewController {
 
         model.addAttribute("memberId", memberId);
 
-        int placeId = reviewRepository.findById(reviewId).get().getPlace().getPlaceId();
-
-
-        return "redirect:/place/placeDetail/" + placeId;
+        return "redirect:/places/" + memberId + "/placeDetail/" + reviewDto.getPlaceId();
 
     }
 
@@ -107,9 +104,10 @@ public class ReviewController {
 
         reviewService.deleteReview(reviewId);
 
+        int memberId = reviewRepository.findById(reviewId).get().getMember().getMemberId();
         int placeId = reviewRepository.findById(reviewId).get().getPlace().getPlaceId();
 
-        return "redirect:/place/placeDetail/" + placeId;
+        return "redirect:/places/" + memberId + "/placeDetail/" + placeId;
     }
 
 
