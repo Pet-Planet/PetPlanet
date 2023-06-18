@@ -20,7 +20,7 @@
         visibility: hidden;
     }
 </style>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<%--<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>--%>
 <script>
     window.onload=function matchMember () {
         const btn1 = document.getElementById('btnDel');
@@ -30,6 +30,13 @@
             btn1.style.visibility = 'visible';
             btn2.style.visibility = 'visible';
         }
+    }
+
+    function deleteById() {
+        fetch("/board/${memberId}/delete/${postId}", {
+            method: "DELETE"
+        }).then((response) => response.json())
+        location.href="/board/${memberId}";
     }
 </script>
 <body>
@@ -48,7 +55,7 @@
         <div class="inside">
             <button type="button" onclick="location.href='/board/${memberId}'">목록</button>
             <button type="button" id="btnUp" onclick="location.href='/board/${memberId}/update/${postId}'">수정</button>
-            <button type="button" id="btnDel">삭제</button>
+            <button type="button" id="btnDel" onclick="deleteById()">삭제</button>
         </div>
     </div>
 

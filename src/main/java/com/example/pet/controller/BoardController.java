@@ -77,21 +77,16 @@ public class BoardController {
                               Model model) {
         Board board = boardService.boardUpdate(postId, requestDto);
         model.addAttribute("board", board);
-        return "boardOne";
+        return "boardOne"; // 여기서 준걸로 안감
     }
 
     // 게시판 글 삭제
     @DeleteMapping("/{memberId}/delete/{postId}")
     public String boardDelete(@PathVariable int memberId, @PathVariable int postId) {
         BoardResponseDto board = boardService.findOneBoard(postId);
-        if (board.getMemberId() != memberId) {
-            log.info("글을 삭제할 권한이 없습니다.");
-            return null;
-        }
-        else{
-            boardService.boardDelete(postId);
-            return postId + " : 글이 삭제되었습니다.";
-        }
+        boardService.boardDelete(postId);
+
+        return "board";
 
     }
 
