@@ -6,20 +6,34 @@
 <title>PetPlanet🙋‍♀️</title>
 <h1>게시글 작성</h1>
 <script>
-    $(document).ready(function (){
-        $("#btnSave").click(function (){
-            var category = ${"input[name=category]"}.val();
-            var title = ${"#title"}.val();
-            var content = ${"content"}.val();
-            if(title == ""){
-                alert("제목을 입력하세요");
-            }
-            document.form_board.submit();
-        });
-    });
+    <%--var send = document.getElementById("btnSave");--%>
+    <%--send.addEventListener("click", function () {--%>
+    <%--    var form = ${"#form"};--%>
+    <%--    var category = ${"input[name=category]:checked"}.val();--%>
+    <%--    var title = ${"#title"}.val();--%>
+    <%--    var content = ${"content"}.val();--%>
+    <%--    if(title == ""){--%>
+    <%--        alert("제목을 입력하세요");--%>
+    <%--    }--%>
+
+    <%--    form.action = "/board/${memberId}/post";--%>
+    <%--    form.method = "post";--%>
+    <%--    form.submit();--%>
+    <%--});--%>
+    <%--$(function (){--%>
+    <%--    $("#btnSave").click(function (){--%>
+    <%--        var category = ${"input[name=category]:checked"}.val();--%>
+    <%--        var title = ${"#title"}.val();--%>
+    <%--        var content = ${"content"}.val();--%>
+    <%--        if(title == ""){--%>
+    <%--            alert("제목을 입력하세요");--%>
+    <%--        }--%>
+    <%--        document.form_board.submit();--%>
+    <%--    });--%>
+    <%--});--%>
 </script>
 <body>
-<form name="form_board" method="post" action="/board/${memberId}/post">
+<form id="form" name="form_board" method="post" action="/board/${memberId}/post">
     <div>
         <input type="radio" name="category" value="[잡담]" checked/>잡담
         <input type="radio" name="category" value="[질문]"/>질문
@@ -34,8 +48,8 @@
         <textarea name="content" id="content" rows="4" cols="80"></textarea>
     </div>
     <div style="text-align: center">
-        <button type="submit" id="btnSave">확인</button>
-        <button type="reset">취소</button>
+        <button type="submit" id="btnSave">등록</button>
+        <button type="button" onclick="history.back()">취소</button>
     </div>
 </form>
 </body>

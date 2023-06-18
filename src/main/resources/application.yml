@@ -26,6 +26,9 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix=: .jsp
+    hiddenmethod:
+      filter:
+        enabled: true # put, delete 메소드 사용하기 위함
 kakao:
   redirectUrl: http://localhost:8088/oauth/token
 
