@@ -1,7 +1,7 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.GetBoardDto;
+import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.service.BoardService;
@@ -55,6 +55,15 @@ public class MypageController {
         model.addAttribute("member", updatedMember);
 
         return "mypage";
+    }
+
+    // 내가 쓴 글 조회
+    @GetMapping("/{memberId}/posts")
+    public String getMyPosts(@PathVariable int memberId, Model model) {
+        List<BoardListResponseDto> boardList = mypageService.getBoardList(memberId);
+        model.addAttribute("boardList", boardList);
+
+        return "mypagePosts";
     }
 
     // 회원 탈퇴 처리
