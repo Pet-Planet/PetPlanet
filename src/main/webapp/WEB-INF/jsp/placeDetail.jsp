@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,19 +21,39 @@
             </div>
         </div>
     </div>
+    <table>
+        <thead>
+        <tr>
+            <th>리뷰 ID</th>
+            <th>작성자</th>
+            <th>내용</th>
+            <th>평점</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="review" items="${placeDetail.reviews}">
+            <tr>
+                <td>${review.content}</td>
+                <td>${review.rating}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
     <button type="button" class="btn btn-outline-info" onclick="goToReviewForm('${placeDetail.placeId}')">리뷰 쓰기</button>
-    <button type="button" class="btn btn-outline-info" onclick="goToReservationForm('${placeDetail.placeId}')">예약하기</button>
+    <button type="button" class="btn btn-outline-info" onclick="goToReservationForm('${placeDetail.placeType}', '${placeDetail.placeId}')">예약하기</button>
     <script>
         function goToReviewForm(placeId) {
-            window.location.href = '/review?placeId=' + placeId;
+            window.location.href = '/review?placeId='+ placeId;;
         }
 
-        function goToReservationForm(placeId) {
-            window.location.href = '/reservation?placeId=' + placeId;
+        function goToReservationForm(placeType, placeId) {
+            if (placeType === 'hotel') {
+                window.location.href = '/reservation/b?placeId=' + placeId;
+            } else {
+                window.location.href = '/reservation/a?placeId=' + placeId;
+            }
         }
-
     </script>
-
 </div>
 </body>
 </html>
