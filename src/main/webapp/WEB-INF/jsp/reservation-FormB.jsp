@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Reservation Form</h1>
-<form action="/reservation/confirm/b" method="post">
+<form action="/reservation/${memberId}/confirm/b" method="post">
     <input type="hidden" name="placeId" value="${placeId}">
     <label>체크인: <input type="date" name="startDate" required>
         체크아웃: <input type="date" name="endDate" ></label><br>
