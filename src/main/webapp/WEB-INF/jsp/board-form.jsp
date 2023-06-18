@@ -21,9 +21,9 @@
 <body>
 <form name="form_board" method="post" action="/board/${memberId}/post">
     <div>
-        <input type="radio" name="category" value="talk" checked/>잡담
-        <input type="radio" name="category" value="ques"/>질문
-        <input type="radio" name="category" value="info"/>정보
+        <input type="radio" name="category" value="[잡담]" checked/>잡담
+        <input type="radio" name="category" value="[질문]"/>질문
+        <input type="radio" name="category" value="[정보]"/>정보
     </div>
     <div>
         제목
