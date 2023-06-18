@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Getter
@@ -16,6 +17,7 @@ public class BoardListResponseDto {
     private String content;
     private String category;
     private String writer;
+    private LocalDateTime createdDate;
 
     public BoardListResponseDto(Board board) {
         this.postId = board.getPostId();
@@ -23,6 +25,7 @@ public class BoardListResponseDto {
         this.content = board.getContent();
         this.category = board.getCategory();
         this.writer = board.getWriter();
+        this.createdDate = board.getCreatedDate();
     }
 
     public BoardListResponseDto(Optional<Board> board) {

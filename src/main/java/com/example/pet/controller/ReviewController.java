@@ -74,7 +74,6 @@ public class ReviewController {
         int memberId = memberService.getMember(request).getMemberId();
 
         return reviewService.getReviewList(memberId);
-
     }
 
     /*

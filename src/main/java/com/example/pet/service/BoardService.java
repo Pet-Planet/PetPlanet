@@ -23,7 +23,7 @@ public class BoardService {
     // 전체 게시글 조회하기
     public List<BoardListResponseDto> findAllBoard() {
         try {
-            List<Board> boardList = boardRepository.findAll();
+            List<Board> boardList = boardRepository.findAllDesc();
             List<BoardListResponseDto> responseDtoList = new ArrayList<>();
             for (Board board : boardList) {
                 responseDtoList.add(
