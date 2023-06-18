@@ -3,5 +3,6 @@
     #logo { width: 150px;  }
 </style>
 <div>
+    <a href="/main/${memberId}">
     <img id="logo" src="../../img/logo.png"/></a>
 </div>
