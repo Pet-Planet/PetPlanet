@@ -8,6 +8,7 @@ import com.example.pet.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,9 @@ public class ReviewController {
     리뷰 작성 폼
      */
     @GetMapping("/review")
-    public String reviewForm(){
+    public String reviewForm(@RequestParam int placeId, Model model){
+
+        model.addAttribute("placeId", placeId);
 
         return "review-Form";
     }

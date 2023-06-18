@@ -1,15 +1,19 @@
 package com.example.pet.controller;
 
+import com.example.pet.domain.place.Place;
 import com.example.pet.dto.reservation.ReservationDto;
 import com.example.pet.dto.reservation.ReservationResortDto;
+import com.example.pet.repository.PlaceRepository;
 import com.example.pet.service.ReservationService;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,15 +22,21 @@ public class ReservationController {
 
     private final ReservationService reservationService;
     private final MemberService memberService;
+    private final PlaceRepository placeRepository;
 
 
        /*
-      예약 작성 폼 (카페, 운동장, 식당)
+      예약 작성 폼 placeType==hetel -> reservation-FormB.jsp로 이동
         */
-    @GetMapping("/reservation/a")
-    public String reservationFormA(){
+    @GetMapping("/reservation")
+    public String reservationFormA(@RequestParam int placeId, Model model){
 
-//        model.addAttribute("placeId", placeId);
+        model.addAttribute("placeId", placeId);
+        Optional<Place> place = placeRepository.findById(placeId);
+        String placeType = place.get().getPlaceType();
+
+        if("hotel".equals(placeType))
+            return "reservation-FormB";
 
         return "reservation-FormA";
     }
@@ -64,18 +74,6 @@ public class ReservationController {
 
     }
 
-
-
-    /*
-   예약 작성 폼(숙소)
-    */
-    @GetMapping("/reservation/b")
-    public String reservationFormB(){
-
-//        model.addAttribute("placeId", placeId);
-
-        return "reservation-FormB";
-    }
 
 
 
