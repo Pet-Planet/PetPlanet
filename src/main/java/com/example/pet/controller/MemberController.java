@@ -2,11 +2,18 @@ package com.example.pet.controller;
 
 import com.example.pet.config.jwt.JwtProperties;
 import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 
 //@RestController
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
     @Value("${kakao.clientId}")
     String client_id;
@@ -32,6 +41,8 @@ public class MemberController {
     private String KakaoAuthUrl;
 
     private final MemberService memberService;
+
+    HttpServletRequest request = null;
 
     @RequestMapping(value = "/login")
     public String getKakaoAuthUrl(Model model) {
@@ -56,20 +67,25 @@ public class MemberController {
 
         response.setHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
 
-        System.out.println("headers : " + headers);
+        log.info("headers : " + headers);
 
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        UserDetails userDetails = (UserDetails) principal;
-//        String name = userDetails.getUsername();
-        return "main";
+        return "loginsuccess";
     }
     // jwt 토큰으로 유저정보 요청하기
     @GetMapping("/memberinfo")
-    public Member getCurrentUser(HttpServletRequest request) {
+    @ResponseBody
+    public int getCurrentUser(HttpServletRequest request) {
         Member member = memberService.getMember(request);
+        int memberId = member.getMemberId();
+        log.info("현재 회원 id : " + memberId);
+        return memberId;
+    }
 
-        System.out.println("회원 : " + member);
-        return member;
+    // 현재 멤버 조회
+    @GetMapping("/member")
+    public String findMember() {
+
+        return "index";
     }
 
 

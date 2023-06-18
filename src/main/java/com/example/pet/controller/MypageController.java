@@ -24,19 +24,17 @@ public class MypageController {
     private final BoardService boardService;
 
     // 내 개인정보 보기 => 상세보기 눌러야함
-    @GetMapping("")
-    public String findMe(HttpServletRequest request, Model model) {
-        int id = mypageService.getMember(request).getMemberId();
 
-        MemberResponseDto memberResponseDto = mypageService.findMe(id);
+    @GetMapping("/{memberId}")
+    public String findMe(@PathVariable int memberId, Model model) {
+        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
         model.addAttribute("member", memberResponseDto);
 
         return "mypage";
     }
 
-    @GetMapping("/edit")
-    public String showEditForm(HttpServletRequest request, Model model) {
-        int memberId = mypageService.getMember(request).getMemberId();
+    @GetMapping("/{memberId}/edit")
+    public String showEditForm(@PathVariable int memberId, Model model) {
 
         // 기존 회원 정보 가져오기
         MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
@@ -45,9 +43,8 @@ public class MypageController {
         return "mypageEdit";
     }
 
-    @PostMapping("/edit")
-    public String memberUpdate(HttpServletRequest request, @ModelAttribute("member") MemberUpdateRequestDto memberUpdateDto, Model model) {
-        int memberId = mypageService.getMember(request).getMemberId();
+    @PostMapping("/{memberId}/edit")
+    public String memberUpdate(@PathVariable int memberId, @ModelAttribute("member") MemberUpdateRequestDto memberUpdateDto, Model model) {
 
         // 회원 정보 업데이트
         mypageService.memberUpdate(memberId, memberUpdateDto);
