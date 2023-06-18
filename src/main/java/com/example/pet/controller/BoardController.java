@@ -66,11 +66,18 @@ public class BoardController {
     }
 
     // 게시판 글 수정
+    @GetMapping("/{memberId}/update/{postId}")
+    public String boardUpdateForm(@PathVariable int memberId, @PathVariable int postId, Model model) {
+        BoardResponseDto board = boardService.findOneBoard(postId);
+        model.addAttribute("board", board);
+        return "board-update";
+    }
     @PutMapping("/{memberId}/update/{postId}")
-    public ResponseEntity boardUpdate(@PathVariable int memberId, @PathVariable int postId, @RequestBody BoardUpdateRequestDto requestDto) {
+    public String boardUpdate(@PathVariable int memberId, @PathVariable int postId, @ModelAttribute("board") BoardUpdateRequestDto requestDto,
+                              Model model) {
         Board board = boardService.boardUpdate(postId, requestDto);
-
-        return ResponseEntity.ok().body(board);
+        model.addAttribute("board", board);
+        return "boardOne";
     }
 
     // 게시판 글 삭제
