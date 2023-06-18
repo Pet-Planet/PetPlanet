@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/mypage")
+@RequestMapping("/mypage/{memberId}")
 public class MypageController {
 
     private final MypageService mypageService;
@@ -55,5 +55,13 @@ public class MypageController {
         model.addAttribute("member", updatedMember);
 
         return "mypage";
+    }
+
+    // 회원 탈퇴 처리
+    @PostMapping("/{memberId}/withdraw")
+    public String withdrawMember(@PathVariable int memberId) {
+        mypageService.withdrawMember(memberId);
+
+        return "withdrawn";
     }
 }

@@ -58,4 +58,12 @@ public class MypageService {
         }
         return boardDtoList;
     }
+
+    // 회원 탈퇴
+    public void withdrawMember(int id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+
+        memberRepository.delete(member);
+    }
 }
