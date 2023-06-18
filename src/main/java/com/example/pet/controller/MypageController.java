@@ -17,15 +17,14 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/mypage")
+@RequestMapping("/mypage/{memberId}")
 public class MypageController {
 
     private final MypageService mypageService;
-    private final BoardService boardService;
 
     // 내 개인정보 보기 => 상세보기 눌러야함
 
-    @GetMapping("/{memberId}")
+    @GetMapping("")
     public String findMe(@PathVariable int memberId, Model model) {
         MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
         model.addAttribute("member", memberResponseDto);
@@ -33,7 +32,7 @@ public class MypageController {
         return "mypage";
     }
 
-    @GetMapping("/{memberId}/edit")
+    @GetMapping("/edit")
     public String showEditForm(@PathVariable int memberId, Model model) {
 
         // 기존 회원 정보 가져오기
@@ -43,7 +42,7 @@ public class MypageController {
         return "mypageEdit";
     }
 
-    @PostMapping("/{memberId}/edit")
+    @PostMapping("/edit")
     public String memberUpdate(@PathVariable int memberId, @ModelAttribute("member") MemberUpdateRequestDto memberUpdateDto, Model model) {
 
         // 회원 정보 업데이트
@@ -58,7 +57,7 @@ public class MypageController {
     }
 
     // 내가 쓴 글 조회
-    @GetMapping("/{memberId}/posts")
+    @GetMapping("/posts")
     public String getMyPosts(@PathVariable int memberId, Model model) {
         List<BoardListResponseDto> boardList = mypageService.getBoardList(memberId);
         model.addAttribute("boardList", boardList);
@@ -67,7 +66,7 @@ public class MypageController {
     }
 
     // 회원 탈퇴 처리
-    @PostMapping("/{memberId}/withdraw")
+    @PostMapping("/withdraw")
     public String withdrawMember(@PathVariable int memberId) {
         mypageService.withdrawMember(memberId);
 
