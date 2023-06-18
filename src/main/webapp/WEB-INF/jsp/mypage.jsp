@@ -54,6 +54,6 @@
         <td colspan="2">북마크</td>
     </tr>
 </table>
-<a href='<c:url value="/"/>'>탈퇴하기</a>
+<a href='<c:url value="/mypage/${memberId}/withdraw"/>'>탈퇴하기</a>
 </body>
 </html>

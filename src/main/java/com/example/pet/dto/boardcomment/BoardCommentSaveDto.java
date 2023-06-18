@@ -19,4 +19,9 @@ public class BoardCommentSaveDto {
                 .writer(writer)
                 .build();
     }
+
+    @Builder
+    public BoardCommentSaveDto(String content) {
+        this.content = content;
+    }
 }
