@@ -26,12 +26,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class PlaceService {
-    @Autowired
-    private PlaceRepository placeRepository;
-    @Autowired
-    private RegionRepository regionRepository;
-    @Autowired
-    private ReviewRepository reviewRepository;
+    private final PlaceRepository placeRepository;
+    private final RegionRepository regionRepository;
+    private final ReviewRepository reviewRepository;
 
     // 장소 상세 조회하기
     public PlaceDetailDto getPlaceDetail(int placeId) {
@@ -58,8 +55,9 @@ public class PlaceService {
             placeDetailDto.setReviewCnt(place.getReviewCnt());
             placeDetailDto.setPrice(place.getPrice());
             placeDetailDto.setImageUrl(place.getImageUrl());
-            placeDetailDto.setRegionName(regionName);
-
+            placeDetailDto.setAddress(place.getAddress());
+            placeDetailDto.setRegion(place.getRegion());
+            placeDetailDto.setReviews(place.getReviews());
             return placeDetailDto;
         }
         return null;
@@ -110,16 +108,19 @@ public class PlaceService {
         return placeDtoList;
     }
 
-    // 각 장소의 리뷰 개수와 평균 평점을 계산하여 PlaceDto에 설정
-    public void updateReviewStats(List<Place> placeList) {
+    // 각 장소의 리뷰 수와 평균 평점을 업데이트하는 메서드
+    private void updateReviewStats(List<Place> placeList) {
         for (Place place : placeList) {
-            int reviewCount = reviewRepository.countByPlaceId(place.getPlaceId());
-            double averageRating = reviewRepository.calculateAverageRatingByPlaceId(place.getPlaceId());
-
-            place.setReviewCnt(reviewCount);
-            place.setAvgRating(averageRating);
-
-            placeRepository.save(place);  // 변경 사항 저장
+            int reviewCnt = reviewRepository.countByPlaceId(place.getPlaceId());
+            Double avgRating = 0.0;
+            if (reviewRepository.calculateAverageRatingByPlaceId(place.getPlaceId()) == null)
+                avgRating = 0.0;
+            else {
+                avgRating = reviewRepository.calculateAverageRatingByPlaceId(place.getPlaceId());
+            }
+            place.setReviewCnt(reviewCnt);
+            place.setAvgRating(avgRating);
         }
+        placeRepository.saveAll(placeList);
     }
 }

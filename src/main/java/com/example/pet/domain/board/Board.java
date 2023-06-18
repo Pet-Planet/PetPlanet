@@ -33,7 +33,7 @@ public class Board extends BaseEntity {
     private String content;
     @Column
     private String writer;
-    @Column(nullable = false)
+    @Column
     private String category;
 
     @ManyToOne(fetch = FetchType.LAZY) // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
