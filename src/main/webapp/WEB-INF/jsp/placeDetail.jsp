@@ -21,20 +21,20 @@
         </div>
     </div>
     <button type="button" class="btn btn-outline-info" onclick="goToReviewForm()">리뷰 쓰기</button>
-    <button type="button" class="btn btn-outline-info" onclick="goToReservationForm('${placeDetail.placeType}')">예약하기</button>
+    <button type="button" class="btn btn-outline-info" onclick="goToReservationForm('${placeDetail.placeType}', '${placeDetail.placeId}')">예약하기</button>
     <script>
         function goToReviewForm() {
             window.location.href = '/review';
         }
 
-        function goToReservationForm(placeType) {
+        function goToReservationForm(placeType, placeId) {
             if (placeType === 'hotel') {
-                window.location.href = '/reservation/b';
+                window.location.href = '/reservation/b?placeId=' + placeId;
             } else {
-                window.location.href = '/reservation/a';
+                window.location.href = '/reservation/a?placeId=' + placeId;
             }
-
         }
+
     </script>
 
 </div>
