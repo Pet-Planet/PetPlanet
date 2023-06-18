@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" isELIgnored="false"%>
 <html>
-<title>PetPlanet🙋‍♀️</title>
 <h1>게시글 작성</h1>
 <script>
     <%--var send = document.getElementById("btnSave");--%>

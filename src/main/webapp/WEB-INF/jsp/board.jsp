@@ -7,7 +7,6 @@
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 
 <html>
-<title>PetPlanet🙋‍♀️</title>
 <script>
     $(document).ready(function (){
         $("#btnWrite").click(function (){

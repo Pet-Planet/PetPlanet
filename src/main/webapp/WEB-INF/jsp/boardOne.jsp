@@ -5,7 +5,6 @@
 
 <%--글 한 개 조회하는 페이지--%>
 <html>
-<title>Pet planet</title>
 <%@ include file="header.jsp"%>
 <style>
     div.boardOne {
