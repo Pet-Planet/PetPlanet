@@ -54,6 +54,7 @@
             <span class="rating-star" data-rating="5" onclick="setRating(5, this)">☆</span>
         </div><br/>
         <textarea name="content" placeholder="리뷰를 입력해 주세요."></textarea><br>
+        <input type="hidden" name="placeId" value="${placeId}">
         <input type="hidden" id="rating" name="rating" value="0">
         <input type="submit" value="Submit" class="submit-button">
     </form>

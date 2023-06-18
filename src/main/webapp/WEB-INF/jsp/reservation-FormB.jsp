@@ -7,8 +7,7 @@
 <body>
 <h1>Reservation Form</h1>
 <form action="/reservation/confirm/b" method="post">
-    <%--   임의 <input type="hidden" name="placeId" value="${placeId}">--%>
-    <input type="hidden" name="placeId" value="6">
+    <input type="hidden" name="placeId" value="${placeId}">
     <label>체크인: <input type="date" name="startDate" required>
         체크아웃: <input type="date" name="endDate" ></label><br>
     <label>이용인원: <input type="number" name="guests" required>
