@@ -1,8 +1,11 @@
 package com.example.pet.service;
 
+import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
+import com.example.pet.domain.member.Member;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
 import com.example.pet.repository.BoardCommentRepository;
+import com.example.pet.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +18,34 @@ import java.util.List;
 public class BoardCommentService {
 
     private final BoardCommentRepository boardCommentRepository;
+    private final BoardRepository boardRepository;
 
     //댓글 작성
-    public BoardComment saveBoardComment(BoardCommentSaveDto dto) {
-        BoardComment comment = boardCommentRepository.save(dto.toEntity());
-        return comment;
+//    public BoardComment saveBoardComment(Member member, BoardCommentSaveDto dto) {
+//        dto.setMemberId(member.getMemberId());
+//
+//        BoardComment comment = boardCommentRepository.save(dto.toEntity());
+//        comment.setMember(member);
+//
+//        return comment;
+//    }
+
+    public BoardComment saveBoardComment(Member member, BoardCommentSaveDto dto) {
+        dto.setMemberId(member.getMemberId());
+
+        BoardComment comment = dto.toEntity(); // BoardComment 객체를 먼저 생성
+
+        // 게시물(Board)을 가져와서 연결
+        Board board = boardRepository.findById(dto.getPostId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid board ID"));
+        comment.setBoard(board);
+
+        // 회원(Member)을 가져와서 연결
+        comment.setMember(member);
+
+        BoardComment savedComment = boardCommentRepository.save(comment);
+
+        return savedComment;
     }
 
     //댓글 조회

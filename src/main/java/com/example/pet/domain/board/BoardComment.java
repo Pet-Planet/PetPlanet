@@ -26,7 +26,7 @@ public class BoardComment extends BaseEntity {
     private String writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "post_id")
     @JsonBackReference
     private Board board;
 

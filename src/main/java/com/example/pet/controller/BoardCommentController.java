@@ -1,5 +1,6 @@
 package com.example.pet.controller;
 
+import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
@@ -24,14 +25,10 @@ public class BoardCommentController {
 
     // 댓글 등록
     @PostMapping("/comment")
-    public ResponseEntity<BoardComment> saveBoardComment(HttpServletRequest request, @PathVariable int postId, @RequestBody BoardCommentSaveDto dto) {
+    public ResponseEntity<BoardComment> saveBoardComment(HttpServletRequest request, BoardCommentSaveDto dto) {
         Member member = memberService.getMember(request);
 
-        // 필요한 처리가 있을 경우 member 정보를 dto에 설정
-        dto.setMemberId(member.getMemberId());
-        dto.setPostId(postId);  // 게시물 ID 설정
-
-        BoardComment comment = boardCommentService.saveBoardComment(dto);
+        BoardComment comment = boardCommentService.saveBoardComment(member, dto);
 
         return ResponseEntity.ok(comment);
     }
