@@ -30,7 +30,6 @@ public class ReservationDto {
     private int guests;
     private int pets;
     private int amount;
-    private int status;
 
 
     //dto -> entity
@@ -41,6 +40,7 @@ public class ReservationDto {
                 .revName(revName)
                 .phoneNum(phoneNum)
                 .startDate(startDate)
+                .endDate(endDate)
                 .time(time)
                 .guests(guests)
                 .pets(pets)

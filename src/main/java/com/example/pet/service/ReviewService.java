@@ -74,6 +74,7 @@ public class ReviewService {
         List<Review> reviewList = reviewRepository.findByMember_MemberIdOrderByCreatedDateDesc(memberId);
 
         List<GetReviewDto> reviewDtoList = new ArrayList<>();
+
         for(Review review : reviewList) {
             GetReviewDto reviewDto = new GetReviewDto(
                     review.getMember().getMemberId(), review.getPlace().getPlaceTitle(), review.getMember().getNickname(),

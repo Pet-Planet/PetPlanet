@@ -43,15 +43,12 @@
     <button type="button" class="btn btn-outline-info" onclick="goToReservationForm('${placeDetail.placeType}', '${placeDetail.placeId}')">예약하기</button>
     <script>
         function goToReviewForm(placeId) {
-            window.location.href = '/review?placeId=' + placeId + '&memberId=' + ${memberId};
+            window.location.href = '/review/${memberId}/?placeId='+ placeId;
         }
 
         function goToReservationForm(placeType, placeId) {
-            if (placeType === 'hotel') {
-                window.location.href = '/reservation/b?placeId=' + placeId + '&memberId=' + ${memberId};
-            } else {
-                window.location.href = '/reservation/a?placeId=' + placeId + '&memberId=' + ${memberId};
-            }
+
+            window.location.href = '/reservation/${memberId}/?placeId=' + placeId;
         }
     </script>
 </div>
