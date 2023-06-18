@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Reservation Form</h1>
-<form action="/reservation/confirm/a" method="post">
+<form action="/reservation/${memberId}/confirm/a" method="post">
                     <input type="hidden" name="placeId" value="${placeId}">
     <label>예약일자: <input type="date" name="startDate" required>
            예약시간: <input type="time" name="time" ></label><br>

@@ -3,6 +3,7 @@ package com.example.pet.controller;
 import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.dto.review.ReviewDto;
 import com.example.pet.dto.review.ReviewEditDto;
+import com.example.pet.repository.ReviewRepository;
 import com.example.pet.service.MemberService;
 import com.example.pet.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,16 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final MemberService memberService;
+    private final ReviewRepository reviewRepository;
 
 
     /*
     리뷰 작성 폼
      */
-    @GetMapping("/review")
-    public String reviewForm(@RequestParam int placeId, Model model){
+    @GetMapping("/review/{memberId}")
+    public String reviewForm(@PathVariable int memberId, @RequestParam int placeId, Model model){
 
+        model.addAttribute("memberId", memberId);
         model.addAttribute("placeId", placeId);
 
         return "review-Form";
@@ -40,51 +43,71 @@ public class ReviewController {
     리뷰 작성 API
      */
 
-    @PostMapping("/review")
-    public String createReview(HttpServletRequest request, @ModelAttribute("review") ReviewDto reviewDto){
-
-        int memberId = memberService.getMember(request).getMemberId();
+    @PostMapping("/review/{memberId}")
+    public String createReview(@PathVariable int memberId, @ModelAttribute("review") ReviewDto reviewDto){
 
         reviewService.createReview(memberId, reviewDto);
 
-        // 추후 리뷰작성 성공시 장소 상세페이지로 리다이렉트로 수정
-       return "review-success";
+        return "redirect:/places/" + memberId + "/placeDetail/" + reviewDto.getPlaceId();
     }
+
+
+    /*
+    리뷰 수정 폼
+     */
+    @GetMapping("/review/{memberId}/edit/{reviewId}")
+    public String reviewEditForm(@PathVariable int memberId, @RequestParam int placeId, Model model){
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("placeId", placeId);
+
+        return "review-Edit";
+    }
+
+
 
     /*
     리뷰 수정 API
      */
-    @PutMapping("/review/edit/{reviewId}")
-    public String editReview(@PathVariable int reviewId, @ModelAttribute("review") ReviewEditDto reviewDto){
+    @PutMapping("/review/{memberId}/edit/{reviewId}")
+    public String editReview(@PathVariable int memberId, @PathVariable int reviewId, @ModelAttribute("review") ReviewEditDto reviewDto, Model model){
 
         reviewService.editReview(reviewId, reviewDto);
 
-        // 추후 리뷰수정 성공시 장소 상세페이지로 리다이렉트로 수정
-        return "review-success";
+        model.addAttribute("memberId", memberId);
+
+        return "redirect:/places/" + memberId + "/placeDetail/" + reviewDto.getPlaceId();
 
     }
 
-
-        /*
+    /*
     내가 쓴 리뷰 조회 API
      */
 
-    @GetMapping("/myPage/reviews")
-    public List<GetReviewDto> getReview(HttpServletRequest request){
-        int memberId = memberService.getMember(request).getMemberId();
+    @GetMapping("/myPage/{memberId}/reviews")
+    public String getReview(@PathVariable int memberId, Model model){
 
-        return reviewService.getReviewList(memberId);
+        List<GetReviewDto> reviewList = reviewService.getReviewList(memberId);
+
+        model.addAttribute("reviewList", reviewList);
+
+        return "mypageReviews";
     }
+
+
 
     /*
     리뷰 삭제
      */
     @DeleteMapping("/review/{reviewId}")
-    public int deleteReview(@PathVariable int reviewId){
+    public String deleteReview(@PathVariable int reviewId){
 
-        int id = reviewService.deleteReview(reviewId);
+        reviewService.deleteReview(reviewId);
 
-        return id;
+        int memberId = reviewRepository.findById(reviewId).get().getMember().getMemberId();
+        int placeId = reviewRepository.findById(reviewId).get().getPlace().getPlaceId();
+
+        return "redirect:/places/" + memberId + "/placeDetail/" + placeId;
     }
 
 
