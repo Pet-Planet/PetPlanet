@@ -37,7 +37,7 @@
 </c:choose>
 <script>
     function goToPlaceDetail(placeId) {
-        window.location.href = '${memberId}/placeDetail/' + placeId;
+        window.location.href = '/places/${memberId}/placeDetail/' + placeId;
     }
 </script>
 <!-- 부트스트랩 JavaScript -->
