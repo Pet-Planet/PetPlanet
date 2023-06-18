@@ -2,6 +2,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" isELIgnored="false"%>
+<jsp:useBean id="now" class="java.util.Date" />
+<%--현재 시간--%>
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+
 <html>
 <title>PetPlanet🙋‍♀️</title>
 <script>
@@ -26,11 +30,21 @@
         <tr>
             <td>${row.postId}</td>
             <td>${row.category}</td>
-            <td>${row.title}</td>
+            <td><a href="/board/${memberId}/post/${row.postId}" >${row.title}</a></td>
             <td>${row.writer}</td>
             <td>
-                <fmt:parseDate value="${ row.createdDate }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-                <fmt:formatDate pattern="yy.MM.dd HH:mm" value="${ parsedDateTime }" />
+                <fmt:parseDate value="${ row.createdDate }" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
+                <fmt:formatDate value="${ createdTime }" pattern="yyyy-MM-dd" var="time" />
+                <c:choose>
+                    <c:when test="${time < today}">
+                        ${time}
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:formatDate value="${ createdTime }" pattern="HH:mm" var="time2" />
+                        ${time2}
+                    </c:otherwise>
+
+                </c:choose>
             </td>
 
         </tr>

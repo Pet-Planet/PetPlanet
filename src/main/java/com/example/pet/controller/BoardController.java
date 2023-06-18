@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 
@@ -35,6 +36,9 @@ public class BoardController {
     public String getAllBoard(@PathVariable int memberId, Model model) {
         List<BoardListResponseDto> boardList = boardService.findAllBoard();
         model.addAttribute("boardList", boardList);
+
+        Date now = new Date();
+        model.addAttribute("now", now);
         return "board";
     }
 
