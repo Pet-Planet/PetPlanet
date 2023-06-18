@@ -42,9 +42,6 @@ public class Reservation extends BaseEntity {
 
     private int amount;
 
-    @ColumnDefault("0")
-    private int status; //예약 완료(0) 및 취소(1) 여부
-
     private int guests;
 
     private int pets;
@@ -61,11 +58,6 @@ public class Reservation extends BaseEntity {
     private Place place;
 
 
-
-    // 예약상태 변경
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
 
 }

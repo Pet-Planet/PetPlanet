@@ -4,7 +4,8 @@ import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.dto.reservation.ReservationDto;
-import com.example.pet.dto.reservation.ReservationResortDto;
+import com.example.pet.dto.reservation.ReservationListDto;
+import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.repository.MemberRepository;
 import com.example.pet.repository.PlaceRepository;
 import com.example.pet.repository.ReservationRepository;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,19 +32,18 @@ public class ReservationService {
 
 
     /*
-    예약정보 입력 폼 (카페, 운동장, 식당 전용)
+    예약정보 입력 (카페, 운동장, 식당 전용)
      */
 
     public void checkFormA(ReservationDto reservationDto){
 
         Optional<Place> place = placeRepository.findById(reservationDto.getPlaceId());
 
-        //총 이용금액 구하기
+        //총 입장료 계산
         int guests = reservationDto.getGuests();
         int price = place.get().getPrice();
 
-        int amount = 0;
-        amount = guests * price;
+        int amount = guests * price;
 
         reservationDto.setAmount(amount);
 
@@ -52,48 +54,32 @@ public class ReservationService {
     }
 
 
-    /*
-    카페, 운동장, 식당 예약
-    */
-    public Reservation saveReservationA(int memberId, ReservationDto reservationDto) {
 
-        Optional<Member> member = memberRepository.findById(memberId);
+
+    /*
+    예약정보 입력 (숙소 전용)
+     */
+
+    public void checkFormB(ReservationDto reservationDto){
+
         Optional<Place> place = placeRepository.findById(reservationDto.getPlaceId());
 
-        Reservation reservation = reservationRepository.save(reservationDto.toEntity());
+        LocalDate checkInDate = reservationDto.getStartDate();
+        LocalDate checkOutDate = reservationDto.getEndDate();
 
-        reservation.setMember(member.get());
-        reservation.setPlace(place.get());
-
-
-        return reservation;
-    }
-
-
-    /*
-    예약정보 입력 폼 (숙소 전용)
-     */
-
-    public void checkFormB(ReservationResortDto reservationResortDto){
-
-        Optional<Place> place = placeRepository.findById(reservationResortDto.getPlaceId());
-
-        LocalDate checkInDate = reservationResortDto.getStartDate();
-        LocalDate checkOutDate = reservationResortDto.getEndDate();
-
-        int price = place.get().getPrice(); //  총 결제금액 저장 로직
-        reservationResortDto.setAmount(resortAmount(price, checkInDate, checkOutDate));
+        int price = place.get().getPrice();     // 숙박요금 계산
+        reservationDto.setAmount(hotelAmount(price, checkInDate, checkOutDate));
 
         String placeName = place.get().getPlaceTitle();
-        reservationResortDto.setPlaceName(placeName);
+        reservationDto.setPlaceName(placeName);
 
 
     }
 
-        /*
-    결제 금액 구하기
+    /*
+    숙소 결제 금액 구하기
      */
-    public int resortAmount(int price, LocalDate checkIn, LocalDate checkOut) {
+    public int hotelAmount(int price, LocalDate checkIn, LocalDate checkOut) {
 
         int totalPrice = 0;
         LocalDateTime date1 = checkIn.atStartOfDay();
@@ -109,15 +95,16 @@ public class ReservationService {
 
 
 
+
     /*
-    숙소 예약하기
+       예약하기
     */
-    public Reservation saveReservationB(int memberId, ReservationResortDto reservationResortDto) {
+    public Reservation saveReservation(int memberId, ReservationDto reservationDto) {
 
         Optional<Member> member = memberRepository.findById(memberId);
-        Optional<Place> place = placeRepository.findById(reservationResortDto.getPlaceId());
+        Optional<Place> place = placeRepository.findById(reservationDto.getPlaceId());
 
-        Reservation reservation = reservationRepository.save(reservationResortDto.toEntity());
+        Reservation reservation = reservationRepository.save(reservationDto.toEntity());
 
         reservation.setMember(member.get());
         reservation.setPlace(place.get());
@@ -125,6 +112,41 @@ public class ReservationService {
 
         return reservation;
     }
+
+
+
+    /*
+    나의 예약리스트 조회
+     */
+
+    @Transactional(readOnly = true)
+    public List<ReservationListDto> getMyReservation(int memberId) {
+
+        List<Reservation> reservationList =
+                reservationRepository.findByMember_MemberIdOrderByCreatedDateDesc(memberId);
+
+        List<ReservationListDto> reservationListDtoList = new ArrayList<>();
+
+        for(Reservation reservation : reservationList){
+
+            ReservationListDto reservationListDto = new ReservationListDto(
+                    reservation.getId(), reservation.getMember().getMemberId(),
+                    reservation.getPlace().getPlaceTitle(),
+                    reservation.getStartDate(),
+                    reservation.getGuests(), reservation.getPets(),
+                    reservation.getPlace().getImageUrl()
+            );
+
+            reservationListDtoList.add(reservationListDto);
+
+    }
+
+        return reservationListDtoList;
+
+
+
+    }
+
 
 
 

@@ -21,7 +21,7 @@
     response.setHeader("Authorization", token);
 %>
 
-<form action="/reservation/a" method="post" >
+<form action="/reservation" method="post" >
     <input type="hidden" name="placeId" value="${rev.placeId}">
     <input type="hidden" name="startDate" value="${rev.startDate}">
     <input type="hidden" name="time" value="${rev.time}">
