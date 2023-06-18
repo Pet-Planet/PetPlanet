@@ -22,8 +22,8 @@ public class PlaceController {
     private final PlaceService placeService;
 
     //장소 id로 장소 상세보기
-    @GetMapping("/place/placeDetail/{placeId}")
-    public String getPlaceDetail(@PathVariable int placeId, Model model) {
+    @GetMapping("places/{memberId}/placeDetail/{placeId}")
+    public String getPlaceDetail(@PathVariable int placeId, @PathVariable int memberId, Model model) {
         PlaceDetailDto placeDetailDto = placeService.getPlaceDetail(placeId);
         if (placeDetailDto != null) {
             model.addAttribute("placeDetail", placeDetailDto);
@@ -34,33 +34,32 @@ public class PlaceController {
     }
 
     //전체 장소 조회
-    @GetMapping("/place/all")
-    public String getAllPlaces(Model model) {
+    @GetMapping("/places/{memberId}")
+    public String getAllPlaces(@PathVariable int memberId, Model model) {
         List<PlaceDto> places = placeService.getAllPlaces();
         model.addAttribute("places", places);
-        return "placeAll";
+        return "places";
     }
 
-    @GetMapping("/place/search")
+    @PostMapping("/place/filter")
     public String getPlacesByTypeAndRegion(@RequestParam(value = "placeType", required = false) String placeType,
                                            @RequestParam(value = "regionId", required = false) Integer regionId,
-                                           @RequestParam(value = "sort", required = false) String sortOption,
+                                           @RequestParam(value = "sortOption", required = false) String sortOption,
                                            Model model) {
-
         // 장소 타입별로 조회
         List<PlaceDto> places;
-        if (placeType != null && regionId != null) {
-            // placeType과 regionId가 모두 지정된 경우
-            places = placeService.getPlacesByTypeAndRegion(placeType, regionId);
-        } else if (placeType != null) {
+        // 전체 장소, 전체 지역
+        if (placeType.equals("all") && regionId == -1) {
+            places = placeService.getAllPlaces();
+        } else if (!placeType.equals("all") && regionId == -1) {
             // placeType만 지정된 경우
             places = placeService.getPlacesByPlaceType(placeType);
-        } else if (regionId != null) {
+        } else if (placeType.equals("all") && regionId != -1) {
             // regionId만 지정된 경우
             places = placeService.getPlacesByRegionId(regionId);
         } else {
-            // placeType과 regionId가 모두 지정되지 않은 경우, 전체 장소 조회
-            places = placeService.getAllPlaces();
+            // placeType과 regionId가 모두 지정된 경우
+            places = placeService.getPlacesByTypeAndRegion(placeType, regionId);
         }
 
         if (sortOption != null) {
@@ -76,6 +75,6 @@ public class PlaceController {
         }
 
         model.addAttribute("places", places);
-        return "placeSearchForm";
+        return "places";
     }
 }
