@@ -3,7 +3,9 @@ package com.example.pet.dto.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
 @Getter
 @NoArgsConstructor
 public class MemberUpdateRequestDto {
@@ -11,19 +13,6 @@ public class MemberUpdateRequestDto {
     private String address;
     private String petType;
     private String petName;
-
-    public String getNickname() {
-        return nickname;
-    }
-    public String getAddress() {
-        return address;
-    }
-    public String getPetType() {
-        return petType;
-    }
-    public String getPetName() {
-        return petName;
-    }
 
     @Builder
     public MemberUpdateRequestDto(String nickname, String address, String petType, String petName) {
