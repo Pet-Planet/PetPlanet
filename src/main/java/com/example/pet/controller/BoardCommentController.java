@@ -1,8 +1,11 @@
 package com.example.pet.controller;
 
+import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
+import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.service.BoardCommentService;
 import com.example.pet.service.MemberService;
@@ -24,14 +27,10 @@ public class BoardCommentController {
 
     // 댓글 등록
     @PostMapping("/comment")
-    public ResponseEntity<BoardComment> saveBoardComment(HttpServletRequest request, @PathVariable int postId, @RequestBody BoardCommentSaveDto dto) {
+    public ResponseEntity<BoardComment> saveBoardComment(HttpServletRequest request, BoardCommentSaveDto dto) {
         Member member = memberService.getMember(request);
 
-        // 필요한 처리가 있을 경우 member 정보를 dto에 설정
-        dto.setMemberId(member.getMemberId());
-        dto.setPostId(postId);  // 게시물 ID 설정
-
-        BoardComment comment = boardCommentService.saveBoardComment(dto);
+        BoardComment comment = boardCommentService.saveBoardComment(member, dto);
 
         return ResponseEntity.ok(comment);
     }
@@ -46,18 +45,16 @@ public class BoardCommentController {
 
     // 댓글 수정
     @PutMapping("/update/{commentId}")
-    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int postId, @PathVariable int commentId, @RequestBody String newContent) {
-        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, newContent);
-        if (updatedComment != null) {
-            return ResponseEntity.ok(updatedComment);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int commentId, @RequestBody BoardCommentUpdateRequestDto requestDto) {
+        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, requestDto);
+
+        return ResponseEntity.ok(updatedComment);
     }
+
 
     // 댓글 삭제
     @DeleteMapping("/delete/{commentId}")
-    public ResponseEntity<Void> deleteBoardComment(@PathVariable int postId, @PathVariable int commentId) {
+    public ResponseEntity<Void> deleteBoardComment(@PathVariable int commentId) {
         boardCommentService.deleteBoardComment(commentId);
 
         return ResponseEntity.noContent().build();

@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-</head>
+
 <% String jwtToken = response.getHeader("Authorization"); %>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
@@ -25,11 +20,21 @@
             }
         })
     }
-
-
 </script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Planet</title>
+    <jsp:include page="header.jsp" />
+</head>
 <body>
-<h1>환영합니다</h1>
-<button type="button" onclick="sendRequest()">PET Planet 시작하기</button>
+    <%--대표 이미지 같은거 들어가면 좋을 것 같아요--%>
+    <div>
+        <img width="300" src="../../img/image01.jpg">
+    </div>
+    <div>
+        <button type="button" onclick="sendRequest()">PET Planet 시작하기</button>
+    </div>
 </body>
 </html>
