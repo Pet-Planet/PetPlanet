@@ -18,4 +18,5 @@ public class PlaceDto {
     private int reviewCnt;
     private int price;
     private String imageUrl;
+    private int memberId;
 }

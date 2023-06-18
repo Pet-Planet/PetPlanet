@@ -15,5 +15,5 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     int countByPlaceId(int placeId);
 
     @Query("SELECT AVG(r.rating) FROM Review r WHERE r.place.placeId=:placeId")
-    double calculateAverageRatingByPlaceId(int placeId);
+    Double calculateAverageRatingByPlaceId(int placeId);
 }

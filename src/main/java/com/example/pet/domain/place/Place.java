@@ -44,6 +44,9 @@ public class Place {
     @Column
     private String imageUrl;
 
+    @Column
+    private String address;
+
     @OneToOne(cascade = CascadeType.ALL)  //한 장소는 하나의 지역만을 가진다.
     @JoinColumn(name = "region_id")
     private Region region;
