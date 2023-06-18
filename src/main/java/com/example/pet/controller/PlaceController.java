@@ -46,7 +46,6 @@ public class PlaceController {
                                            @RequestParam(value = "regionId", required = false) Integer regionId,
                                            @RequestParam(value = "sortOption", required = false) String sortOption,
                                            Model model) {
-
         // 장소 타입별로 조회
         List<PlaceDto> places;
         // 전체 장소, 전체 지역
