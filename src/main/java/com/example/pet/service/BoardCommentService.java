@@ -3,7 +3,9 @@ package com.example.pet.service;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
+import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
 import com.example.pet.repository.BoardCommentRepository;
 import com.example.pet.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +21,6 @@ public class BoardCommentService {
 
     private final BoardCommentRepository boardCommentRepository;
     private final BoardRepository boardRepository;
-
-    //댓글 작성
-//    public BoardComment saveBoardComment(Member member, BoardCommentSaveDto dto) {
-//        dto.setMemberId(member.getMemberId());
-//
-//        BoardComment comment = boardCommentRepository.save(dto.toEntity());
-//        comment.setMember(member);
-//
-//        return comment;
-//    }
 
     public BoardComment saveBoardComment(Member member, BoardCommentSaveDto dto) {
         dto.setMemberId(member.getMemberId());
@@ -58,17 +50,18 @@ public class BoardCommentService {
         return boardCommentRepository.findBoardCommentsByBoard(postId);
     }
 
+    //댓글 수정
+    public BoardComment updateBoardComment(int id, BoardCommentUpdateRequestDto requestDto) {
+        BoardComment boardComment = boardCommentRepository.findById(id).orElseThrow
+                (() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id = "+id));
+        boardComment.update(requestDto);
+
+        return boardCommentRepository.save(boardComment);
+    }
+
     //댓글 삭제
     public void deleteBoardComment(int commentId) {
         boardCommentRepository.deleteById(commentId);
-    }
-
-    //댓글 수정
-    public BoardComment updateBoardComment(int commentId, String newContent) {
-        BoardComment comment = getBoardCommentById(commentId);
-        comment.setContent(newContent);
-
-        return boardCommentRepository.save(comment);
     }
 
     // 회원이 쓴 댓글 조회

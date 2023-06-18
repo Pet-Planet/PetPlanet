@@ -3,7 +3,9 @@ package com.example.pet.controller;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
+import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.service.BoardCommentService;
 import com.example.pet.service.MemberService;
@@ -43,18 +45,16 @@ public class BoardCommentController {
 
     // 댓글 수정
     @PutMapping("/update/{commentId}")
-    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int postId, @PathVariable int commentId, @RequestBody String newContent) {
-        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, newContent);
-        if (updatedComment != null) {
-            return ResponseEntity.ok(updatedComment);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int commentId, @RequestBody BoardCommentUpdateRequestDto requestDto) {
+        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, requestDto);
+
+        return ResponseEntity.ok(updatedComment);
     }
+
 
     // 댓글 삭제
     @DeleteMapping("/delete/{commentId}")
-    public ResponseEntity<Void> deleteBoardComment(@PathVariable int postId, @PathVariable int commentId) {
+    public ResponseEntity<Void> deleteBoardComment(@PathVariable int commentId) {
         boardCommentService.deleteBoardComment(commentId);
 
         return ResponseEntity.noContent().build();
