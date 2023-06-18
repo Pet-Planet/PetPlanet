@@ -28,7 +28,7 @@ public class BookMarkController {
         return "북마크 취소";
     }
     // 내가 한 북마크 글 모두 보기
-    @GetMapping("/mypage/{memberId}/bookmark")
+    @GetMapping("/mypage/{memberId}/bookmarks")
     public ResponseEntity getAllBookMark(@PathVariable int memberId) {
         List<BookMarkDto> bookMarkList = bookMarkService.findAllBookMark();
         return ResponseEntity.ok().body(bookMarkList);
