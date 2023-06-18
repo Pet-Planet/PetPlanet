@@ -90,9 +90,17 @@ public class Member extends BaseEntity {
     }
 
     public void memberUpdate(MemberUpdateRequestDto requestDto) {
-        this.nickname = requestDto.getNickname();
-        this.address = requestDto.getAddress();
-        this.petName = requestDto.getPetName();
-        this.petType = requestDto.getPetType();
+        if (requestDto.getNickname() != null) {
+            this.nickname = requestDto.getNickname();
+        }
+        if (requestDto.getAddress() != null) {
+            this.address = requestDto.getAddress();
+        }
+        if (requestDto.getPetName() != null) {
+            this.petName = requestDto.getPetName();
+        }
+        if (requestDto.getPetType() != null) {
+            this.petType = requestDto.getPetType();
+        }
     }
 }

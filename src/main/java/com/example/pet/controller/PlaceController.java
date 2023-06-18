@@ -76,6 +76,6 @@ public class PlaceController {
         }
 
         model.addAttribute("places", places);
-        return "placeAll";
+        return "placeSearchForm";
     }
 }

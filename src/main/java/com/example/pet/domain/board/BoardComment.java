@@ -2,6 +2,9 @@ package com.example.pet.domain.board;
 
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.BoardUpdateRequestDto;
+import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
+import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -26,7 +29,7 @@ public class BoardComment extends BaseEntity {
     private String writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "post_id")
     @JsonBackReference
     private Board board;
 
@@ -35,4 +38,9 @@ public class BoardComment extends BaseEntity {
     @JsonBackReference
     private Member member;
 
+    public void update(BoardCommentUpdateRequestDto requestDto) {
+        if (requestDto.getContent() != null) {
+            this.content = requestDto.getContent();
+        }
+    }
 }
