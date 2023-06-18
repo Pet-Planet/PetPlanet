@@ -1,10 +1,10 @@
 package com.example.pet.controller;
 
+import com.example.pet.domain.review.Review;
 import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.dto.review.ReviewDto;
 import com.example.pet.dto.review.ReviewEditDto;
 import com.example.pet.repository.ReviewRepository;
-import com.example.pet.service.MemberService;
 import com.example.pet.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -22,7 +21,6 @@ public class ReviewController {
 
 
     private final ReviewService reviewService;
-    private final MemberService memberService;
     private final ReviewRepository reviewRepository;
 
 
@@ -56,10 +54,12 @@ public class ReviewController {
     리뷰 수정 폼
      */
     @GetMapping("/review/{memberId}/edit/{reviewId}")
-    public String reviewEditForm(@PathVariable int memberId, @RequestParam int placeId, Model model){
+    public String reviewEditForm(@PathVariable int memberId, @PathVariable int reviewId, @RequestParam int placeId, Model model){
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("placeId", placeId);
+        Review review = reviewRepository.findById(reviewId).get();
+        model.addAttribute("review", review);
 
         return "review-Edit";
     }
@@ -69,14 +69,16 @@ public class ReviewController {
     /*
     리뷰 수정 API
      */
-    @PutMapping("/review/{memberId}/edit/{reviewId}")
+    @PostMapping("/review/{memberId}/edit/{reviewId}")
     public String editReview(@PathVariable int memberId, @PathVariable int reviewId, @ModelAttribute("review") ReviewEditDto reviewDto, Model model){
 
-        reviewService.editReview(reviewId, reviewDto);
+        Review editedReview = reviewService.editReview(reviewId, reviewDto);
 
-        model.addAttribute("memberId", memberId);
+        int placeId = editedReview.getPlace().getPlaceId();
 
-        return "redirect:/places/" + memberId + "/placeDetail/" + reviewDto.getPlaceId();
+        model.addAttribute("review", editedReview);
+
+        return "redirect:/places/" + memberId + "/placeDetail/" + placeId;
 
     }
 
