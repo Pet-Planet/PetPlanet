@@ -12,12 +12,12 @@
     $(document).ready(function (){
         $("#btnWrite").click(function (){
             //페이지 이동
-            location.href = "/board/write";
+            location.href = "/board/${memberId}/post";
         });
     });
 </script>
 <body>
-<button type="button" id="btnWrite">작성하기</button>
+<button type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
 <table border="1" width="600px">
     <tr>
         <th>번호</th>

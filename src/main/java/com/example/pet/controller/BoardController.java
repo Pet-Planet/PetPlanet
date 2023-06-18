@@ -44,19 +44,25 @@ public class BoardController {
 
     // 게시글 하나 조회
     @GetMapping("/{memberId}/post/{postId}")
-    public BoardResponseDto getOneBoard(@PathVariable int postId, @PathVariable int memberId) {
-
-        return boardService.findOneBoard(postId);
+    public String getOneBoard(@PathVariable int postId, @PathVariable int memberId, Model model) {
+        BoardResponseDto dto = boardService.findOneBoard(postId);
+        model.addAttribute("board", dto);
+        return "boardOne";
     }
 
-    // 게시판 글 등록
+    // 게시판 글 등록 폼
+    @GetMapping("/{memberId}/post")
+    public String write(@PathVariable int memberId, Model model){
+        model.addAttribute("memberId", memberId);
+        return "board-form";
+    }
     @PostMapping("/{memberId}/post")
-    public ResponseEntity boardSave(@PathVariable int memberId, @RequestBody BoardDto boardDto) {
+    public String boardSave(@PathVariable int memberId, @ModelAttribute("board") BoardDto boardDto) {
         Member member = memberService.findMe(memberId);
 
-        boardService.boardSave(member, boardDto);
-
-        return ResponseEntity.ok().body(boardDto.getMemberId() + "success");
+        Board board = boardService.boardSave(member, boardDto);
+        int postId = board.getPostId();
+        return "redirect:/board/{memberId}/post/" + postId;
     }
 
     // 게시판 글 수정
