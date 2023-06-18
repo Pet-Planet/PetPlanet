@@ -18,7 +18,7 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="<c:url value="../../img/image01.jpg"/>" width="100" height="100">
+                            <img src="<c:url value='${place.imageUrl}'/>" width="100" height="100" decoding="async">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

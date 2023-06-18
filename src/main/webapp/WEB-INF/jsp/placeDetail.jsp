@@ -9,7 +9,7 @@
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="<c:url value="../../img/image01.jpg"/>" width="100" height="100">  <%--이미지도 읽어오도록 추후 수정 --%>
+                <img src="<c:url value='${placeDetail.imageUrl}'/>" width="100" height="100" decoding="async" loading="lazy">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -43,15 +43,12 @@
     <button type="button" class="btn btn-outline-info" onclick="goToReservationForm('${placeDetail.placeType}', '${placeDetail.placeId}')">예약하기</button>
     <script>
         function goToReviewForm(placeId) {
-            window.location.href = '/review?placeId=' + placeId + '&memberId=' + ${memberId};
+            window.location.href = '/review/${memberId}/?placeId='+ placeId;
         }
 
         function goToReservationForm(placeType, placeId) {
-            if (placeType === 'hotel') {
-                window.location.href = '/reservation/b?placeId=' + placeId + '&memberId=' + ${memberId};
-            } else {
-                window.location.href = '/reservation/a?placeId=' + placeId + '&memberId=' + ${memberId};
-            }
+
+            window.location.href = '/reservation/${memberId}/?placeId=' + placeId;
         }
     </script>
 </div>
