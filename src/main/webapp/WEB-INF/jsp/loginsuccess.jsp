@@ -25,7 +25,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Pet Planet</title>
     <jsp:include page="header.jsp" />
 </head>
 <body>
