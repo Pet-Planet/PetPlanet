@@ -7,6 +7,7 @@
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 
 <html>
+<title>PetPlanet🙋‍♀️</title>
 <script>
     $(document).ready(function (){
         $("#btnWrite").click(function (){
@@ -16,7 +17,6 @@
     });
 </script>
 <jsp:include page="header.jsp" />
-<jsp:include page="menu.jsp" />
 <style>
     #board {
         margin-left: auto;
@@ -42,43 +42,42 @@
 </style>
 
 <body>
-    <div id="btn">
-        <button id="btnwrite" type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
-    </div>
-    <div>
-        <table id="board">
+<div id="btn">
+    <button id="btnwrite" type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
+</div>
+<div>
+    <table id="board">
+        <tr>
+            <th>번호</th>
+            <th>카테고리</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        <c:forEach var="row" items="${boardList}">
             <tr>
-                <th>번호</th>
-                <th>카테고리</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>조회수</th>
-            </tr>
-            <c:forEach var="row" items="${boardList}">
-                <tr>
-                    <td>${row.postId}</td>
-                    <td>${row.category}</td>
-                    <td><a href="/board/${memberId}/post/${row.postId}" >${row.title}</a></td>
-                    <td>${row.writer}</td>
-                    <td>
-                        <fmt:parseDate value="${ row.createdDate }" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
-                        <fmt:formatDate value="${ createdTime }" pattern="yyyy-MM-dd" var="time" />
-                        <c:choose>
-                            <c:when test="${time < today}">
-                                ${time}
-                            </c:when>
-                            <c:otherwise>
-                                <fmt:formatDate value="${ createdTime }" pattern="HH:mm" var="time2" />
-                                ${time2}
-                            </c:otherwise>
+                <td>${row.postId}</td>
+                <td>${row.category}</td>
+                <td><a href="/board/${memberId}/post/${row.postId}" >${row.title}</a></td>
+                <td>${row.writer}</td>
+                <td>
+                    <fmt:parseDate value="${ row.createdDate }" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
+                    <fmt:formatDate value="${ createdTime }" pattern="yyyy-MM-dd" var="time" />
+                    <c:choose>
+                        <c:when test="${time < today}">
+                            ${time}
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:formatDate value="${ createdTime }" pattern="HH:mm" var="time2" />
+                            ${time2}
+                        </c:otherwise>
 
-                        </c:choose>
-                    </td>
-                    <td>${row.countView}</td>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
+                    </c:choose>
+                </td>
+
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 </body>
 </html>
