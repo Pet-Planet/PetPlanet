@@ -13,7 +13,10 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class PlaceController {
+
+
     private final PlaceService placeService;
+
 
     //장소 id로 장소 상세보기
     @GetMapping("places/{memberId}/placeDetail/{placeId}")
@@ -27,6 +30,7 @@ public class PlaceController {
         }
     }
 
+
     //전체 장소 조회
     @GetMapping("/places/{memberId}")
     public String getAllPlaces(@PathVariable int memberId, Model model) {
@@ -34,6 +38,7 @@ public class PlaceController {
         model.addAttribute("places", places);
         return "places";
     }
+
 
     @PostMapping("/places/filter/{memberId}")
     public String getPlacesByTypeAndRegion(@PathVariable int memberId,

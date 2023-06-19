@@ -65,14 +65,15 @@ public class BoardController {
     @GetMapping("/post")
     public String write(@PathVariable int memberId, Model model){
         model.addAttribute("memberId", memberId);
+
         return "board-form";
     }
     @PostMapping("/post")
     public String boardSave(@PathVariable int memberId, @ModelAttribute("board") BoardDto boardDto) {
         Member member = memberService.findMe(memberId);
-
         Board board = boardService.boardSave(member, boardDto);
         int postId = board.getPostId();
+
         return "redirect:/board/{memberId}/post/" + postId;
     }
 
@@ -102,7 +103,6 @@ public class BoardController {
         boardService.boardDelete(postId);
 
         return "board";
-
     }
 
     // 제목으로 검색하기

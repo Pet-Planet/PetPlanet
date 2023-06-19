@@ -20,7 +20,7 @@ public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private int Id;
+    private int id;
 
     @Column
     private int rating; //평점 1~5
@@ -37,7 +37,6 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "place_id")
     @JsonBackReference
     private Place place;
-
 
     public void editReview(int rating, String content){
         this.rating = rating;
