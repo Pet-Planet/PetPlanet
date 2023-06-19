@@ -32,7 +32,6 @@
                 <br>
                 ${member.petType} (${member.petName})
         </td>
-        <td>쪽지</td>
     </tr>
 </table>
 <br>
@@ -45,13 +44,13 @@
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/edit"/>'>회원 정보 수정</a></td>
     </tr>
     <tr>
-        <td colspan="2">내가 쓴 글</td>
+        <td colspan="2"><a href='<c:url value="/mypage/${memberId}/posts"/>'>내가 쓴 글</a></td>
     </tr>
     <tr>
-        <td colspan="2">내가 쓴 댓글</td>
+        <td colspan="2"><a href='<c:url value="/mypage/${memberId}/comments"/>'>내가 쓴 댓글</a></td>
     </tr>
     <tr>
-        <td colspan="2">북마크</td>
+        <td colspan="2"><a href='<c:url value="/mypage/${memberId}/bookmarks"/>'>북마크</a></td>
     </tr>
 </table>
 <a href='<c:url value="/mypage/${memberId}/withdraw"/>'>탈퇴하기</a>

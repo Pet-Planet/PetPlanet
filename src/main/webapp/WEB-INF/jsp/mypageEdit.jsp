@@ -36,7 +36,7 @@
 </head>
 <body>
 <h1>회원 수정</h1>
-<form action="/mypage/edit" method="post">
+<form action="/mypage/${memberId}/edit" method="post">
     <table>
         <tr>
             <td>닉네임</td>
@@ -55,6 +55,8 @@
                 <select name="petType">
                     <option value="강아지">강아지</option>
                     <option value="고양이">고양이</option>
+                    <option value="햄스터">햄스터</option>
+                    <option value="토끼">토끼</option>
                     <option value="새">새</option>
                 </select>
         </tr>
