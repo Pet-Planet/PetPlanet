@@ -20,7 +20,7 @@ public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private int Id;
+    private int id;
 
     @Column
     private int rating; //평점 1~5
