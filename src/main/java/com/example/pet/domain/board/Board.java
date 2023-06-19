@@ -53,4 +53,8 @@ public class Board extends BaseEntity {
         this.content = requestDto.getContent();
         this.category = requestDto.getCategory();
     }
+
+    public void updateView (int countView) {
+        this.countView = countView;
+    }
 }
