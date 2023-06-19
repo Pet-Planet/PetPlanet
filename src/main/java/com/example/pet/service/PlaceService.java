@@ -2,9 +2,11 @@ package com.example.pet.service;
 
 import com.example.pet.domain.place.Place;
 import com.example.pet.domain.place.Region;
+import com.example.pet.domain.review.Review;
 import com.example.pet.dto.place.PlaceDetailDto;
 import com.example.pet.dto.place.PlaceDto;
 import com.example.pet.dto.region.RegionDto;
+import com.example.pet.dto.review.ReviewEditDto;
 import com.example.pet.repository.PlaceRepository;
 import com.example.pet.repository.RegionRepository;
 import com.example.pet.repository.ReviewRepository;
@@ -50,7 +52,22 @@ public class PlaceService {
             placeDetailDto.setImageUrl(place.getImageUrl());
             placeDetailDto.setAddress(place.getAddress());
             placeDetailDto.setRegion(place.getRegion());
-            placeDetailDto.setReviews(place.getReviews());
+
+            // 리뷰 DTO 리스트를 설정합니다.
+            List<Review> reviews = place.getReviews();
+            List<ReviewEditDto> reviewDtos = new ArrayList<>();
+            for (Review review : reviews) {
+                ReviewEditDto reviewDto = new ReviewEditDto();
+                reviewDto.setId(review.getId());
+                reviewDto.setMemberId(review.getMember().getMemberId());
+                reviewDto.setPlaceId(review.getPlace().getPlaceId());
+                reviewDto.setNickName(review.getMember().getNickname());
+                reviewDto.setRating(review.getRating());
+                reviewDto.setContent(review.getContent());
+                reviewDto.setWrittenDate(review.getLastModifiedDate());
+                reviewDtos.add(reviewDto);
+            }
+            placeDetailDto.setReviews(reviewDtos);
             return placeDetailDto;
         }
         return null;
@@ -100,7 +117,6 @@ public class PlaceService {
         }
         return placeDtoList;
     }
-
     // 각 장소의 리뷰 수와 평균 평점을 업데이트하는 메서드
     private void updateReviewStats(List<Place> placeList) {
         for (Place place : placeList) {

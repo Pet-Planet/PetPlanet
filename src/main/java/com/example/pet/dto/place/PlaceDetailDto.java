@@ -1,6 +1,6 @@
 package com.example.pet.dto.place;
 import com.example.pet.domain.place.Region;
-import com.example.pet.domain.review.Review;
+import com.example.pet.dto.review.ReviewEditDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +23,6 @@ public class PlaceDetailDto {
     private String imageUrl;
     private String address;
     private Region region;
-    private List<Review> reviews;
+    private List<ReviewEditDto> reviews;
 
 }
