@@ -25,18 +25,19 @@
     div#boardBtn {
         float: left;
     }
-    #btnDel, #btnUp, #create, #cancle{
+    #btnDel, #btnUp {
         visibility: hidden;
     }
+    #create, #cancel {
+        display: inline-block;
+    }
 </style>
-<%--<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>--%>
 <script>
     window.onload=function matchMember () {
         const btn1 = document.getElementById('btnDel');
         const btn2 = document.getElementById('btnUp');
-        const cancel = document.getElementById('cancel');
-        const bookmark = document.getElementById('create');
-
+        const btnCancel = document.getElementById('cancel');
+        const btnBookmark = document.getElementById('create');
         if(${board.memberId} == ${memberId}) {
             btn1.style.visibility = 'visible';
             btn2.style.visibility = 'visible';
@@ -48,23 +49,22 @@
                 "Content-Type" : "application/json",
             },
             body: JSON.stringify({
-                "postId": ${postId},
-                "memberId": ${memberId}
+                postId: ${postId},
+                memberId: ${memberId}
             }),
         }).then((response) => response.json())
             .then((data) => {
                 console.log(data);
                 if(data) {
-                    cancel.style.visibility = "visible";
-                    bookmark.style.visibility = "hidden";
+                    btnCancel.style.display = "inline-block";
+                    btnBookmark.style.display = "none";
                 }
                 else {
-                    bookmark.style.visibility = "visible";
-                    cancel.style.visibility = "hidden";
+                    btnBookmark.style.display = "inline-block";
+                    btnCancel.style.display = "none";
                 }
 
             });
-
     }
 
     function deleteById() {
@@ -73,21 +73,38 @@
         }).then((response) => response.json())
         location.href="/board/${memberId}";
     }
-    function bookmark() {
-        fetch("/board/${memberId}/post/${postId}/bookmark", {
-            method: "POST"
-        }).then((response) => console.log("response", response))
-
-        // 버튼 클릭하면 북마크 버튼 사라지고 북마크 취소 버튼 나타나기
-
-
-
+    function createBookmark() {
+        const btnCancel = document.getElementById('cancel');
+        const btnBookmark = document.getElementById('create');
+        btnCancel.style.display = "inline-block";
+        btnBookmark.style.display = "none";
+        fetch("/bookmark/create", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify({
+                postId: ${postId},
+                memberId: ${memberId}
+            }),
+        }).then((response) => console.log(response));
 
     }
-    function bookmarkCancel() {
-        fetch("/board/${memberId}/post/${postId}/bookmark", {
-            method: "DELETE"
-        }).then((response) => console.log("response", response))
+    function cancelBookmark() {
+        const btnCancel = document.getElementById('cancel');
+        const btnBookmark = document.getElementById('create');
+        btnBookmark.style.display = "inline-block";
+        btnCancel.style.display = "none";
+        fetch("/bookmark/delete", {
+            method: "DELETE",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify({
+                postId: ${postId},
+                memberId: ${memberId}
+            }),
+        }).then((response) => console.log(response));
 
     }
 </script>
@@ -113,8 +130,8 @@
                 <button type="button" id="btnDel" onclick="deleteById()">삭제</button>
             </div>
             <div id="bookmark">
-                <button class="bookmarkBtn" id="create" type="button" onclick="bookmark()">북마크</button>
-                <button class="bookmarkBtn" id="cancel" type="button" onclick="bookmarkCancel()">북마크 취소</button>
+                <button class="bookmarkBtn" id="create" type="button" onclick="createBookmark()">북마크</button>
+                <button class="bookmarkBtn" id="cancel" type="button" onclick="cancelBookmark()">북마크 취소</button>
             </div>
         </div>
     </div>

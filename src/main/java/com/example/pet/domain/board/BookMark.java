@@ -24,7 +24,7 @@ public class BookMark {
     private Member member;
 
     @ManyToOne // Many = BookMark, Board = One 한 개의 게시글은 여러개의 북마크를 가질 수 있다.
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="post_id")
     @JsonBackReference
     private Board board;
 }

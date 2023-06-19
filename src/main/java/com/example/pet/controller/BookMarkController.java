@@ -18,18 +18,18 @@ public class BookMarkController {
     private final BookMarkService bookMarkService;
 
     // 북마크 하기
-    @PostMapping("/board/{memberId}/post/{postId}/bookmark")
+    @PostMapping("/bookmark/create")
     @ResponseBody
-    public String create(@PathVariable int memberId, @PathVariable int postId) {
+    public String create(@RequestBody BookMarkDto bookMarkDto) {
         log.info("북마크 생성");
-        bookMarkService.create(memberId, postId);
+        bookMarkService.create(bookMarkDto.getMemberId(), bookMarkDto.getPostId());
         return "성공";
     }
     
     // 북마크 취소하기 => 자유게시판 해당 글에서 북마크 버튼으로
-    @DeleteMapping("/board/{memberId}/post/{postId}/bookmark")
-    public String delete(@PathVariable int memberId, @PathVariable int postId) {
-        bookMarkService.delete(memberId, postId);
+    @DeleteMapping("/bookmark/delete")
+    public String delete(@RequestBody BookMarkDto bookMarkDto) {
+        bookMarkService.delete(bookMarkDto.getMemberId(), bookMarkDto.getPostId());
         return "북마크 취소";
     }
     // 내가 한 북마크 글 모두 보기
