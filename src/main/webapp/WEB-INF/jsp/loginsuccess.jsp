@@ -30,10 +30,10 @@
 <body>
     <%--대표 이미지 같은거 들어가면 좋을 것 같아요--%>
     <div>
-        <img width="300" src="../../img/image01.jpg">
+        <img width="550" src="/img/main_img.png">
     </div>
     <div>
-        <button type="button" onclick="sendRequest()">PET Planet 시작하기</button>
+        <a onclick="sendRequest()"><img width="350" src="/img/loginOKbtn.png"/></a>
     </div>
 </body>
 </html>
