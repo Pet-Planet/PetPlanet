@@ -48,7 +48,7 @@ public class BoardService {
     public Board boardSave(Member member, BoardDto boardDto) {
         boardDto.setMemberId(member.getMemberId());
         boardDto.setWriter(member.getKakaoNickname());
-
+        boardDto.setCountView(0);
         Board board = boardRepository.save(boardDto.toEntity());
 
         board.setMember(member);
