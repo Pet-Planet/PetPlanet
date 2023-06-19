@@ -3,6 +3,7 @@ package com.example.pet.service;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
 import com.example.pet.domain.reservation.Reservation;
+import com.example.pet.dto.reservation.ReservationDetailDto;
 import com.example.pet.dto.reservation.ReservationDto;
 import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.dto.review.GetReviewDto;
@@ -111,6 +112,23 @@ public class ReservationService {
 
 
         return reservation;
+    }
+
+    /*
+    예약 상세보기
+     */
+    @Transactional(readOnly = true)
+    public ReservationDetailDto getReservationDetail(int revId){
+
+        Reservation reservation = reservationRepository.findById(revId).get();
+
+        ReservationDetailDto reservationDto = new ReservationDetailDto(
+                reservation.getId(), reservation.getPlace().getPlaceId(), reservation.getMember().getMemberId(),
+                reservation.getPlace().getPlaceTitle(), reservation.getRevName(), reservation.getPhoneNum(),
+                reservation.getCreatedDate(), reservation.getStartDate(), reservation.getEndDate(), reservation.getTime(),
+                reservation.getGuests(), reservation.getPets(), reservation.getAmount(), reservation.getPlace().getAddress());
+
+        return reservationDto;
     }
 
 
