@@ -60,7 +60,7 @@ public class BookMarkService {
         if (bookMark == null) {
             return 0;
         }else
-            return 1;
+            return bookMark.getBookmarkId();
     }
 
     // 내가 북마크한 글 보기
