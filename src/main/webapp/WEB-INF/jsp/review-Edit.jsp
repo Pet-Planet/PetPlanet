@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <jsp:include page="header.jsp" />
     <title>Edit Review</title>
     <style>
         body {
@@ -14,7 +13,8 @@
 
         .review-form {
             text-align: center;
-            margin-top: auto;
+            margin-top: 100px;
+            margin-bottom: 100px;
             border: 3px solid #B9E9FC;
             border-radius: 10px;
             background-color: white;
@@ -49,8 +49,12 @@
             width: 100px;
             text-align: center;
             border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
         }
     </style>
+    <jsp:include page="header.jsp" />
+    <jsp:include page="menu.jsp" />
 </head>
 <body>
 <div class="review-form">
