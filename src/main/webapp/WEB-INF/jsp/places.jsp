@@ -18,12 +18,12 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="<c:url value="../../img/image01.jpg"/>" width="100" height="100">
+                            <img src="<c:url value='${place.imageUrl}'/>" width="100" height="100" decoding="async">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">장소명 : ${place.placeTitle}</h5>
-                                <p class="card-text">장소 종류 : ${place.placeType}</p>
+                                <h5 class="card-title">${place.placeTitle}</h5>
+                                <p class="card-text">${place.placeType}</p>
                                 <p class="card-text">${place.avgRating}</p>
                                 <p class="card-text">${place.reviewCnt}</p>
                                 <p class="card-text"><small class="text-muted"></small></p>

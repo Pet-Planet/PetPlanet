@@ -27,7 +27,7 @@ public class Place {
     private String placeContent;
 
     @Column(precision = 2, scale = 1)
-    private double avgRating;
+    private Double avgRating;
 
     @Column
     private String placeTitle;
@@ -36,7 +36,7 @@ public class Place {
     private String placeType;
 
     @Column
-    private int reviewCnt;
+    private Integer reviewCnt;
 
     @Column
     private int price;

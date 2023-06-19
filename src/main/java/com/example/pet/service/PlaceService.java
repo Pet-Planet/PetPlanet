@@ -1,11 +1,7 @@
 package com.example.pet.service;
 
-import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
 import com.example.pet.domain.place.Region;
-import com.example.pet.domain.reservation.Reservation;
-import com.example.pet.dto.board.BoardDto;
-import com.example.pet.dto.place.PlaceAddDto;
 import com.example.pet.dto.place.PlaceDetailDto;
 import com.example.pet.dto.place.PlaceDto;
 import com.example.pet.dto.region.RegionDto;
@@ -14,10 +10,7 @@ import com.example.pet.repository.RegionRepository;
 import com.example.pet.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,13 +104,17 @@ public class PlaceService {
     // 각 장소의 리뷰 수와 평균 평점을 업데이트하는 메서드
     private void updateReviewStats(List<Place> placeList) {
         for (Place place : placeList) {
-            int reviewCnt = reviewRepository.countByPlaceId(place.getPlaceId());
+            Integer reviewCnt = 0;
             Double avgRating = 0.0;
-            if (reviewRepository.calculateAverageRatingByPlaceId(place.getPlaceId()) == null)
+
+            if (reviewRepository.countByPlaceId(place.getPlaceId()) == 0) {
+                reviewCnt = 0;
                 avgRating = 0.0;
-            else {
+            } else {
+                reviewCnt = reviewRepository.countByPlaceId(place.getPlaceId());
                 avgRating = reviewRepository.calculateAverageRatingByPlaceId(place.getPlaceId());
             }
+
             place.setReviewCnt(reviewCnt);
             place.setAvgRating(avgRating);
         }
