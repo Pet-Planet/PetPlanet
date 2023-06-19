@@ -7,13 +7,16 @@
 <html>
 <%@ include file="header.jsp"%>
 <style>
+    #view {
+        float: right;
+    }
     div.boardOne {
         margin: auto;
         text-align: center;
         width: 600px;
     }
     div.inside {
-        text-align: left;
+        text-align: justify;
     }
     #btnDel, #btnUp{
         visibility: hidden;
@@ -46,6 +49,7 @@
             <fmt:parseDate value="${board.lastModifiedDate}" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
             <fmt:formatDate value="${ createdTime }" pattern="yyyy-MM-dd HH:mm" var="time" />
             ${time}
+            <span id="view">${board.countView}</span>
         </div>
         <hr>
         <div class="inside">
