@@ -4,56 +4,58 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>마이페이지</title>
+    <title>Pet Planet</title>
     <style>
         table {
             background-color: #008800;
             border: none;
-            border-spacing: 1px;
+            border-spacing: 2px;
         }
         tr {
-            background-color: #FFFF88;
+            background-color: white;
         }
         tr td {
-            padding: 3px;
+            padding: 20px;
         }
         #profile {
-            width: 30px;
+            width: 100px;
         }
     </style>
+    <jsp:include page="header.jsp" />
+    <jsp:include page="menu.jsp" />
 </head>
 <body>
-<h1>마이페이지</h1>
-<table>
+<br><br><br>
+<table align="center">
     <tr>
-        <td><img id="profile" src="${member.kakaoProfileImg}"></td>
-        <td>
-            ${member.nickname} (${member.kakaoEmail})
-                <br>
-                ${member.petType} (${member.petName})
+        <td style="width:100px;"><img id="profile" src="${member.kakaoProfileImg}"></td>
+        <td style="width:300px;">
+            <h1 style="font-size: 30px"><b>${member.nickname}</b></h1>
+            ${member.kakaoEmail}
+            <br>
+            [${member.petType}] ${member.petName}
         </td>
-        <td>쪽지</td>
     </tr>
 </table>
 <br>
-<table>
+<table align="center">
     <tr>
-        <td style="width : 120px; text-align: center;" ><a href='<c:url value="/"/>'>예약 내역</a></td>
-        <td style="width : 120px; text-align: center;">나의 리뷰</td>
+        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/reservations"/>'>예약 내역</a></td>
+        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/reservations"/>'>나의 리뷰</a></td>
     </tr>
     <tr>
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/edit"/>'>회원 정보 수정</a></td>
     </tr>
     <tr>
-        <td colspan="2">내가 쓴 글</td>
+        <td colspan="2"><a href='<c:url value="/mypage/${memberId}/posts"/>'>내가 쓴 글</a></td>
     </tr>
     <tr>
-        <td colspan="2">내가 쓴 댓글</td>
+        <td colspan="2"><a href='<c:url value="/mypage/${memberId}/comments"/>'>내가 쓴 댓글</a></td>
     </tr>
     <tr>
-        <td colspan="2">북마크</td>
+        <td colspan="2"><a href='<c:url value="/mypage/${memberId}/bookmarks"/>'>북마크</a></td>
     </tr>
 </table>
-<a href='<c:url value="/mypage/${memberId}/withdraw"/>'>탈퇴하기</a>
+<h4 align="center"><a href='<c:url value="/mypage/${memberId}/withdraw"/>'>탈퇴하기</a></h4>
 </body>
 </html>

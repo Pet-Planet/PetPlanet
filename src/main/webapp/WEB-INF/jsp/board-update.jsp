@@ -28,8 +28,9 @@
     });
 </script>
 <body>
-<form id="form_board" method="post" >
-    <input type="hidden" name="_method" value="put"/>
+<form action="/board/${memberId}/update/${postId}" method="post" >
+    <input type="hidden" name="memberId" value="${memberId}">
+    <input type="hidden" name="_method" value="post"/>
     <div>
         <input type="radio" name="category" value="[잡담]" checked/>잡담
         <input type="radio" name="category" value="[질문]"/>질문
@@ -37,14 +38,14 @@
     </div>
     <div>
         제목
-        <input name="title" id="title" size="80" value="${board.title}">
+        <input name="title" id="title" size="80" value="${board.title}" required>
     </div>
     <div>
         내용
-        <textarea name="content" id="content" rows="4" cols="80">${board.content}</textarea>
+        <textarea name="content" id="content" rows="4" cols="80" required>${board.content}</textarea>
     </div>
     <div style="text-align: center">
-        <button type="button" id="btnSave">확인</button>
+        <button type="submit">확인</button>
         <button type="button" onclick="history.back()">취소</button>
     </div>
 </form>

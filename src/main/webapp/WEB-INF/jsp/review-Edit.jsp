@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <jsp:include page="header.jsp" />
     <title>Edit Review</title>
     <style>
         body {
@@ -14,7 +13,14 @@
 
         .review-form {
             text-align: center;
-            margin-top: auto;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            border: 3px solid #B9E9FC;
+            border-radius: 10px;
+            background-color: white;
+            padding: 20px;
+            width: 600px;
+            height: 500px;
         }
 
         .rating-star {
@@ -36,17 +42,24 @@
         .review-button {
             background-color: #B9E9FC;
             color: white;
-            padding: 10px 20px;
-            margin: 50px;
+            padding: 15px 30px;
+            margin: 70px 50px;
             border: none;
             cursor: pointer;
+            width: 100px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
         }
     </style>
+    <jsp:include page="header.jsp" />
+    <jsp:include page="menu.jsp" />
 </head>
 <body>
 <div class="review-form">
-    <h1>리뷰 수정</h1>
-    <form action="/review/${memberId}/edit/${reviewId}" method="post">
+    <h1>리뷰</h1>
+    <form action="/review/${memberId}/edit/${reviewId}" method="post" onsubmit="return showReviewConfirmation()">
         <label>별점과 이용 후기를 남겨주세요</label><br/>
         <div>
             <span class="rating-star" data-rating="1" onclick="setRating(1, this)">☆</span>
@@ -58,8 +71,8 @@
         <textarea name="content">${review.content}</textarea><br>
         <input type="hidden" id="rating" name="rating" value="${review.rating}">
         <input type="hidden" name="placeId" value="${placeId}">
-        <input type="submit" value="수정" class="review-button">
-        <button type="button" onclick="history.back()" class="review-button">취소</button>
+        <button type="submit" class="review-button">등 록</button>
+        <button type="button" onclick="history.back()" class="review-button">취 소</button>
     </form>
 </div>
 
@@ -88,6 +101,27 @@
                 stars[i].classList.remove("checked");
             }
         }
+    }
+
+
+    function showReviewConfirmation() {
+
+        var rating = document.getElementById("rating").value;
+        var content = document.getElementsByName("content")[0].value;
+
+        if (rating == 0) {
+            alert("별점을 입력해주세요.");
+            return false;
+        }
+
+        if (content.trim().length === 0) {
+            alert("리뷰를 입력해주세요.");
+            return false;
+        }
+
+
+        alert("리뷰가 수정되었습니다.");
+        return true;
     }
 </script>
 </body>
