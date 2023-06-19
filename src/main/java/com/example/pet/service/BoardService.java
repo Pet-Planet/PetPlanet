@@ -48,7 +48,6 @@ public class BoardService {
     public Board boardSave(Member member, BoardDto boardDto) {
         boardDto.setMemberId(member.getMemberId());
         boardDto.setWriter(member.getKakaoNickname());
-
         Board board = boardRepository.save(boardDto.toEntity());
 
         board.setMember(member);
@@ -59,13 +58,14 @@ public class BoardService {
     }
 
     // 글 수정하기
-    public Board boardUpdate(int id, BoardUpdateRequestDto requestDto) {
+    public Board boardUpdate(int id, BoardUpdateRequestDto boardUpdateDto) {
         Board board = boardRepository.findById(id).orElseThrow
                 (() -> new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = "+id));
-        board.update(requestDto);
+        board.boardUpdate(boardUpdateDto);
 
         return boardRepository.save(board);
     }
+
     // 글 삭제하기
     public void boardDelete(int id) {
         Board board = boardRepository.findById(id)
@@ -99,6 +99,13 @@ public class BoardService {
         return boardDtoList;
     }
 
+    // 조회수
+    public void updateView (int postId, BoardDto boardDto) {
+        Board board = boardRepository.findById(postId).orElseThrow
+                (() -> new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = "+ postId));
+
+        board.updateView(boardDto.getCountView());
+    }
 
 
 }

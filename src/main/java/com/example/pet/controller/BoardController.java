@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/board")
+@RequestMapping("/board/{memberId}")
 public class BoardController {
 
     private final BoardService boardService;
@@ -32,7 +32,7 @@ public class BoardController {
 
 
     // 전체 글 조회
-    @GetMapping("/{memberId}")
+    @GetMapping("")
     public String getAllBoard(@PathVariable int memberId, Model model) {
         List<BoardListResponseDto> boardList = boardService.findAllBoard();
         model.addAttribute("boardList", boardList);
@@ -43,20 +43,31 @@ public class BoardController {
     }
 
     // 게시글 하나 조회
-    @GetMapping("/{memberId}/post/{postId}")
+    @GetMapping("/post/{postId}")
     public String getOneBoard(@PathVariable int postId, @PathVariable int memberId, Model model) {
         BoardResponseDto dto = boardService.findOneBoard(postId);
+        int countView = dto.getCountView() + 1;
+
+        Board board = Board.builder()
+                .countView(countView)
+                .build();
+
+        boardService.updateView(postId, new BoardDto(board));
+
+        //BoardResponseDto responseDto = new BoardResponseDto(board);
         model.addAttribute("board", dto);
+        model.addAttribute("memberId", memberId);   //중요
+
         return "boardOne";
     }
 
     // 게시판 글 등록 폼
-    @GetMapping("/{memberId}/post")
+    @GetMapping("/post")
     public String write(@PathVariable int memberId, Model model){
         model.addAttribute("memberId", memberId);
         return "board-form";
     }
-    @PostMapping("/{memberId}/post")
+    @PostMapping("/post")
     public String boardSave(@PathVariable int memberId, @ModelAttribute("board") BoardDto boardDto) {
         Member member = memberService.findMe(memberId);
 
@@ -66,22 +77,26 @@ public class BoardController {
     }
 
     // 게시판 글 수정
-    @GetMapping("/{memberId}/update/{postId}")
+    @GetMapping("/update/{postId}")
     public String boardUpdateForm(@PathVariable int memberId, @PathVariable int postId, Model model) {
-        BoardResponseDto board = boardService.findOneBoard(postId);
-        model.addAttribute("board", board);
+        BoardResponseDto updatedBoard = boardService.findOneBoard(postId);
+        model.addAttribute("board", updatedBoard);
+        model.addAttribute("memberId", memberId);   //중요
+
         return "board-update";
     }
-    @PutMapping("/{memberId}/update/{postId}")
-    public String boardUpdate(@PathVariable int memberId, @PathVariable int postId, @ModelAttribute("board") BoardUpdateRequestDto requestDto,
-                              Model model) {
-        Board board = boardService.boardUpdate(postId, requestDto);
-        model.addAttribute("board", board);
-        return "boardOne"; // 여기서 준걸로 안감
+    @PostMapping("/update/{postId}")
+    public String boardUpdate(@PathVariable int memberId, @PathVariable int postId, @ModelAttribute("board") BoardUpdateRequestDto boardUpdateDto, Model model) {
+        boardService.boardUpdate(postId, boardUpdateDto);
+        BoardResponseDto updatedBoard = boardService.findOneBoard(postId);
+        model.addAttribute("board", updatedBoard);
+        model.addAttribute("memberId", memberId);   //중요
+
+        return "boardOne";
     }
 
     // 게시판 글 삭제
-    @DeleteMapping("/{memberId}/delete/{postId}")
+    @DeleteMapping("/delete/{postId}")
     public String boardDelete(@PathVariable int memberId, @PathVariable int postId) {
         BoardResponseDto board = boardService.findOneBoard(postId);
         boardService.boardDelete(postId);

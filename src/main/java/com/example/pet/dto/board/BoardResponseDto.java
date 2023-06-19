@@ -16,6 +16,7 @@ public class BoardResponseDto {
     private String category;
     private int memberId;
     private LocalDateTime lastModifiedDate;
+    private int countView;
 
     public BoardResponseDto(Board board) {
         this.postId = board.getPostId();
@@ -25,5 +26,6 @@ public class BoardResponseDto {
         this.writer = board.getWriter();
         this.memberId = board.getMember().getMemberId();
         this.lastModifiedDate = board.getLastModifiedDate();
+        this.countView = board.getCountView();
     }
 }

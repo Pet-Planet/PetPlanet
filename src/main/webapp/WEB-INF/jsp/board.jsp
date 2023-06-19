@@ -16,6 +16,7 @@
     });
 </script>
 <jsp:include page="header.jsp" />
+<jsp:include page="menu.jsp" />
 <style>
     #board {
         margin-left: auto;
@@ -52,6 +53,7 @@
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
+                <th>조회수</th>
             </tr>
             <c:forEach var="row" items="${boardList}">
                 <tr>
@@ -73,7 +75,7 @@
 
                         </c:choose>
                     </td>
-
+                    <td>${row.countView}</td>
                 </tr>
             </c:forEach>
         </table>
