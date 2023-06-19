@@ -42,7 +42,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    HttpServletRequest request = null;
 
     @RequestMapping(value = "/login")
     public String getKakaoAuthUrl(Model model) {
@@ -82,10 +81,11 @@ public class MemberController {
     }
 
     // 현재 멤버 조회
-    @GetMapping("/member")
-    public String findMember() {
-
-        return "index";
+    @GetMapping("/member/{memberId}")
+    @ResponseBody
+    public ResponseEntity findMember(@PathVariable int memberId) {
+        Member member = memberService.findMe(memberId);
+        return ResponseEntity.ok().body(member);
     }
 
 

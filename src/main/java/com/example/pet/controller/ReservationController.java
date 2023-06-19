@@ -85,8 +85,7 @@ public class ReservationController {
 
         reservationService.saveReservation(memberId, reservationDto);
 
-        //추후 수정: 예약 성공시 나의 예약 페이지로 리다이렉트
-        return"reservation-success";
+        return "redirect:/mypageReservations";
 
 
     }
@@ -97,7 +96,7 @@ public class ReservationController {
     나의 예약 조회 API
      */
 
-    @GetMapping("/myPage/{memberId}/reservations")
+    @GetMapping("/mypage/{memberId}/reservations")
     public String getReview(@PathVariable int memberId, Model model){
 
         List<ReservationListDto> reservationList = reservationService.getMyReservation(memberId);
