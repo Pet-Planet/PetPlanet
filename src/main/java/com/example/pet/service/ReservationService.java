@@ -123,10 +123,11 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(revId).get();
 
         ReservationDetailDto reservationDto = new ReservationDetailDto(
-                reservation.getId(), reservation.getPlace().getPlaceId(), reservation.getMember().getMemberId(),
-                reservation.getPlace().getPlaceTitle(), reservation.getRevName(), reservation.getPhoneNum(),
-                reservation.getCreatedDate(), reservation.getStartDate(), reservation.getEndDate(), reservation.getTime(),
-                reservation.getGuests(), reservation.getPets(), reservation.getAmount(), reservation.getPlace().getAddress());
+                reservation.getId(), reservation.getPlace().getPlaceTitle(),
+                reservation.getRevName(), reservation.getPhoneNum(),
+                reservation.getStartDate(), reservation.getEndDate(), reservation.getTime(),
+                reservation.getGuests(), reservation.getPets(),
+                reservation.getAmount(), reservation.getPlace().getAddress());
 
         return reservationDto;
     }

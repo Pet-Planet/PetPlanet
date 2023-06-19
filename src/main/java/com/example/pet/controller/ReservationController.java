@@ -85,9 +85,9 @@ public class ReservationController {
     @PostMapping("/reservation/{memberId}")
     public String saveReservation(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto){
 
-        reservationService.saveReservation(memberId, reservationDto);
+        int revId = reservationService.saveReservation(memberId, reservationDto).getId();
 
-        return "redirect:/mypageReservations";
+        return "redirect:/reservation/" + memberId + "/" + revId;
 
 
     }
@@ -108,9 +108,9 @@ public class ReservationController {
         String placeType = reservation.get().getPlace().getPlaceType();
 
         if("hotel".equals(placeType))
-            return "reservationDetailB";
+            return "reservation-detailB";
 
-        return "reservationDetailA";
+        return "reservation-detailA";
 
     }
 
@@ -142,6 +142,8 @@ public class ReservationController {
 
         reservationService.cancelReservation(revId);
 
-        return "redirect:/mypageReservations";
+        int memberId = reservationRepository.findById(revId).get().getMember().getMemberId();
+
+        return "redirect:/main/" + memberId;
     }
 }
