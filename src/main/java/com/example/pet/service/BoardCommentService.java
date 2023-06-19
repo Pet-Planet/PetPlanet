@@ -60,8 +60,10 @@ public class BoardCommentService {
     }
 
     //댓글 삭제
-    public void deleteBoardComment(int commentId) {
-        boardCommentRepository.deleteById(commentId);
+    public void deleteBoardComment(int id) {
+        BoardComment boardComment = boardCommentRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = " + id));
+        boardCommentRepository.delete(boardComment);
     }
 
     // 회원이 쓴 댓글 조회
