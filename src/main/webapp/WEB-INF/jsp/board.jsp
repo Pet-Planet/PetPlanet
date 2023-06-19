@@ -16,6 +16,7 @@
     });
 </script>
 <jsp:include page="header.jsp" />
+<jsp:include page="menu.jsp" />
 <style>
     #board {
         margin-left: auto;
