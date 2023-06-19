@@ -35,6 +35,8 @@ public class Board extends BaseEntity {
     private String writer;
     @Column
     private String category;
+    @Column
+    private int countVisit; // 조회수
 
     @ManyToOne(fetch = FetchType.LAZY) // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
     @JoinColumn(name="member_id") // foreign key (memberId) references Member (id)
