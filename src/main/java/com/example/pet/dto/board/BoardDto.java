@@ -13,6 +13,7 @@ public class BoardDto {
     private String category;
     private int memberId;
     private String writer;
+    private int countView;
 
     public Board toEntity(){
         return Board.builder()
@@ -20,6 +21,7 @@ public class BoardDto {
                 .content(content)
                 .category(category)
                 .writer(writer)
+                .countView(countView)
                 .build();
     }
 }
