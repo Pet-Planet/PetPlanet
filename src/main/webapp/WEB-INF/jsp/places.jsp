@@ -22,8 +22,8 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">장소명 : ${place.placeTitle}</h5>
-                                <p class="card-text">장소 종류 : ${place.placeType}</p>
+                                <h5 class="card-title">${place.placeTitle}</h5>
+                                <p class="card-text">${place.placeType}</p>
                                 <p class="card-text">${place.avgRating}</p>
                                 <p class="card-text">${place.reviewCnt}</p>
                                 <p class="card-text"><small class="text-muted"></small></p>

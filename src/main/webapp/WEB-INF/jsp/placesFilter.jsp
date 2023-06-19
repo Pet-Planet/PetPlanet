@@ -19,6 +19,7 @@
         <option value="11">서울</option>
         <option value="12">경기도</option>
         <option value="13">제주도</option>
+        <option value="22">강원도</option>
     </select>
     <select class="form-select" aria-label="Default select example" name="sortOption">
         <option selected>정렬 선택</option>
