@@ -58,13 +58,14 @@ public class BoardService {
     }
 
     // 글 수정하기
-    public Board boardUpdate(int id, BoardUpdateRequestDto requestDto) {
+    public Board boardUpdate(int id, BoardUpdateRequestDto boardUpdateDto) {
         Board board = boardRepository.findById(id).orElseThrow
                 (() -> new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = "+id));
-        board.update(requestDto);
+        board.boardUpdate(boardUpdateDto);
 
         return boardRepository.save(board);
     }
+
     // 글 삭제하기
     public void boardDelete(int id) {
         Board board = boardRepository.findById(id)
