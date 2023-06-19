@@ -14,14 +14,9 @@ import java.time.LocalDateTime;
 public class ReservationDetailDto{
 
         private int revId;
-        private int placeId;
-        private int memberId;
-
         private String placeName;
         private String revName;
         private String phoneNum;
-
-        private LocalDateTime revDate;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate startDate;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
