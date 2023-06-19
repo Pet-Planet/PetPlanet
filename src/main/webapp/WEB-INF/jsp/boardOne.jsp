@@ -18,7 +18,14 @@
     div.inside {
         text-align: justify;
     }
-    #btnDel, #btnUp{
+    div#bookmark {
+        display: inline-block;
+        float: right;
+    }
+    div#boardBtn {
+        float: left;
+    }
+    #btnDel, #btnUp, #create, #cancle{
         visibility: hidden;
     }
 </style>
@@ -27,11 +34,37 @@
     window.onload=function matchMember () {
         const btn1 = document.getElementById('btnDel');
         const btn2 = document.getElementById('btnUp');
+        const cancel = document.getElementById('cancel');
+        const bookmark = document.getElementById('create');
 
         if(${board.memberId} == ${memberId}) {
             btn1.style.visibility = 'visible';
             btn2.style.visibility = 'visible';
         }
+
+        fetch("/bookmark/check", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify({
+                "postId": ${postId},
+                "memberId": ${memberId}
+            }),
+        }).then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                if(data) {
+                    cancel.style.visibility = "visible";
+                    bookmark.style.visibility = "hidden";
+                }
+                else {
+                    bookmark.style.visibility = "visible";
+                    cancel.style.visibility = "hidden";
+                }
+
+            });
+
     }
 
     function deleteById() {
@@ -40,7 +73,25 @@
         }).then((response) => response.json())
         location.href="/board/${memberId}";
     }
+    function bookmark() {
+        fetch("/board/${memberId}/post/${postId}/bookmark", {
+            method: "POST"
+        }).then((response) => console.log("response", response))
+
+        // 버튼 클릭하면 북마크 버튼 사라지고 북마크 취소 버튼 나타나기
+
+
+
+
+    }
+    function bookmarkCancel() {
+        fetch("/board/${memberId}/post/${postId}/bookmark", {
+            method: "DELETE"
+        }).then((response) => console.log("response", response))
+
+    }
 </script>
+
 <body>
     <div class="boardOne">
         <div class="inside">
@@ -55,10 +106,16 @@
         <div class="inside">
             ${board.content}
         </div>
-        <div class="inside">
-            <button type="button" onclick="location.href='/board/${memberId}'">목록</button>
-            <button type="button" id="btnUp" onclick="location.href='/board/${memberId}/update/${postId}'">수정</button>
-            <button type="button" id="btnDel" onclick="deleteById()">삭제</button>
+        <div class="boardBtn">
+            <div class="inside" id="boardBtn">
+                <button type="button" onclick="location.href='/board/${memberId}'">목록</button>
+                <button type="button" id="btnUp" onclick="location.href='/board/${memberId}/update/${postId}'">수정</button>
+                <button type="button" id="btnDel" onclick="deleteById()">삭제</button>
+            </div>
+            <div id="bookmark">
+                <button class="bookmarkBtn" id="create" type="button" onclick="bookmark()">북마크</button>
+                <button class="bookmarkBtn" id="cancel" type="button" onclick="bookmarkCancel()">북마크 취소</button>
+            </div>
         </div>
     </div>
 

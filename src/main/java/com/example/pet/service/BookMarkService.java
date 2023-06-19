@@ -52,6 +52,16 @@ public class BookMarkService {
 
         return bookMarkRepository.countBookMarkByBoard(board);
     }
+    // 북마크 한 글인지 확인하기
+    public int check(int postId, int memberId) {
+        Member member = memberRepository.findByMemberId(memberId);
+        Board board = boardRepository.findByPostId(postId);
+        BookMark bookMark = bookMarkRepository.findByBoardAndMember(board, member);
+        if (bookMark == null) {
+            return 0;
+        }else
+            return 1;
+    }
 
     // 내가 북마크한 글 보기
     public List<BookMarkDto> findAllBookMark() {
