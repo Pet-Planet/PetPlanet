@@ -11,13 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookMarkDto {
-    private int bookmarkId;
     private int memberId;
     private int postId;
 
     public BookMarkDto(BookMark bookMark) {
         this.postId = bookMark.getBookmarkId();
         this.memberId = bookMark.getBookmarkId();
-        this.bookmarkId = bookMark.getBookmarkId();
     }
 }
