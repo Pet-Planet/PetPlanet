@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDto {
+    private int postId;
     private String title;
     private String content;
     private String category;
@@ -23,5 +24,16 @@ public class BoardDto {
                 .writer(writer)
                 .countView(countView)
                 .build();
+    }
+
+    public BoardDto(Board board) {
+        postId = board.getPostId();
+        title = board.getTitle();
+        content = board.getContent();
+        writer = board.getWriter();
+        countView = board.getCountView();
+    }
+    public void updateView(int countView) {
+        this.countView = countView;
     }
 }

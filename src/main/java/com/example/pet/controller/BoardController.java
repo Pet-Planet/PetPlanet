@@ -46,6 +46,15 @@ public class BoardController {
     @GetMapping("/{memberId}/post/{postId}")
     public String getOneBoard(@PathVariable int postId, @PathVariable int memberId, Model model) {
         BoardResponseDto dto = boardService.findOneBoard(postId);
+        int countView = dto.getCountView() + 1;
+
+        Board board = Board.builder()
+                .countView(countView)
+                .build();
+
+        boardService.updateView(postId, new BoardDto(board));
+
+        //BoardResponseDto responseDto = new BoardResponseDto(board);
         model.addAttribute("board", dto);
         return "boardOne";
     }

@@ -98,6 +98,13 @@ public class BoardService {
         return boardDtoList;
     }
 
+    // 조회수
+    public void updateView (int postId, BoardDto boardDto) {
+        Board board = boardRepository.findById(postId).orElseThrow
+                (() -> new IllegalArgumentException("해당 게시글이 존재하지 앟습니다. id = "+ postId));
+
+        board.updateView(boardDto.getCountView());
+    }
 
 
 }
