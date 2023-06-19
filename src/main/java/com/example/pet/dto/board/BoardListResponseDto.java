@@ -18,6 +18,7 @@ public class BoardListResponseDto {
     private String category;
     private String writer;
     private LocalDateTime createdDate;
+    private int countView;
 
     public BoardListResponseDto(Board board) {
         this.postId = board.getPostId();
@@ -26,6 +27,7 @@ public class BoardListResponseDto {
         this.category = board.getCategory();
         this.writer = board.getWriter();
         this.createdDate = board.getCreatedDate();
+        this.countView = board.getCountView();
     }
 
     public BoardListResponseDto(Optional<Board> board) {
