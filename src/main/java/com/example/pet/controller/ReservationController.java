@@ -1,6 +1,8 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.place.Place;
+import com.example.pet.domain.reservation.Reservation;
+import com.example.pet.dto.reservation.ReservationDetailDto;
 import com.example.pet.dto.reservation.ReservationDto;
 import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.repository.PlaceRepository;
@@ -89,6 +91,29 @@ public class ReservationController {
 
 
     }
+
+
+    /*
+    예약 상세조회
+     */
+    @GetMapping("/reservation/{memberId}/{revId}")
+    public String getReview(@PathVariable int memberId, @PathVariable int revId, Model model){
+
+        ReservationDetailDto reservationDetail = reservationService.getReservationDetail(revId);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("revDetail", reservationDetail);
+
+        Optional<Reservation> reservation = reservationRepository.findById(revId);
+        String placeType = reservation.get().getPlace().getPlaceType();
+
+        if("hotel".equals(placeType))
+            return "reservationDetailB";
+
+        return "reservationDetailA";
+
+    }
+
 
 
 

@@ -3,12 +3,15 @@ package com.example.pet.controller;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
+import com.example.pet.dto.board.BoardDto;
+import com.example.pet.dto.board.BoardResponseDto;
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
 import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.service.BoardCommentService;
 import com.example.pet.service.MemberService;
+import com.example.pet.service.MypageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,35 +29,38 @@ public class BoardCommentController {
 
     private final BoardCommentService boardCommentService;
     private final MemberService memberService;
+    private final MypageService mypageService;
 
-    // 댓글 등록
-    @PostMapping("/comment")
-    public ResponseEntity<BoardComment> saveBoardComment(HttpServletRequest request, BoardCommentSaveDto dto) {
-        Member member = memberService.getMember(request);
-
-        BoardComment comment = boardCommentService.saveBoardComment(member, dto);
-
-        return ResponseEntity.ok(comment);
-    }
-
-    // 게시물에 대한 댓글 리스트 조회
-//    @GetMapping("/comments")
-//    public ResponseEntity<List<BoardComment>> getBoardComments(@PathVariable int postId) {
-//        List<BoardComment> comments = boardCommentService.getBoardCommentsByPostId(postId);
-//
-//        return ResponseEntity.ok(comments);
-//    }
-
+    //게시물에 대한 전체 댓글 조회
     @GetMapping("/comments")
-    public String getBoardComments(@PathVariable int postId, Model model) {
+    public String getBoardComments(@PathVariable int memberId, @PathVariable int postId, Model model) {
         List<BoardComment> comments = boardCommentService.getBoardCommentsByPostId(postId);
+        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
         model.addAttribute("comments", comments);
-
-        return "comments";
+        model.addAttribute("member", memberResponseDto);
+        return "commentList";
     }
 
+    //댓글 등록
+    @GetMapping("/comment")
+    public String commentWriteForm(@PathVariable int memberId, @PathVariable int postId, Model model){
+        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
+        model.addAttribute("member", memberResponseDto);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("postId", postId);
 
-    // 댓글 수정
+        return "commentForm";
+    }
+    @PostMapping("/comment")
+    public String commentSave(@PathVariable int memberId, @ModelAttribute("boardComment") BoardCommentSaveDto dto) {
+        Member member = memberService.findMe(memberId);
+        BoardComment boardComment = boardCommentService.saveBoardComment(member, dto);
+        int commentId = boardComment.getId();
+
+        return "redirect:/board/{memberId}/post/{postId}/comments";
+    }
+
+    // 댓글 수정 --> controller로 변경 전
     @PutMapping("/update/{commentId}")
     public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int commentId, @RequestBody BoardCommentUpdateRequestDto requestDto) {
         BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, requestDto);
@@ -62,12 +68,14 @@ public class BoardCommentController {
         return ResponseEntity.ok(updatedComment);
     }
 
-
     // 댓글 삭제
     @DeleteMapping("/delete/{commentId}")
-    public ResponseEntity<Void> deleteBoardComment(@PathVariable int commentId) {
+    public String commentDelete(@PathVariable int commentId, @PathVariable int postId, @PathVariable int memberId, Model model) {
         boardCommentService.deleteBoardComment(commentId);
+        model.addAttribute("commentId", commentId);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("postId", postId);
 
-        return ResponseEntity.noContent().build();
+        return "commentList";
     }
 }
