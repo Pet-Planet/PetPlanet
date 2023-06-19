@@ -38,7 +38,6 @@ public class Review extends BaseEntity {
     @JsonBackReference
     private Place place;
 
-
     public void editReview(int rating, String content){
         this.rating = rating;
         this.content = content;

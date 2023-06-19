@@ -24,4 +24,5 @@ public class PlaceDetailDto {
     private String address;
     private Region region;
     private List<ReviewEditDto> reviews;
+
 }

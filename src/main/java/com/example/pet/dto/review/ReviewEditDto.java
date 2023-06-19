@@ -19,5 +19,4 @@ public class ReviewEditDto {
     private int rating; //평점 1~5
     private String content; //리뷰 내용
     private LocalDateTime writtenDate;
-
 }

@@ -109,11 +109,9 @@
                 </button>
             </c:if>
             <p>
-
             </p>
         </div>
         <p>
-
         </p>
         <!-- memberId가 일치하는 경우에만 수정/삭제 표시 -->
     </c:forEach>

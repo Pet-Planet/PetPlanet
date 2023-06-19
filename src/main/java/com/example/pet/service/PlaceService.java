@@ -117,7 +117,6 @@ public class PlaceService {
         }
         return placeDtoList;
     }
-
     // 각 장소의 리뷰 수와 평균 평점을 업데이트하는 메서드
     private void updateReviewStats(List<Place> placeList) {
         for (Place place : placeList) {
