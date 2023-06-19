@@ -22,8 +22,7 @@ public class MypageController {
 
     private final MypageService mypageService;
 
-    // 내 개인정보 보기 => 상세보기 눌러야함
-
+    //마이페이지
     @GetMapping("")
     public String findMe(@PathVariable int memberId, Model model) {
         MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
@@ -32,25 +31,20 @@ public class MypageController {
         return "mypage";
     }
 
+    //회원 수정
     @GetMapping("/edit")
     public String showEditForm(@PathVariable int memberId, Model model) {
-
-        // 기존 회원 정보 가져오기
         MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
         model.addAttribute("member", memberResponseDto);
+        model.addAttribute("memberId", memberId);   //중요
 
         return "mypageEdit";
     }
 
     @PostMapping("/edit")
     public String memberUpdate(@PathVariable int memberId, @ModelAttribute("member") MemberUpdateRequestDto memberUpdateDto, Model model) {
-
-        // 회원 정보 업데이트
         mypageService.memberUpdate(memberId, memberUpdateDto);
-
-        // 수정된 회원 정보 가져오기
         MemberResponseDto updatedMember = mypageService.findMe(memberId);
-
         model.addAttribute("member", updatedMember);
 
         return "mypage";
@@ -65,7 +59,7 @@ public class MypageController {
         return "mypagePosts";
     }
 
-    // 회원 탈퇴 처리
+    // 회원 탈퇴
     @PostMapping("/withdraw")
     public String withdrawMember(@PathVariable int memberId) {
         mypageService.withdrawMember(memberId);
