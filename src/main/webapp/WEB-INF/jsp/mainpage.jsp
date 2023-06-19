@@ -3,7 +3,6 @@
 <jsp:include page="header.jsp" />
 <style>
    .menu { width: 300px; }
-
 </style>
 <div>
     <div>

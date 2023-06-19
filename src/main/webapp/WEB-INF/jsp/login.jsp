@@ -3,8 +3,8 @@
 <jsp:include page="header.jsp" />
 <%--대표 이미지 같은거 들어가면 좋을 것 같아요--%>
 <div>
-    <img width="300" src="../../img/image01.jpg">
+    <img width="550" src="/img/main_img.png">
 </div>
 <div>
-    <a href="${reqUrl}"><img width="500px" src="<c:url value="../../img/kakao_login.png"/>"></a>
+    <a  href="${reqUrl}"><img width="350" src="/img/kakaologin.png"/></a>
 </div>
