@@ -1,8 +1,17 @@
-
-#logo { width: 200px;  }
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+#logo { width: 150px;  }
 /*#head { background-color: #D8D2CA}*/
 a.menu_a {
     text-decoration: none;
+    color: black;
+}
+.click{
+    color: #98C0DC;
 }
 img.menu_a {
     width: 150px;
@@ -12,8 +21,17 @@ img.menu_a {
 div#head {
     display: flex;
     margin: 20px;
+    height: 70px;
     text-align: center;
 }
 div.logo, div.menu {
     flex: 1;
+}
+div.menu {
+    font-size: 20px;
+    margin: 20px;
+    font-family: 'GmarketSansMedium';
+    align-items : center;
+    justify-content : center;
+    height: 70px;
 }
