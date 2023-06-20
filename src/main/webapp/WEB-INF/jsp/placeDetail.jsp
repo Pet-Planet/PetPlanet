@@ -136,7 +136,7 @@
     function deleteReview(reviewId, placeId) {
         if (confirm("리뷰를 정말 삭제하시겠습니까?")) {
             // Send an AJAX request to delete the review
-            fetch('/review/' + reviewId, {
+            fetch('/review/delete/' + reviewId, {
                 method: 'DELETE'
             })
                 .then(response => {
