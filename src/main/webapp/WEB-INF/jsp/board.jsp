@@ -16,12 +16,20 @@
 <body>
     <%--    board search area    --%>
     <div id="board-search">
+        <div class="board-sort">
+            <form>
+                <select id="sortType" name="sortType">
+                    <option value="time">최신순</option>
+                    <option value="view">조회수순</option>
+                </select>
+            </form>
+        </div>
         <div class="container">
             <div class="search-window">
-                <form action="">
+                <form action="/board/${memberId}" method="get">
                     <div class="search-wrap">
-                        <label for="search" class="blind">공지사항 내용 검색</label>
-                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                        <label for="search" class="blind">자유게시판 내용 검색</label>
+                        <input id="search" type="text" name="searchText" placeholder="검색어를 입력해주세요." value="${searchText}">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
                 </form>

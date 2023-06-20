@@ -4,6 +4,7 @@
 <head>
     <title>Pet Planet</title>
     <link rel="stylesheet" href="/static/headermenu.css" />
+    <script type="text/javascript" src="/static/menu.js"></script>
 </head>
 <body>
     <div id="head">
@@ -13,18 +14,21 @@
             </a>
         </div>
         <div class="menu">
-            <a class="menu_a" style="text-decoration:none;" href="<c:url value="/board/${memberId}" />" >
-                <img class="menu_a" src="/img/board_menu_logo.png">
+            <a class="menu_a" id="a_board" style="text-decoration:none;" href="<c:url value="/board/${memberId}" />" >
+                커뮤니티
+<%--                <img class="menu_a" src="/img/board_logo_letter2.png">--%>
             </a>
         </div>
         <div class="menu">
-            <a class="menu_a" style="text-decoration:none;" href="<c:url value="/places/${memberId}" />" >
-                <img class="menu_a" src="/img/place_menu_logo.png">
+            <a class="menu_a" id="a_palce" style="text-decoration:none;" href="<c:url value="/places/${memberId}" />" >
+                장소게시판
+<%--                <img class="menu_a" src="/img/place_logo_letter2.png">--%>
             </a>
         </div>
         <div class="menu">
-            <a class="menu_a" style="text-decoration:none;" href="<c:url value="/mypage/${memberId}" />">
-                <img class="menu_a" src="/img/mypage_logo.png">
+            <a class="menu_a" id="a_mypate" style="text-decoration:none;" href="<c:url value="/mypage/${memberId}" />">
+                마이페이지
+<%--                <img class="menu_a" src="/img/mypage_logo_letter2.png">--%>
             </a>
         </div>
     </div>
