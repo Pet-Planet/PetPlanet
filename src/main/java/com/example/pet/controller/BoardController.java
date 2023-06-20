@@ -3,6 +3,7 @@ package com.example.pet.controller;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.*;
+import com.example.pet.repository.BoardRepository;
 import com.example.pet.service.BoardService;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
@@ -29,13 +33,25 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
+    private final BoardRepository boardRepository;
 
 
     // 전체 글 조회
     @GetMapping("")
-    public String getAllBoard(@PathVariable int memberId, Model model) {
-        List<BoardListResponseDto> boardList = boardService.findAllBoard();
+    public String getAllBoard(@PathVariable int memberId, Model model,
+                              @RequestParam(required = false, defaultValue = "0", value = "page") int page) { // , // 페이징
+//                              @RequestParam(required = false, defaultValue = "") String searchText) { //검색
+//        List<BoardListResponseDto> boardList = boardService.findAllBoard();
+        String searchText = "";
+        Page<Board> boardList = boardService.findBoardPage(searchText, searchText,page);
+
+        //int startPage = Math.max(1, boardList.getPageable().getPageNumber() -1);
+        //int endPage = Math.min(boardList.getTotalPages(), boardList.getPageable().getPageNumber()+3);
+        int totalPage = boardList.getTotalPages();
         model.addAttribute("boardList", boardList);
+        //model.addAttribute("startPage", startPage);
+        //model.addAttribute("endPage", endPage);
+        model.addAttribute("totalPage", totalPage);
 
         Date now = new Date();
         model.addAttribute("now", now);
