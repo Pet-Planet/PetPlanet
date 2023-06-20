@@ -16,6 +16,12 @@
             font-size: 20px;
         }
 
+        .placeNo h2,
+        .placeName h1 {
+            margin-top: 0;
+            margin-bottom: 10px; /* 줄간격을 조절합니다. */
+        }
+
         .cancel {
             background-color: #B9E9FC;
             color: white;
@@ -48,7 +54,7 @@
             background-color: white;
             padding: 50px;
             width: 750px;
-            height: 800px;
+            height: 750px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -79,8 +85,8 @@
 <div class="container">
     <div class="title"><h1>예약 관리</h1></div>
     <div class="reservation-detail">
-        <h2>No.${revDetail.revId}</h2>
-        <span class="placeName"><h1>${revDetail.placeName}</h1><br></span>
+        </br><span class="placeNo"><h2>No. ${revDetail.revId}</h2></span>
+        <span class="placeName"><h1>${revDetail.placeName}</h1></span></br></br>
         <div class="reservation-info">
             <p><span>장소</span>${revDetail.address}</p>
             <p><span>체크인</span>${revDetail.startDate}</p>
