@@ -109,7 +109,7 @@
             })
                 .then(response => {
                     alert("예약이 취소되었습니다.");
-                    window.location.href = `/main/${memberId}`;
+                    window.location.href = `/mypage/${memberId}/reservations`;
                 })
                 .catch(error => {
                     console.error('Error:', error);

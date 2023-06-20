@@ -126,6 +126,6 @@ public class ReservationController {
 
         int memberId = reservationRepository.findById(revId).get().getMember().getMemberId();
 
-        return "redirect:/main/" + memberId;
+        return "redirect:/mypage/" + memberId + "/reservations";
     }
 }
