@@ -39,7 +39,7 @@
 <script>
     function cancelRev(revId) {
         if (confirm("예약을 취소하시겠습니까?")) {
-            fetch(`/reservation/` + revId, {
+            fetch(`/reservation/cancel/` + revId, {
                 method: 'DELETE'
             })
                 .then(response => {

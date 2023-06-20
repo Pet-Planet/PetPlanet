@@ -137,7 +137,7 @@ public class ReservationController {
     예약 취소
      */
 
-    @DeleteMapping("/reservation/{revId}")
+    @DeleteMapping("/reservation/cancel/{revId}")
     public String cancelReservation(@PathVariable int revId){
 
         reservationService.cancelReservation(revId);

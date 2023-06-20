@@ -20,13 +20,13 @@
             background-color: white;
             padding: 20px;
             width: 600px;
-            height: 500px;
+            height: 550px;
         }
 
         .rating-star {
             color: #ccc;
             cursor: pointer;
-            font-size: 40px;
+            font-size: 45px;
         }
 
         .rating-star.checked {
@@ -57,7 +57,7 @@
 </head>
 <body>
 <div class="review-form">
-    <h1>리뷰</h1>
+    <h1>리뷰</h1><br/>
     <form action="/review/${memberId}/edit/${reviewId}" method="post" onsubmit="return showReviewConfirmation()">
         <label>별점과 이용 후기를 남겨주세요</label><br/>
         <div>
