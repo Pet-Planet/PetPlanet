@@ -11,6 +11,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class GetReviewDto {
 
+    private int id;
+
+    private int placeId;
+
     private int memberId;
 
     private String placeTitle;
