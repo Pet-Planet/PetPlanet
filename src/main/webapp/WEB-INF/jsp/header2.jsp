@@ -2,30 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <style>
-        div {
-            text-align: center;
-            margin: 20px;
-        }
-        #logo { width: 200px;  }
-        /*#head { background-color: #D8D2CA}*/
-        a.menu_a {
-            text-decoration: none;
-        }
-        img.menu_a {
-            width: 150px;
-            margin-right: 20px;
-            margin-left: 20px;
-        }
-        div#head {
-            display: flex;
-            margin: 0;
-        }
-        div.logo, div.menu {
-            flex: 1;
-        }
-    </style>
     <title>Pet Planet</title>
+    <link rel="stylesheet" href="/static/headermenu.css" />
 </head>
 <body>
     <div id="head">

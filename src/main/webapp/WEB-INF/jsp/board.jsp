@@ -7,38 +7,10 @@
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 
 <html>
-<script>
-    $(document).ready(function (){
-        $("#btnWrite").click(function (){
-            //페이지 이동
-            location.href = "/board/${memberId}/post";
-        });
-    });
-</script>
-<jsp:include page="header2.jsp" />
-<style>
-    #board {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    table {
-        width: 600px;
-    }
-    table, td, th {
-        border-collapse: collapse;
-        border : 1px solid black;
-        text-align: center;
-    }
-    div#btn {
-        width: 600px;
-        margin: auto;
-    }
-    #btnwrite {
-        width: 70px;
-        margin-right: 530px;
-    }
-
-</style>
+<head>
+    <link rel="stylesheet" href="/static/board.css" />
+    <jsp:include page="header2.jsp" />
+</head>
 
 <body>
     <div id="btn">
