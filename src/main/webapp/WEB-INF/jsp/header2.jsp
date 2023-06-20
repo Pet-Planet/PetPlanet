@@ -8,7 +8,7 @@
             margin: 20px;
         }
         #logo { width: 200px;  }
-        #head { background-color: #D8D2CA}
+        /*#head { background-color: #D8D2CA}*/
         a.menu_a {
             text-decoration: none;
         }
@@ -19,6 +19,7 @@
         }
         div#head {
             display: flex;
+            margin: 0;
         }
         div.logo, div.menu {
             flex: 1;
@@ -34,11 +35,6 @@
             </a>
         </div>
         <div class="menu">
-            <a class="menu_a" style="text-decoration:none;" href="<c:url value="/mypage/${memberId}" />">
-                <img class="menu_a" src="/img/mypage_logo.png">
-            </a>
-        </div>
-        <div class="menu">
             <a class="menu_a" style="text-decoration:none;" href="<c:url value="/board/${memberId}" />" >
                 <img class="menu_a" src="/img/board_menu_logo.png">
             </a>
@@ -48,6 +44,12 @@
                 <img class="menu_a" src="/img/place_menu_logo.png">
             </a>
         </div>
+        <div class="menu">
+            <a class="menu_a" style="text-decoration:none;" href="<c:url value="/mypage/${memberId}" />">
+                <img class="menu_a" src="/img/mypage_logo.png">
+            </a>
+        </div>
     </div>
+    <hr/>
 </body>
 </html>

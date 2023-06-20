@@ -3,17 +3,23 @@
 <html>
     <head>
         <style>
+            /*s*/
             div {
                 text-align: center;
                 margin: 20px;}
-            #logo { width: 300px;  }
-            #head { background-color: #D8D2CA}
+            #main_logo {
+                width: 300px;
+                /*animation: rotate_image 6s linear infinite;*/
+                /*transform-origin: 50% 50%;*/
+            }
+            /*#head { background-color: #D8D2CA}*/
         </style>
     </head>
     <body>
         <title>Pet Planet</title>
         <div id="head">
-            <img id="logo" src="/img/logo.png" alt="Pet Planet Logo"/></a>
+            <img id="main_logo" src="/img/logo.png" alt="Pet Planet Logo"/></a>
+            <hr/>
         </div>
     </body>
 </html>
