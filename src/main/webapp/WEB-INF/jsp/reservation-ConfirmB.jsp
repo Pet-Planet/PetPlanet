@@ -3,20 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Reservation Confirmation</title>
+    <jsp:include page="header2.jsp" />
 </head>
-<body>
-<h1>Reservation Confirmation</h1>
-<p>숙소명: ${rev.placeName}</p>
-<p>체크인 날짜: ${rev.startDate}</p>
-<p>체크아웃 날짜: ${rev.endDate}</p>
-<p>예약자명: ${rev.revName}</p>
-<p>연락처: ${rev.phoneNum}</p>
-<p>투숙객 인원: ${rev.guests}명</p>
-<p>동반 반려동물 수: ${rev.pets}마리</p>
-<p>총 투숙금액: ${rev.amount}원</p>
+<style>
+
+    .rev-button{
+
+        background-color: #B9E9FC;
+        color: white;
+        padding: 15px 30px;
+        margin: 100px 70px;
+        border: none;
+        cursor: pointer;
+        width: 100px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .reservation-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .title {
+        color: #B9E9FC;
+        margin-top: 50px;
+        font-size: 25px;
+        font-weight: bold;
+    }
 
 
-<form action="/reservation/${memberId}" method="post" >
+    .reservation-details {
+        text-align: left;
+    }
+
+    .reservation-details p {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .amount{
+        font-size: 25px;
+        margin-top: 80px;
+    }
+    .amount-value{
+
+        color: red;
+    }
+
+    strong{
+
+        margin-right: 50px;
+    }
+
+</style>
+
+<div class="reservation-form">
+    <div class="title"><h1>입력정보 확인</h1></div>
+    <div class="reservation-details">
+        <h1>${rev.placeName}</h1><br>
+        <p><strong>체크인</strong> ${rev.startDate}</p>
+        <p><strong>체크아웃</strong> ${rev.endDate}</p>
+        <p><strong>총인원수</strong> ${rev.guests}명 (동반 반려동물 ${rev.pets}마리)</p>
+        <p><strong>예약자명</strong> ${rev.revName}</p>
+        <p><strong>연락처</strong> ${rev.phoneNum}</p>
+
+        <div class="amount"><p><strong>결제금액</strong> <span class="amount-value">${rev.amount}원</span></p></div>
+    </div>
+<form action="/reservation/${memberId}" method="post" onsubmit="return showReservConfirmation()">
     <input type="hidden" name="placeId" value="${rev.placeId}">
     <input type="hidden" name="placeName" value="${rev.placeName}">
     <input type="hidden" name="startDate" value="${rev.startDate}">
@@ -26,12 +84,22 @@
     <input type="hidden" name="guests" value="${rev.guests}">
     <input type="hidden" name="pets" value="${rev.pets}">
     <input type="hidden" name="amount" value="${rev.amount}">
-
-    <input type="submit" value="예약하기">
+    <button type="submit" class="rev-button">예 약</button>
+    <button type="button" onclick="history.back()" class="rev-button">수 정</button>
 </form>
+</div>
+
+<script>
+
+    function showReservConfirmation() {
+
+        alert("예약 되었습니다.");
+
+        return true;
+    }
+</script>
 </body>
 </html>
-
 
 
 
