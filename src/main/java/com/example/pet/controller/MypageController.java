@@ -2,9 +2,11 @@ package com.example.pet.controller;
 
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
+import com.example.pet.dto.bookmark.BookMarkDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.service.BoardService;
+import com.example.pet.service.BookMarkService;
 import com.example.pet.service.MypageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ import java.util.List;
 public class MypageController {
 
     private final MypageService mypageService;
-
+    private final BookMarkService bookmarkService;
     //마이페이지
     @GetMapping("")
     public String findMe(@PathVariable int memberId, Model model) {
@@ -50,6 +52,14 @@ public class MypageController {
         return "mypage";
     }
 
+    // 회원 탈퇴
+    @PostMapping("/withdraw")
+    public String withdrawMember(@PathVariable int memberId) {
+        mypageService.withdrawMember(memberId);
+
+        return "withdrawn";
+    }
+
     // 내가 쓴 글 조회
     @GetMapping("/posts")
     public String getMyPosts(@PathVariable int memberId, Model model) {
@@ -59,11 +69,13 @@ public class MypageController {
         return "mypagePosts";
     }
 
-    // 회원 탈퇴
-    @PostMapping("/withdraw")
-    public String withdrawMember(@PathVariable int memberId) {
-        mypageService.withdrawMember(memberId);
+    // 내 북마크 조회
+    @GetMapping("/bookmarks")
+    public String getAllBookmarks(@PathVariable int memberId, Model model) {
+        List<BoardListResponseDto> bookmarkList = mypageService.getBookmarkedBoardList(memberId);
+        model.addAttribute("bookmarkList", bookmarkList);
+        model.addAttribute("memberId", memberId);
 
-        return "withdrawn";
+        return "mypageBookmarks";
     }
 }

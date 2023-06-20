@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <jsp:include page="header.jsp" />
-    <jsp:include page="menu.jsp" />
+    <jsp:include page="header2.jsp" />
     <title>Reservation Detail</title>
     <style>
         .cancel {
@@ -44,13 +43,8 @@
                 method: 'DELETE'
             })
                 .then(response => {
-                    if (response.ok) {
-                        alert("예약이 취소되었습니다.");
-                        window.location.href = `/main/${memberId}`;
-                    } else {
-                        console.error('에러');
-                        alert("예약 취소 중 오류가 발생했습니다.");
-                    }
+                    alert("예약이 취소되었습니다.");
+                    window.location.href = `/main/${memberId}`;
                 })
                 .catch(error => {
                     console.error('Error:', error);
