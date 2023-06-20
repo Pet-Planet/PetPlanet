@@ -144,6 +144,15 @@ div#btn {
 
 
 /*검색창*/
+#board-search{
+    display: flex;
+}
+.board-sort {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+}
 #board-search .search-window {
     padding: 15px 0;
     background-color: #f9f7f9;
@@ -176,4 +185,29 @@ div#btn {
     width: 108px;
     padding: 0;
     font-size: 16px;
+}
+
+/*정렬*/
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0.6em 1.4em 0.5em 0.8em;
+    margin: 0;
+
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+
+    font-family: 'GmarketSansMedium';
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    color: #444;
+    background-color: #fff;
+
+    padding: 0.6em 1.4em 0.5em 0.8em;
+    margin: 0;
 }

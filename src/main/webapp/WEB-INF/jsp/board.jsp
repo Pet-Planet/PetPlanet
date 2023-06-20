@@ -16,6 +16,14 @@
 <body>
     <%--    board search area    --%>
     <div id="board-search">
+        <div class="board-sort">
+            <form>
+                <select id="sortType" name="sortType">
+                    <option value="time">최신순</option>
+                    <option value="view">조회수순</option>
+                </select>
+            </form>
+        </div>
         <div class="container">
             <div class="search-window">
                 <form action="/board/${memberId}" method="get">
