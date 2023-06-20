@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 
+<fmt:parseDate var="parsedDate" value="${comment.createdDate}" pattern="dd-MM-yyyy HH:mm:ss"/>
+<fmt:formatDate var="newDate" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>
 <head>
     <meta charset="UTF-8">
     <title>Pet Planet</title>
@@ -17,6 +19,7 @@
             background-color: white;
         }
         tr td {
+            text-align: center;
             padding: 20px;
         }
         .hidden {
@@ -25,24 +28,55 @@
     </style>
 
     <script>
-        window.onload=function matchMember () {
-            const btn1 = document.getElementById('btnDel');
-            const btn2 = document.getElementById('btnUp');
+        <%--window.onload=function matchMember () {--%>
+        <%--    const btn1 = document.getElementById('btnDel');--%>
+        <%--    const btn2 = document.getElementById('btnUp');--%>
 
-            if(${board.memberId} == ${memberId}) {
-                btn1.style.visibility = 'visible';
-                btn2.style.visibility = 'visible';
+        <%--    if(${comment.memberId} == ${memberId}) {--%>
+        <%--        btn1.style.visibility = 'visible';--%>
+        <%--        btn2.style.visibility = 'visible';--%>
+        <%--    }--%>
+        <%--}--%>
+
+        //댓글 삭제
+        function deleteReview(commentId) {
+            if (confirm("댓글을 삭제하시겠습니까?")) {
+                fetch('/board/${memberId}/post/${postId}/delete/' + commentId, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            console.error('Error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error', error);
+                    });
             }
         }
+
+        //댓글 수정 페이지 삽입
+        function includePage(memberId, postId, commentId) {
+            var url = "/board/" + memberId + "/post/" + postId + "/update/" + commentId;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("includedPage").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
     </script>
-    <jsp:include page="header.jsp" />
-    <jsp:include page="menu.jsp" />
+    <jsp:include page="header2.jsp" />
 </head>
 <br><br><br>
 <body>
     <table align="center">
         <tr>
-            <th>번호</th>
             <th>작성자</th>
             <th>내용</th>
             <th>작성일</th>
@@ -51,33 +85,17 @@
         </tr>
         <c:forEach var="comment" items="${comments}">
             <tr>
-                <td>${comment.id}</td>
-                <td>${comment.writer}</td>
-                <td>${comment.content}</td>
-                <td>${comment.createdDate}</td>
-                <td><button type="button">수정</button></td>
-                <td><button type="button">삭제</button></td>
+                <td style="width:100px;">${comment.writer}</td>
+                <td style="width:400px;">${comment.content}</td>
+                <td style="width:100px;">${comment.createdDate}</td>
+                <td style="width:50px;"><button id="btnUpdate" type="button" onclick="location.href='/board/${memberId}/post/${postId}/update/${comment.id}'">수정</button></td>
+<%--                <td><button id="btnUpdate" type="button" onclick="includePage(${memberId}, ${postId}, ${comment.id})">수정</button></td>--%>
+                <td style="width:50px;"><button id="btnDelete" type="button" onclick="deleteReview(${comment.id})">삭제</button></td>
             </tr>
         </c:forEach>
     </table>
-    <form action="/board/${memberId}/post/${postId}/comment" method="post">
-        <br><br><br>
-        <table align="center">
-            <tr>
-                <td>작성자</td>
-                <td><input class="hidden" name="writer" size="80" value="${member.kakaoNickname}">${member.kakaoNickname}</td>
-            </tr>
-            <tr>
-                <td>댓글</td>
-                <td>
-                    <textarea name="content" rows="4" cols="80" placeholder="댓글을 입력하세요"></textarea>
-                    <button type="submit">등록</button>
-                </td>
-            </tr>
-        </table>
-        <div style="text-align: center">
-        </div>
-    </form>
+    <div id="includedPage"></div>   <!--수정 페이지 삽입-->
 </body>
 <br><br><br>
+<jsp:include page="commentForm.jsp" />
 </html>
