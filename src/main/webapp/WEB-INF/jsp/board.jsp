@@ -52,8 +52,7 @@
 
         <div class="paging">
             <ul>
-                <c:forEach begin="${startPage}" end="${endPage}" var="i">
-                    <li><a href="<c:url value="/board/${memberId}/?page=${boardList.pageable.pageNumber -1})" />">Previous</a></li>
+                <c:forEach begin="1" end="${totalPage}" var="i">
                     <li><a href="<c:url value="/board/${memberId}/?page=${i - 1}" />">${i}</a></li>
                 </c:forEach>
             </ul>

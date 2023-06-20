@@ -6,8 +6,11 @@ import com.example.pet.dto.board.*;
 import com.example.pet.repository.BoardRepository;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.description.type.TypeDefinition;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -38,7 +41,8 @@ public class BoardService {
         return null;
     }
     // 페이징 구현을 위한 전체 글 조회
-    public Page<Board> findBoardPage(String title, String content, Pageable pageable) {
+    public Page<Board> findBoardPage(String title, String content, int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "postId"));
         return boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
     }
 
