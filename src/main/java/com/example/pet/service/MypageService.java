@@ -1,12 +1,14 @@
 package com.example.pet.service;
 
 import com.example.pet.domain.board.Board;
+import com.example.pet.domain.board.BookMark;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.board.GetBoardDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;
+import com.example.pet.repository.BookMarkRepository;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.List;
 public class MypageService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
+    private final BookMarkRepository bookmarkRepository;
 
     public Member getMember(HttpServletRequest request) {
         int memberId = (int) request.getAttribute("memberId");
@@ -46,6 +49,14 @@ public class MypageService {
         return memberRepository.save(member);
     }
 
+    // 회원 탈퇴
+    public void withdrawMember(int id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+
+        memberRepository.delete(member);
+    }
+
     // 내가 쓴 글 조회
     public List<BoardListResponseDto> getBoardList(int memberId) {
         List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
@@ -59,11 +70,14 @@ public class MypageService {
         return boardDtoList;
     }
 
-    // 회원 탈퇴
-    public void withdrawMember(int id) {
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+    public List<BoardListResponseDto> getBookmarkedBoardList(int memberId) {
+        List<BookMark> bookmarkList = bookmarkRepository.findAllByMember_MemberId(memberId);
+        List<BoardListResponseDto> boardDtoList = new ArrayList<>();
 
-        memberRepository.delete(member);
+        for (BookMark bookmark : bookmarkList) {
+            boardDtoList.add(new BoardListResponseDto(bookmark.getBoard()));
+        }
+
+        return boardDtoList;
     }
 }
