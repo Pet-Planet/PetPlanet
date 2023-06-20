@@ -6,6 +6,8 @@ import com.example.pet.dto.board.*;
 import com.example.pet.repository.BoardRepository;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,6 +36,10 @@ public class BoardService {
         } catch (Exception e) {
         }
         return null;
+    }
+    // 페이징 구현을 위한 전체 글 조회
+    public Page<Board> findBoardPage(String title, String content, Pageable pageable) {
+        return boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
     }
 
     // 글 하나 조회하기

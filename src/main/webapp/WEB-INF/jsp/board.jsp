@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/static/board.css" />
     <jsp:include page="header2.jsp" />
 </head>
-
 <body>
     <div id="btn">
         <button id="btnwrite" type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
@@ -26,7 +25,7 @@
                 <th>작성일</th>
                 <th>조회수</th>
             </tr>
-            <c:forEach var="row" items="${boardList}">
+            <c:forEach var="row" items="${boardList.content}">
                 <tr>
                     <td>${row.postId}</td>
                     <td>${row.category}</td>
@@ -50,6 +49,15 @@
                 </tr>
             </c:forEach>
         </table>
+
+        <div class="paging">
+            <ul>
+                <c:forEach begin="${startPage}" end="${endPage}" var="i">
+                    <li><a href="<c:url value="/board/${memberId}/?page=${boardList.pageable.pageNumber -1})" />">Previous</a></li>
+                    <li><a href="<c:url value="/board/${memberId}/?page=${i - 1}" />">${i}</a></li>
+                </c:forEach>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
