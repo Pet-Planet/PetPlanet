@@ -15,8 +15,7 @@
         });
     });
 </script>
-<jsp:include page="header.jsp" />
-<jsp:include page="menu.jsp" />
+
 <style>
     #board {
         margin-left: auto;
@@ -40,6 +39,7 @@
     }
 
 </style>
+<jsp:include page="header2.jsp" />
 
 <body>
     <div id="btn">

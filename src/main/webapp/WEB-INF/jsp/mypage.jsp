@@ -40,7 +40,7 @@
 <table align="center">
     <tr>
         <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/reservations"/>'>예약 내역</a></td>
-        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/reservations"/>'>나의 리뷰</a></td>
+        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/reviews"/>'>나의 리뷰</a></td>
     </tr>
     <tr>
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/edit"/>'>회원 정보 수정</a></td>

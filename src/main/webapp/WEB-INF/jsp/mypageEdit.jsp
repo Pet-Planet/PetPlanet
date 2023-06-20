@@ -77,8 +77,7 @@
         }
     </script>
 
-    <jsp:include page="header.jsp" />
-    <jsp:include page="menu.jsp" />
+    <jsp:include page="header2.jsp" />
 </head>
 <body>
 <form action="/mypage/${memberId}/edit" method="post">

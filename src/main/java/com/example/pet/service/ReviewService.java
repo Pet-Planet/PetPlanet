@@ -77,7 +77,7 @@ public class ReviewService {
 
         for(Review review : reviewList) {
             GetReviewDto reviewDto = new GetReviewDto(
-                    review.getMember().getMemberId(), review.getPlace().getPlaceTitle(), review.getMember().getNickname(),
+                    review.getId(), review.getPlace().getPlaceId(), review.getMember().getMemberId(), review.getPlace().getPlaceTitle(), review.getMember().getNickname(),
                     review.getRating(), review.getContent(), review.getLastModifiedDate()
             );
             reviewDtoList.add(reviewDto);
