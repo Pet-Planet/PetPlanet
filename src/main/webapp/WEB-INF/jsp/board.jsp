@@ -9,13 +9,15 @@
 <html>
 <head>
     <link rel="stylesheet" href="/static/board.css" />
+    <%--    페이징 스타일 시트--%>
+    <link rel="stylesheet" href="/static/board_page.css" />
     <jsp:include page="header2.jsp" />
 </head>
 <body>
     <div id="btn">
         <button id="btnwrite" type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
     </div>
-    <div>
+    <div id="board_div">
         <table id="board">
             <tr>
                 <th>번호</th>
@@ -49,13 +51,13 @@
                 </tr>
             </c:forEach>
         </table>
+    </div>
+    <div class="page_wrap">
+        <div class="page_nation">
+            <c:forEach begin="1" end="${totalPage}" var="i">
+                <a id="pageBtn" href="<c:url value="/board/${memberId}/?page=${i - 1}" />">${i}</a>
+            </c:forEach>
 
-        <div class="paging">
-            <ul>
-                <c:forEach begin="1" end="${totalPage}" var="i">
-                    <li><a href="<c:url value="/board/${memberId}/?page=${i - 1}" />">${i}</a></li>
-                </c:forEach>
-            </ul>
         </div>
     </div>
 </body>

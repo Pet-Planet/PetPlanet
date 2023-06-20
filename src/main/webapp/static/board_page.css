@@ -1,0 +1,27 @@
+.page_wrap {
+    text-align: center;
+    margin: 0;
+}
+.page_nation{
+    display: inline-block;
+    margin: 0;
+}
+.page_nation a {
+    display:block;
+    margin:0 3px;
+    float:left;
+    border:1px solid #98C0DC;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color: black;
+    text-decoration:none;
+}
+.page_nation a:active {
+    background-color:#98C0DC;
+    color:#fff;
+    border:1px solid #98C0DC;
+}
