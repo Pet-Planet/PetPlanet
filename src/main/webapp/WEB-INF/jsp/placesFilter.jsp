@@ -29,9 +29,25 @@
         <option value="avgRatingDesc">평점 높은 순</option>
         <option value="avgRatingAsc">평점 낮은 순</option>
     </select>
-    <button type="submit" class="btn btn-primary">필터 적용</button>
+    <input type="text" name="keyword"></td>
+    <input type="button" value="검색" onClick="search()" class="btn btn-raised btn-success" style="color:black;">
+<%--    <button type="submit" class="btn btn-primary">필터 적용</button>--%>
 </form>
-<!-- 부트스트랩 JavaScript -->
+<%--<form name="searchForm" method="POST" action="/places/search/${memberId}/>">--%>
+<%--<input type="text" name="keyword"></td>--%>
+<%--<input type="button" value="검색" onClick="search()" class="btn btn-raised btn-success" style="color:black;">--%>
+<%--</form>--%>
+    <script>
+    function search() {
+        // if (searchForm.keyword.value == "") {
+        //     alert("검색어를 입력하십시오.");
+        //     searchForm.keyword.focus();
+        //     return false;
+        // }
+        filterForm.action="/places/filter/${memberId}/" ;
+        filterForm.submit();
+    };
+</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
