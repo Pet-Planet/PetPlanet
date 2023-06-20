@@ -21,7 +21,7 @@
         </div>
         <div class="menu">
             <a class="menu_a" id="a_palce" style="text-decoration:none;" href="<c:url value="/places/${memberId}" />" >
-                장소게시판
+                펫플레이스
 <%--                <img class="menu_a" src="/img/place_logo_letter2.png">--%>
             </a>
         </div>
