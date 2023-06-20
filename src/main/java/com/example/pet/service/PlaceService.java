@@ -101,6 +101,13 @@ public class PlaceService {
         return convertToPlaceDtoList(placeList);
     }
 
+    //검색
+//    public List<PlaceDto> getPlacesByKeyword(String keyword) {
+//        List<Place> placeList = placeRepository.findByPlaceTitle(keyword);
+//        updateReviewStats(placeList);
+//        return convertToPlaceDtoList(placeList);
+//    }
+
     // Place 리스트를 PlaceDto 리스트로 변환하는 메서드
     private List<PlaceDto> convertToPlaceDtoList(List<Place> placeList) {
         List<PlaceDto> placeDtoList = new ArrayList<>();
@@ -135,5 +142,15 @@ public class PlaceService {
             place.setAvgRating(avgRating);
         }
         placeRepository.saveAll(placeList);
+    }
+
+
+
+
+
+    public List<PlaceDto> getPlacesByTypeAndRegionAndKeyword(String placeType, Integer regionId, String keyword) {
+        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionIdAndPlaceTitle(placeType, regionId, keyword);
+        updateReviewStats(placeList);
+        return convertToPlaceDtoList(placeList);
     }
 }

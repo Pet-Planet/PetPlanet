@@ -17,4 +17,9 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
     @Query("SELECT p FROM Place p WHERE p.region.regionId = :regionId and p.placeType = :placeType")
     List<Place> findByPlaceTypeAndRegionId(@Param("placeType") String placeType, @Param("regionId") Integer regionId);
+
+    @Query("SELECT p FROM Place p WHERE p.region.regionId = :regionId and p.placeType = :placeType and UPPER(p.placeTitle) LIKE REPLACE(UPPER(CONCAT('%', :keyword, '%')), ' ', '')")
+    List<Place> findByPlaceTypeAndRegionIdAndPlaceTitle(@Param("placeType") String placeType, @Param("regionId") Integer regionId, String keyword);
+
+
 }
