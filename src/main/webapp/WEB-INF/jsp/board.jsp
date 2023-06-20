@@ -14,24 +14,37 @@
     <jsp:include page="header2.jsp" />
 </head>
 <body>
-    <div id="btn">
-        <button id="btnwrite" type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
+    <%--    board search area    --%>
+    <div id="board-search">
+        <div class="container">
+            <div class="search-window">
+                <form action="">
+                    <div class="search-wrap">
+                        <label for="search" class="blind">공지사항 내용 검색</label>
+                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                        <button type="submit" class="btn btn-dark">검색</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div id="board_div">
-        <table id="board">
+
+    <%-- board list --%>
+    <div id="board_list">
+        <table class="board-table">
             <tr>
-                <th>번호</th>
+                <th cope="col" class="th-num">번호</th>
                 <th>카테고리</th>
-                <th>제목</th>
+                <th scope="col" class="th-title">제목</th>
                 <th>작성자</th>
-                <th>작성일</th>
+                <th scope="col" class="th-date">작성일</th>
                 <th>조회수</th>
             </tr>
             <c:forEach var="row" items="${boardList.content}">
                 <tr>
                     <td>${row.postId}</td>
                     <td>${row.category}</td>
-                    <td><a href="/board/${memberId}/post/${row.postId}" >${row.title}</a></td>
+                    <td id="board-title"><a href="/board/${memberId}/post/${row.postId}" >${row.title}</a></td>
                     <td>${row.writer}</td>
                     <td>
                         <fmt:parseDate value="${ row.createdDate }" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
@@ -57,8 +70,8 @@
             <c:forEach begin="1" end="${totalPage}" var="i">
                 <a id="pageBtn" href="<c:url value="/board/${memberId}/?page=${i - 1}" />">${i}</a>
             </c:forEach>
-
         </div>
+        <button id="btnwrite" class="btn btn-dark" type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
     </div>
 </body>
 </html>
