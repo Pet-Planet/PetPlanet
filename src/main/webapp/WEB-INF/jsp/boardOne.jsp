@@ -76,6 +76,7 @@
     function createBookmark() {
         const btnCancel = document.getElementById('cancel');
         const btnBookmark = document.getElementById('create');
+        alert("해당 글을 북마크했습니다");
         btnCancel.style.display = "inline-block";
         btnBookmark.style.display = "none";
         fetch("/bookmark/create", {
@@ -88,11 +89,11 @@
                 memberId: ${memberId}
             }),
         }).then((response) => console.log(response));
-
     }
     function cancelBookmark() {
         const btnCancel = document.getElementById('cancel');
         const btnBookmark = document.getElementById('create');
+        alert("북마크를 취고했습니다");
         btnBookmark.style.display = "inline-block";
         btnCancel.style.display = "none";
         fetch("/bookmark/delete", {
@@ -130,8 +131,12 @@
                 <button type="button" id="btnDel" onclick="deleteById()">삭제</button>
             </div>
             <div id="bookmark">
-                <button class="bookmarkBtn" id="create" type="button" onclick="createBookmark()">북마크</button>
-                <button class="bookmarkBtn" id="cancel" type="button" onclick="cancelBookmark()">북마크 취소</button>
+                <a class="bookmarkBtn" id="create" onclick="createBookmark()">
+                    <img style="width: 40px" src="/img/bookmark_cancel.png">
+                </a>
+                <a class="bookmarkBtn" id="cancel" onclick="cancelBookmark()">
+                    <img style="width: 40px" src="/img/bookmark_ok.png">
+                </a>
             </div>
         </div>
     </div>
