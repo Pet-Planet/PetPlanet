@@ -24,22 +24,22 @@
     </style>
 </head>
 <body>
-<form action="/board/${memberId}/post/${postId}/comment" method="post">
-
+<form action="/board/${memberId}/post/${postId}/update/${commentId}" method="post">
+    <br><br><br>
     <table align="center">
         <tr class="hidden">
             <td>작성자</td>
-            <td><input name="writer" size="80" value="${member.nickname}"></td>
+            <td><input name="writer" size="80" value="${comment.writer}"></td>
         </tr>
         <tr>
-            <td style="width:100px;">${member.nickname}</td>
-            <td style="width:600px;"><textarea name="content" rows="4" cols="100" placeholder="댓글을 입력하세요"></textarea></td>
+            <td style="width:100px;">${comment.writer}</td>
+            <td style="width:600px;"><textarea name="content" rows="4" cols="100">${comment.content}</textarea></td>
             <td style="width:50px;">
-                <button type="submit">등록</button>
+                <button type="submit">수정</button>
+                <button type="button" onclick="history.back()">취소</button>
             </td>
         </tr>
     </table>
 </form>
-<br><br><br>
 </body>
 </html>
