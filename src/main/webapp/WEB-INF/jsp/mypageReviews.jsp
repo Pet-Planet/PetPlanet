@@ -73,7 +73,7 @@
                     onclick="goToReviewEditForm('${review.id}','${review.placeId}')">수정
             </button>
             <button id="btn-delete" type="button" class="btn btn-outline-info"
-                    onclick="deleteReview(${review.id}, ${review.placeId})">삭제
+                    onclick="deleteReview(${review.id})">삭제
             </button>
         </c:if>
         <p></p>
@@ -99,10 +99,10 @@
         window.location.href = '/reservation/${memberId}/?placeId=' + placeId;
     }
 
-    function deleteReview(reviewId, placeId) {
+    function deleteReview(reviewId) {
         if (confirm("리뷰를 정말 삭제하시겠습니까?")) {
             // Send an AJAX request to delete the review
-            fetch('/review/' + reviewId, {
+            fetch('/review/delete/' + reviewId, {
                 method: 'DELETE'
             })
                 .then(response => {
