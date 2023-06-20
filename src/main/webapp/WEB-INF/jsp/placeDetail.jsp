@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <jsp:include page="header.jsp"/>
@@ -17,35 +18,32 @@
             width: 100%;
         }
 
-        /* 평균 평점 별그림 */
-        .rating-stars {
+        .average-rating {
+            position: relative;
+            appearance: none;
+            color: transparent;
+            width: auto;
             display: inline-block;
-            font-size: 20px;
-            color: gold;
+            vertical-align: baseline;
         }
 
-        .rating-stars::before {
-            content: "★★★★★";
-            letter-spacing: 3px;
-        }
-
-        /* 하나의 리뷰 별그림 */
-        .rating-stars-review {
-            display: inline-block;
-            font-size: 20px;
-            color: gold;
-        }
-
-        .rating-stars-review::before {
-            content: "★★★★★";
-            letter-spacing: 3px;
+        .average-rating::before {
+            --percent: calc(var(--rating) / 5 * 100%);
+            content: '★★★★★';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: rgba(0, 0, 0, 0.2);
+            background: linear-gradient(90deg, gold var(--percent), rgba(0, 0, 0, 0.2) var(--percent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
     <title>장소 상세 설명</title>
 </head>
 <body>
 <div class="container text-center">
-    <button id="btn-back" type="button" onclick="history.back()" class="review-button">목록</button>
+    <button id="btn-back" type="button" onClick="location.href='/places/${memberId}'" class="review-button">목록</button>
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
             <div class="col-md-4">
@@ -69,8 +67,9 @@
     <div style="width:200px; height:150px;  float:left; font-weight: bold; font-size: 40px;">
         Reviews
     </div>
-    <div style="width:200px; height:150px;  float:left; font-weight: bold; font-size: 40px;">
-        <span class="rating-stars"></span>
+    <div style="width:100px; height:100px;  float:left; font-weight: bold; font-size: 40px;">
+        <p><meter class="average-rating" min="0" max="5" value="${placeDetail.avgRating}" title="${placeDetail.avgRating} out of 5 stars" style="--rating: ${placeDetail.avgRating}"> ${placeDetail.avgRating} out of 5(${placeDetail.avgRating})</meter>
+        </p>
     </div>
     <div style="width:200px; height:150px;  float:left; font-weight: bold; font-size: 40px;">
         (${placeDetail.avgRating})
@@ -89,8 +88,12 @@
     <c:forEach var="review" items="${placeDetail.reviews}">
         <div class="item--QDh" id="20:436">
             <div class="auto-group-wa9h-zSo" id="31Kg9SBK9SRYmoUE7HWa9h">
-                <p class="abcd-idh" id="20:448">${review.getNickName()}</p>
+                <p class="abcd-idh" id="20:448">${review.nickName}</p>
                 <span class="rating-stars-review"></span>
+            </div>
+            <div style="width:100px; height:100px;  float:left; font-weight: bold; font-size: 40px;">
+                <p><meter class="average-rating" min="0" max="5" value="${review.rating}" title="${review.rating} out of 5 stars" style="--rating: ${review.rating}"> ${review.rating} out of 5(${review.rating})</meter>
+                </p>
             </div>
             <p class="item--iZ9" id="20:449">${review.content}</p>
             <p class="item-20230411-10-55-DsH" id="20:461">
