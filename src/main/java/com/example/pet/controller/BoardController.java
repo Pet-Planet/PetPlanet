@@ -39,10 +39,9 @@ public class BoardController {
     // 전체 글 조회
     @GetMapping("")
     public String getAllBoard(@PathVariable int memberId, Model model,
-                              @RequestParam(required = false, defaultValue = "0", value = "page") int page) { // , // 페이징
-//                              @RequestParam(required = false, defaultValue = "") String searchText) { //검색
+                              @RequestParam(required = false, defaultValue = "0", value = "page") int page,
+                              @RequestParam(required = false, defaultValue = "") String searchText) { //검색
 //        List<BoardListResponseDto> boardList = boardService.findAllBoard();
-        String searchText = "";
         Page<Board> boardList = boardService.findBoardPage(searchText, searchText,page);
 
         //int startPage = Math.max(1, boardList.getPageable().getPageNumber() -1);
@@ -52,7 +51,7 @@ public class BoardController {
         //model.addAttribute("startPage", startPage);
         //model.addAttribute("endPage", endPage);
         model.addAttribute("totalPage", totalPage);
-
+        model.addAttribute("searchText", searchText);
         Date now = new Date();
         model.addAttribute("now", now);
         return "board";
@@ -123,9 +122,10 @@ public class BoardController {
 
     // 제목으로 검색하기
     @GetMapping("/findTitle")
-    public List<BoardListResponseDto> getBoardByTitle(@RequestParam String title) {
+    public List<BoardListResponseDto> getBoardByTitle(@RequestParam String searchText) {
         //String str = "제목";
-        return boardService.getBoardByTitle(title);
+        log.info("=> 검색 시작");
+        return boardService.getBoardByTitle(searchText);
     }
 
 }

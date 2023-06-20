@@ -5,7 +5,7 @@
 
 <%--글 한 개 조회하는 페이지--%>
 <html>
-<%@ include file="header.jsp"%>
+<%@ include file="header2.jsp"%>
 <style>
     #view {
         float: right;
