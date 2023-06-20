@@ -61,11 +61,34 @@ public class BoardCommentController {
     }
 
     // 댓글 수정 --> controller로 변경 전
-    @PutMapping("/update/{commentId}")
-    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int commentId, @RequestBody BoardCommentUpdateRequestDto requestDto) {
-        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, requestDto);
+//    @PutMapping("/update/{commentId}")
+//    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int commentId, @RequestBody BoardCommentUpdateRequestDto requestDto) {
+//        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, requestDto);
+//
+//        return ResponseEntity.ok(updatedComment);
+//    }
 
-        return ResponseEntity.ok(updatedComment);
+    @GetMapping("/update/{commentId}")
+    public String boardCommentUpdateForm(@PathVariable int memberId, @PathVariable int postId, @PathVariable int commentId, Model model) {
+        BoardComment updatedComment = boardCommentService.getBoardCommentById(commentId);
+        model.addAttribute("comment", updatedComment);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("postId", postId);
+        model.addAttribute("commentId", commentId);
+
+        return "commentUpdate";
+    }
+
+    @PostMapping("/update/{commentId}")
+    public String boardCommentUpdate(@PathVariable int memberId, @PathVariable int postId, @PathVariable int commentId, @ModelAttribute("comment") BoardCommentUpdateRequestDto commentUpdateDto, Model model) {
+        boardCommentService.updateBoardComment(commentId, commentUpdateDto);
+        BoardComment updatedComment = boardCommentService.getBoardCommentById(commentId);
+        model.addAttribute("comment", updatedComment);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("postId", postId);
+        model.addAttribute("commentId", commentId);
+
+        return "redirect:/board/{memberId}/post/{postId}/comments";
     }
 
     // 댓글 삭제
