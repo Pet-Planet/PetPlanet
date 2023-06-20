@@ -6,6 +6,7 @@ import com.example.pet.dto.bookmark.BookMarkDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.dto.place.PlaceDetailDto;
+import com.example.pet.dto.reservation.ReservationDetailDto;
 import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.service.*;
