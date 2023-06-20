@@ -15,8 +15,10 @@ public class ReservationListDto {
     private int revId;
     private int memberId;
     private String placeName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate startDate;
+    private LocalDate endDate;
+    private String time;
     private int guests;
     private int pets;
     private String imageUrl;

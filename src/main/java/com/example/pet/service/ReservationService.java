@@ -152,6 +152,8 @@ public class ReservationService {
                     reservation.getId(), reservation.getMember().getMemberId(),
                     reservation.getPlace().getPlaceTitle(),
                     reservation.getStartDate(),
+                    reservation.getEndDate(),
+                    reservation.getTime(),
                     reservation.getGuests(), reservation.getPets(),
                     reservation.getPlace().getImageUrl()
             );
