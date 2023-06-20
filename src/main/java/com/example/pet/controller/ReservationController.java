@@ -115,24 +115,6 @@ public class ReservationController {
     }
 
 
-
-
-    /*
-    나의 예약 조회 API
-     */
-
-    @GetMapping("/mypage/{memberId}/reservations")
-    public String getReview(@PathVariable int memberId, Model model){
-
-        List<ReservationListDto> reservationList = reservationService.getMyReservation(memberId);
-
-        model.addAttribute("reservationList", reservationList);
-
-        return "mypageReservations";
-
-    }
-
-
     /*
     예약 취소
      */

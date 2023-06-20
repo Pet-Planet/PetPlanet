@@ -6,6 +6,7 @@ import com.example.pet.dto.bookmark.BookMarkDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.dto.place.PlaceDetailDto;
+import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.service.*;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class MypageController {
 
     private final MypageService mypageService;
     private final ReviewService reviewService;
+    private final ReservationService reservationService;
 
     //마이페이지
     @GetMapping("")
@@ -61,9 +63,18 @@ public class MypageController {
         return "withdrawn";
     }
 
+    // 내 예약 조회
+    @GetMapping("/reservations")
+    public String getMyReservation(@PathVariable int memberId, Model model){
+        List<ReservationListDto> reservationList = reservationService.getMyReservation(memberId);
+        model.addAttribute("reservationList", reservationList);
+
+        return "mypageReservations";
+    }
+
     // 내 리뷰 조회
     @GetMapping("/reviews")
-    public String getReview(@PathVariable int memberId, Model model) {
+    public String getMyReview(@PathVariable int memberId, Model model) {
         List<GetReviewDto> reviewList = reviewService.getReviewList(memberId);
         model.addAttribute("reviewList", reviewList);
 
@@ -81,7 +92,7 @@ public class MypageController {
 
     // 내 북마크 조회
     @GetMapping("/bookmarks")
-    public String getAllBookmarks(@PathVariable int memberId, Model model) {
+    public String getMyBookmarks(@PathVariable int memberId, Model model) {
         List<BoardListResponseDto> bookmarkList = mypageService.getBookmarkedBoardList(memberId);
         model.addAttribute("bookmarkList", bookmarkList);
         model.addAttribute("memberId", memberId);
