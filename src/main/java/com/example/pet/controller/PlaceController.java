@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,27 +41,43 @@ public class PlaceController {
         return "places";
     }
 
+    //검색
+//    @PostMapping("/places/search/{memberId}")
+//    public String getPlacesByKeyword(HttpServletRequest request, @PathVariable int memberId,
+//                                     Model model) {
+//        String keyword = request.getParameter("keyword");
+//        List<PlaceDto> places;
+//        places = placeService.getPlacesByKeyword(keyword);
+//        model.addAttribute("places", places);
+//        return "places";
+//    }
+
 
     @PostMapping("/places/filter/{memberId}")
-    public String getPlacesByTypeAndRegion(@PathVariable int memberId,
+    public String getPlacesByTypeAndRegion(HttpServletRequest request, @PathVariable int memberId,
                                            @RequestParam(value = "placeType", required = false) String placeType,
                                            @RequestParam(value = "regionId", required = false) Integer regionId,
                                            @RequestParam(value = "sortOption", required = false) String sortOption,
                                            Model model) {
-        // 장소 타입별로 조회
+
         List<PlaceDto> places;
-        // 전체 장소, 전체 지역
-        if (placeType.equals("all") && regionId == -1) {
-            places = placeService.getAllPlaces();
-        } else if (!placeType.equals("all") && regionId == -1) {
-            // placeType만 지정된 경우
-            places = placeService.getPlacesByPlaceType(placeType);
-        } else if (placeType.equals("all") && regionId != -1) {
-            // regionId만 지정된 경우
-            places = placeService.getPlacesByRegionId(regionId);
-        } else {
-            // placeType과 regionId가 모두 지정된 경우
-            places = placeService.getPlacesByTypeAndRegion(placeType, regionId);
+        String keyword = request.getParameter("keyword");
+        if (keyword.equals("")) {
+            if (placeType.equals("all") && regionId == -1) {
+                places = placeService.getAllPlaces();
+            } else if (!placeType.equals("all") && regionId == -1) {
+                // placeType만 지정된 경우
+                places = placeService.getPlacesByPlaceType(placeType);
+            } else if (placeType.equals("all") && regionId != -1) {
+                // regionId만 지정된 경우
+                places = placeService.getPlacesByRegionId(regionId);
+            } else {
+                // placeType과 regionId가 모두 지정된 경우
+                places = placeService.getPlacesByTypeAndRegion(placeType, regionId);
+            }
+        }
+        else {
+            places = placeService.getPlacesByTypeAndRegionAndKeyword(placeType, regionId, keyword);
         }
 
         if (sortOption != null) {

@@ -3,6 +3,28 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .average-rating {
+            position: relative;
+            appearance: none;
+            color: transparent;
+            width: auto;
+            display: inline-block;
+            vertical-align: baseline;
+        }
+
+        .average-rating::before {
+            --percent: calc(var(--rating) / 5 * 100%);
+            content: '★★★★★';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: rgba(0, 0, 0, 0.2);
+            background: linear-gradient(90deg, gold var(--percent), rgba(0, 0, 0, 0.2) var(--percent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
     <title>전체 장소 목록</title>
 </head>
 <body class="text-center">
@@ -24,9 +46,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">${place.placeTitle}</h5>
                                 <p class="card-text">${place.placeType}</p>
-                                <p class="card-text">${place.avgRating}</p>
+                                <p class="card-text"><meter class="average-rating" min="0" max="5" value="${place.avgRating}" title="${place.avgRating} out of 5 stars" style="--rating: ${place.avgRating}"> ${place.avgRating} out of 5</meter>(${place.avgRating})</p>
                                 <p class="card-text">${place.reviewCnt}</p>
                                 <p class="card-text"><small class="text-muted"></small></p>
+
                             </div>
                         </div>
                     </div>
