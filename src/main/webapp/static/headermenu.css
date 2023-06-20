@@ -1,0 +1,19 @@
+
+#logo { width: 200px;  }
+/*#head { background-color: #D8D2CA}*/
+a.menu_a {
+    text-decoration: none;
+}
+img.menu_a {
+    width: 150px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+div#head {
+    display: flex;
+    margin: 20px;
+    text-align: center;
+}
+div.logo, div.menu {
+    flex: 1;
+}

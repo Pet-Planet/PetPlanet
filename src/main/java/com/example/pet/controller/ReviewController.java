@@ -83,25 +83,9 @@ public class ReviewController {
     }
 
     /*
-    내가 쓴 리뷰 조회 API
-     */
-
-    @GetMapping("/mypage/{memberId}/reviews")
-    public String getReview(@PathVariable int memberId, Model model){
-
-        List<GetReviewDto> reviewList = reviewService.getReviewList(memberId);
-
-        model.addAttribute("reviewList", reviewList);
-
-        return "mypageReviews";
-    }
-
-
-
-    /*
     리뷰 삭제
      */
-    @DeleteMapping("/review/delete/{reviewId}")
+    @DeleteMapping("/review/{reviewId}")
     public String deleteReview(@PathVariable int reviewId){
 
         reviewService.deleteReview(reviewId);

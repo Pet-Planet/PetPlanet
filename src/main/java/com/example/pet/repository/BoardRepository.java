@@ -3,6 +3,8 @@ package com.example.pet.repository;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.board.BoardListResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +17,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     public Board findByPostId(int postId);
     List<Board> findByTitle(String title);
     List<Board> findByMember_MemberId(int memberId);
+    Page<Board> findByTitleContainingOrContentContaining(String title,
+                                                         String content,
+                                                         Pageable pageable);
 }

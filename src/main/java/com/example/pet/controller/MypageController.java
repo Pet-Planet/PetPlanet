@@ -5,9 +5,9 @@ import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.bookmark.BookMarkDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
-import com.example.pet.service.BoardService;
-import com.example.pet.service.BookMarkService;
-import com.example.pet.service.MypageService;
+import com.example.pet.dto.place.PlaceDetailDto;
+import com.example.pet.dto.review.GetReviewDto;
+import com.example.pet.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,8 @@ import java.util.List;
 public class MypageController {
 
     private final MypageService mypageService;
-    private final BookMarkService bookmarkService;
+    private final ReviewService reviewService;
+
     //마이페이지
     @GetMapping("")
     public String findMe(@PathVariable int memberId, Model model) {
@@ -58,6 +59,15 @@ public class MypageController {
         mypageService.withdrawMember(memberId);
 
         return "withdrawn";
+    }
+
+    // 내 리뷰 조회
+    @GetMapping("/reviews")
+    public String getReview(@PathVariable int memberId, Model model) {
+        List<GetReviewDto> reviewList = reviewService.getReviewList(memberId);
+        model.addAttribute("reviewList", reviewList);
+
+        return "mypageReviews";
     }
 
     // 내가 쓴 글 조회

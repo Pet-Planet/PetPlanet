@@ -29,7 +29,7 @@
         visibility: hidden;
     }
     #create, #cancel {
-        display: inline-block;
+        display: none;
     }
 </style>
 <script>
