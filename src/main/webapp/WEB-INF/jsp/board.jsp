@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="/static/board.css" />
     <%--    페이징 스타일 시트--%>
     <link rel="stylesheet" href="/static/board_page.css" />
+    <script>
+        function selectBoxChange(obj) {
+            var type = obj.value;
+            console.log("type => " + type);
+            location.href = "/board/${memberId}?sortType=" + type;
+        }
+    </script>
     <jsp:include page="header2.jsp" />
 </head>
 <body>
@@ -18,9 +25,9 @@
     <div id="board-search">
         <div class="board-sort">
             <form>
-                <select id="sortType" name="sortType">
-                    <option value="time">최신순</option>
-                    <option value="view">조회수순</option>
+                <select id="sortType" name="sortType" onchange="selectBoxChange(this)">
+                    <option value="0" <c:if test="${sortType == '0'}">selected="selected"</c:if>>최신순</option>
+                    <option value="1" <c:if test="${sortType == '1'}">selected="selected"</c:if>>조회수순</option>
                 </select>
             </form>
         </div>

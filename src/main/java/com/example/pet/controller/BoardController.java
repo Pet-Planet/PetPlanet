@@ -40,9 +40,10 @@ public class BoardController {
     @GetMapping("")
     public String getAllBoard(@PathVariable int memberId, Model model,
                               @RequestParam(required = false, defaultValue = "0", value = "page") int page,
-                              @RequestParam(required = false, defaultValue = "") String searchText) { //검색
+                              @RequestParam(required = false, defaultValue = "", value = "searchText") String searchText,
+                              @RequestParam(required = false, defaultValue = "0", value="sortType") int sortType) {
 //        List<BoardListResponseDto> boardList = boardService.findAllBoard();
-        Page<Board> boardList = boardService.findBoardPage(searchText, searchText,page);
+        Page<Board> boardList = boardService.findBoardPage(searchText, searchText, page, sortType);
 
         //int startPage = Math.max(1, boardList.getPageable().getPageNumber() -1);
         //int endPage = Math.min(boardList.getTotalPages(), boardList.getPageable().getPageNumber()+3);
@@ -52,6 +53,7 @@ public class BoardController {
         //model.addAttribute("endPage", endPage);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("searchText", searchText);
+        model.addAttribute("sortType", sortType);
         Date now = new Date();
         model.addAttribute("now", now);
         return "board";
