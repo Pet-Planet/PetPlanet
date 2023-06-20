@@ -1,0 +1,19 @@
+
+#board {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+table, td, th {
+    border-collapse: collapse;
+    border : 1px solid black;
+    text-align: center;
+}
+div#btn {
+    width: 600px;
+    margin: auto;
+}
+#btnwrite {
+    width: 70px;
+    margin-right: 530px;
+}
