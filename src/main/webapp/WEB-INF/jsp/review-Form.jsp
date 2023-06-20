@@ -53,8 +53,7 @@
             font-weight: bold;
         }
     </style>
-    <jsp:include page="header.jsp" />
-    <jsp:include page="menu.jsp" />
+    <jsp:include page="header2.jsp" />
 </head>
 <body>
 <div class="review-form">
