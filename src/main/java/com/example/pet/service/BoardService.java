@@ -42,7 +42,7 @@ public class BoardService {
     }
     // 페이징 구현을 위한 전체 글 조회
     public Page<Board> findBoardPage(String title, String content, int page) {
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "postId"));
+        Pageable pageable = PageRequest.of(page, 15, Sort.by(Sort.Direction.DESC, "postId"));
         return boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
     }
 
