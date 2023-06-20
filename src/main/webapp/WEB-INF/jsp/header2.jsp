@@ -10,7 +10,7 @@
     <div id="head">
         <div class="logo">
             <a href="/main/${memberId}" style="text-decoration:none;">
-                <img id="logo" src="/img/logo.png" alt="Pet Planet Logo"/>
+                <img id="logo" src="/img/main_logo_ver2.png" alt="Pet Planet Logo"/>
             </a>
         </div>
         <div class="menu">
