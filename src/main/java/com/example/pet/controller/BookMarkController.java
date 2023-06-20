@@ -32,13 +32,6 @@ public class BookMarkController {
         bookMarkService.delete(bookMarkDto.getMemberId(), bookMarkDto.getPostId());
         return "북마크 취소";
     }
-    // 내가 한 북마크 글 모두 보기
-    @GetMapping("/mypage/{memberId}/bookmarks")
-    @ResponseBody
-    public ResponseEntity getAllBookMark(@PathVariable int memberId) {
-        List<BookMarkDto> bookMarkList = bookMarkService.findAllBookMark();
-        return ResponseEntity.ok().body(bookMarkList);
-    }
 
     // 북마크 한 글인지 확인하기
     @PostMapping("/bookmark/check")
