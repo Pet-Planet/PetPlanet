@@ -88,10 +88,10 @@
         </br><span class="placeNo"><h2>No. ${revDetail.revId}</h2></span>
         <span class="placeName"><h1>${revDetail.placeName}</h1></span></br></br>
         <div class="reservation-info">
-            <p><span>장소</span>${revDetail.address}</p>
+            <p><span>위치</span>${revDetail.address}</p>
             <p><span>체크인</span>${revDetail.startDate}</p>
             <p><span>체크아웃</span>${revDetail.endDate}</p>
-            <p><span>이용인원</span>${revDetail.guests}명 (${revDetail.pets}마리)</p>
+            <p><span>인원</span>${revDetail.guests}명 (동반 반려동물 ${revDetail.pets}마리)</p>
             <p><span>예약자명</span>${revDetail.revName}</p>
             <p><span>연락처</span>${revDetail.phoneNum}</p>
             <p><span>결제금액</span>${revDetail.amount}원</p>
