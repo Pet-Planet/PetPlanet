@@ -1,7 +1,4 @@
-div {
-    text-align: center;
-    margin: 20px;
-}
+
 #logo { width: 200px;  }
 /*#head { background-color: #D8D2CA}*/
 a.menu_a {
@@ -14,7 +11,8 @@ img.menu_a {
 }
 div#head {
     display: flex;
-    margin: 0;
+    margin: 20px;
+    text-align: center;
 }
 div.logo, div.menu {
     flex: 1;
