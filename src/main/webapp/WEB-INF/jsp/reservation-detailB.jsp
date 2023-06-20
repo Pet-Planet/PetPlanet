@@ -83,8 +83,8 @@
         <span class="placeName"><h1>${revDetail.placeName}</h1><br></span>
         <div class="reservation-info">
             <p><span>장소</span>${revDetail.address}</p>
-            <p><span>예약일자</span>${revDetail.startDate}</p>
-            <p><span>예약시간</span>${revDetail.time}</p>
+            <p><span>체크인</span>${revDetail.startDate}</p>
+            <p><span>체크아웃</span>${revDetail.endDate}</p>
             <p><span>이용인원</span>${revDetail.guests}명 (${revDetail.pets}마리)</p>
             <p><span>예약자명</span>${revDetail.revName}</p>
             <p><span>연락처</span>${revDetail.phoneNum}</p>
