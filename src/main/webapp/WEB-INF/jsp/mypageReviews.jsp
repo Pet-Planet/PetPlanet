@@ -4,17 +4,51 @@
 
 <html>
 <head>
+    <jsp:include page="header2.jsp"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <style>
-        /* 리뷰 스타일 */
-        .item--QDh {
+        /*상세 설명*/
+        .item-place {
             background-color: #ffffff;
-            border-radius: 4.7647rem;
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0.1000000015), 0 2.1rem 4.6rem rgba(0, 0, 0, 0.1000000015), 0 8.3rem 8.3rem rgba(0, 0, 0, 0.0900000036), 0 18.7rem 11.2rem rgba(0, 0, 0, 0.0500000007), 0 33.3rem 13.3rem rgba(0, 0, 0, 0.0099999998), 0 52rem 14.6rem rgba(0, 0, 0, 0);
-            height: 15rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.05), 0 2.1rem 3rem rgba(0, 0, 0, 0.0500000007), 0 33.3rem 13.3rem rgba(0, 0, 0, 0.0099999998), 0 52rem 14.6rem rgba(0, 0, 0, 0);
+            height: 20rem;
             overflow: hidden;
             position: relative;
             width: 100%;
+            text-align: left;
+        }
+
+        .review-top {
+            background-color: #ffffff;
+            border-radius: 0rem;
+            height: 6rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .reviews {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        /*리뷰 스타일*/
+        .item--QDh {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.05), 0 2.1rem 3rem rgba(0, 0, 0, 0.0500000007), 0 33.3rem 13.3rem rgba(0, 0, 0, 0.0099999998), 0 52rem 14.6rem rgba(0, 0, 0, 0);
+            height: 13rem;
+            overflow: hidden;
+            position: relative;
+            width: 99%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .average-rating {
@@ -37,87 +71,100 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .btn {
+            background-color: #fff;
+            color: #98C0DC;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #98C0DC;
+            color: #fff;
+        }
     </style>
+    <script>
+        function formatReviewDate(dateString) {
+            const writtenDate = new Date(dateString);
+            const formattedDate = writtenDate.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+            });
+            return formattedDate;
+        }
+
+        function goToReviewForm(placeId) {
+            window.location.href = '/review/${memberId}/?placeId=' + placeId;
+        }
+
+        function goToReviewEditForm(id, placeId) {
+            window.location.href = '/review/${memberId}/edit/' + id + '/?placeId=' + placeId;
+        }
+
+        function goToReservationForm(placeType, placeId) {
+            window.location.href = '/reservation/${memberId}/?placeId=' + placeId;
+        }
+
+        function deleteReview(reviewId, placeId) {
+            if (confirm("리뷰를 정말 삭제하시겠습니까?")) {
+                fetch('/review/delete/' + reviewId, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            const reviewElement = document.getElementById('review-' + reviewId);
+                            reviewElement.remove();
+                        } else {
+                            console.error('리뷰 삭제 중 오류가 발생했습니다.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('리뷰 삭제 중 오류가 발생했습니다:', error);
+                    });
+                location.reload();
+            }
+        }
+    </script>
     <title>Pet Planet</title>
 </head>
 
-<jsp:include page="header2.jsp" />
-
 <br><br><br>
 <body>
-<div class="container text-center">
-<!-- 리뷰 목록 출력 -->
-<c:forEach var="review" items="${reviewList}">
-    <div class="item--QDh" id="20:436" style="width:800px; height:200px; margin:0 auto;"><br>
-        <div class="auto-group-wa9h-zSo" id="31Kg9SBK9SRYmoUE7HWa9h">
-            <p class="abcd-idh" id="20:448"><b>${review.placeTitle}</b></p>
-            <span class="rating-stars-review"></span>
-        </div>
-        <div style="width:100px; height:100px;  float:left; font-weight: bold; font-size: 40px;">
-            <p>
-                <meter class="average-rating" min="0" max="5" value="${review.rating}" title="${review.rating} out of 5 stars" style="--rating: ${review.rating}">
-                        ${review.rating} out of 5(${review.rating})
-                </meter>
-            </p>
-        </div>
-        <p class="item--iZ9" id="20:449">${review.content}</p>
-        <p class="item-20230411-10-55-DsH" id="20:461">
-            <script>
-                const writtenDate = new Date('${review.writtenDate}');
-                const formattedDate = writtenDate.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-                document.write(formattedDate);
-            </script>
-        </p>
-        <c:if test="${review.memberId == memberId}">
-            <button id="btn-edit" type="button" class="btn btn-outline-info"
-                    onclick="goToReviewEditForm('${review.id}','${review.placeId}')">수정
-            </button>
-            <button id="btn-delete" type="button" class="btn btn-outline-info"
-                    onclick="deleteReview(${review.id})">삭제
-            </button>
-        </c:if>
-        <p></p>
+<div style="margin-left:500px; margin-right:500px;">
+    <div class="reviews">
+        <c:forEach var="review" items="${reviewList}">
+            <div class="item--QDh" id="review-${review.id}" style="position: relative;">
+                <div style="float: left; margin-left: 20px; margin-top: 38px; font-size: larger">
+                    <p>
+                        <strong>${review.placeTitle}</strong>
+                        <br>
+                        <meter class="average-rating" min="0" max="5" value="${review.rating}" style="--rating: ${review.rating}; float: left; ">
+                                ${review.rating} out of 5 (${review.rating})
+                        </meter>
+                    </p>
+                    <br>
+                    <br>
+                    <p>${review.content}</p>
+                </div>
+                <div style="position: absolute; top: 20px; right: 300px;">
+                    <script>
+                        document.write(formatReviewDate('${review.writtenDate}'));
+                    </script>
+                </div>
+                <c:if test="${review.memberId == memberId}">
+                    <div style="position: absolute; top: 10px; right: 10px;">
+                        <button id="btn-edit" type="button" class="btn btn-outline-info"
+                                onclick="goToReviewEditForm('${review.id}','${review.placeId}')">수정
+                        </button>
+                        <button id="btn-delete" type="button" class="btn btn-outline-info"
+                                onclick="deleteReview(${review.id})">삭제
+                        </button>
+                    </div>
+                </c:if>
+            </div>
+            <br>
+        </c:forEach>
     </div>
-    <p></p>
-    <!-- memberId가 일치하는 경우에만 수정/삭제 표시 -->
-</c:forEach>
 </div>
-
-<!-- 부트스트랩 JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>
-    function goToReviewForm(placeId) {
-        window.location.href = '/review/${memberId}/?placeId=' + placeId;
-    }
-
-    function goToReviewEditForm(id, placeId) {
-        window.location.href = '/review/${memberId}/edit/' + id + '/?placeId=' + placeId;
-    }
-
-
-    function goToReservationForm(placeType, placeId) {
-        window.location.href = '/reservation/${memberId}/?placeId=' + placeId;
-    }
-
-    function deleteReview(reviewId) {
-        if (confirm("리뷰를 정말 삭제하시겠습니까?")) {
-            // Send an AJAX request to delete the review
-            fetch('/review/delete/' + reviewId, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (response.ok) {
-                        // If the review is deleted successfully, reload the page to reflect the changes
-                        window.location.reload();
-                    } else {
-                        console.error('Error deleting the review.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error deleting the review:', error);
-                });
-        }
-    }
-</script>
 </body>
 </html>
