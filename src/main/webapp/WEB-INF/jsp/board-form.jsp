@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/button.css">
 </head>
 <body>
-<div class="container" role="main">
+    <div class="container" role="main">
     <form id="form" name="form_board" method="post" action="/board/${memberId}/post">
         <div class="mb-3">
             <input type="radio" name="category" value="[잡담]" checked/>잡담
@@ -30,6 +30,5 @@
         </div>
     </form>
 </div>
-
 </body>
 </html>

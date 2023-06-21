@@ -90,6 +90,7 @@
 </head>
 <body>
     <article>
+<%--        게시글 본문--%>
         <div class="container" role="main">
             <div class="bg-white rounded shadow-sm">
                 <div class="board_title">${board.category} ${board.title}</div>
@@ -110,22 +111,26 @@
             </div>
             <%--        버튼--%>
             <div class="boardBtn" style="margin-top : 20px">
-                <div class="inside" id="boardBtn">
-                    <button type="button" class="btn btn-sm btn-primary" onclick="location.href='/board/${memberId}'">목록</button>
-                    <button type="button" class="btn btn-sm btn-primary" id="btnUp" onclick="location.href='/board/${memberId}/update/${postId}'">수정</button>
-                    <button type="button" class="btn btn-sm btn-primary" id="btnDel" onclick="deleteById()">삭제</button>
-                </div>
-                <div id="bookmark">
-                    <a class="bookmarkBtn" id="create" onclick="createBookmark()">
-                        <img style="width: 40px" src="/img/bookmark_cancel.png">
-                    </a>
-                    <a class="bookmarkBtn" id="cancel" onclick="cancelBookmark()">
-                        <img style="width: 40px" src="/img/bookmark_ok.png">
-                    </a>
-                </div>
+                <a class="bookmarkBtn" id="create" onclick="createBookmark()">
+                    <img style="width: 40px" src="/img/bookmark_cancel.png">
+                </a>
+                <a class="bookmarkBtn" id="cancel" onclick="cancelBookmark()">
+                    <img style="width: 40px" src="/img/bookmark_ok.png">
+                </a>
+                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='/board/${memberId}'">목록</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnUp" onclick="location.href='/board/${memberId}/update/${postId}'">수정</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnDel" onclick="deleteById()">삭제</button>
+
+
             </div>
+
+            <%@ include file="commentForm.jsp"%>
+
+
         </div>
     </article>
+
+
 
 
 </body>
