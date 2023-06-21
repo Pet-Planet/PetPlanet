@@ -66,19 +66,6 @@ public class PlaceController {
         if (keyword == "") {
             if (placeType.equals("all") && regionId == -1) {
                 placePage = placeService.getAllPlacesPaging(pageable);
-                List<Place> placeList = placePage.getContent();
-                List<PlaceDto> places = convertToPlaceDtoList(placeList);
-
-                // 정렬
-                if (sortOption != null) {
-                    sortPlaces(places, sortOption);
-                }
-
-                model.addAttribute("places", places);
-                model.addAttribute("currentPage", page);
-                model.addAttribute("totalPages", placePage.getTotalPages());
-
-                return "places";
             } else if (!placeType.equals("all") && regionId == -1) {
                 placePage = placeService.getPlacesByPlaceType(placeType, pageable);
             } else if (placeType.equals("all") && regionId != -1) {
@@ -112,6 +99,9 @@ public class PlaceController {
         }
 
         model.addAttribute("places", places);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", placePage.getTotalPages());
+
         return "places";
     }
 

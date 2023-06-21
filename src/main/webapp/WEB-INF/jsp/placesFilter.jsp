@@ -43,10 +43,9 @@
     </select>
 
     <input type="text" name="keyword" value="${param.keyword}">
-<%--    <input type="button" value="검색" onClick="search()">--%>
     <button type="button" class="btn btn-outline-info" onclick="search()">검색</button>
 </form>
-    <script>
+<script>
     function search() {
         filterForm.action="/places/filter/${memberId}/" ;
         filterForm.submit();
