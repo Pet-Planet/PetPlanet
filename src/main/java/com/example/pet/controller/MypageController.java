@@ -1,5 +1,6 @@
 package com.example.pet.controller;
 
+import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
@@ -13,12 +14,14 @@ import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,6 +33,7 @@ public class MypageController {
     private final ReviewService reviewService;
     private final ReservationService reservationService;
     private final BoardCommentService boardCommentService;
+    private final BoardService boardService;
 
     //마이페이지
     @GetMapping("")
@@ -87,9 +91,14 @@ public class MypageController {
 
     // 내가 쓴 글 조회
     @GetMapping("/posts")
-    public String getMyPosts(@PathVariable int memberId, Model model) {
+    public String getMyPosts(@PathVariable int memberId, Model model,
+        @RequestParam(required = false, defaultValue = "0", value="sortType") int sortType) {
         List<BoardListResponseDto> boardList = mypageService.getBoardList(memberId);
+
         model.addAttribute("boardList", boardList);
+        model.addAttribute("sortType", sortType);
+        Date now = new Date();
+        model.addAttribute("now", now);
 
         return "mypagePosts";
     }
@@ -138,9 +147,13 @@ public class MypageController {
 
     // 내 북마크 조회
     @GetMapping("/bookmarks")
-    public String getMyBookmarks(@PathVariable int memberId, Model model) {
-        List<BoardListResponseDto> bookmarkList = mypageService.getBookmarkedBoardList(memberId);
-        model.addAttribute("bookmarkList", bookmarkList);
+    public String getMyBookmarks(@PathVariable int memberId, Model model,
+                                 @RequestParam(required = false, defaultValue = "0", value="sortType") int sortType) {
+        List<BoardListResponseDto> boardList = mypageService.getBookmarkedBoardList(memberId);
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("sortType", sortType);
+        Date now = new Date();
+        model.addAttribute("now", now);
         model.addAttribute("memberId", memberId);
 
         return "mypageBookmarks";
