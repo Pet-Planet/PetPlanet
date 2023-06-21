@@ -19,7 +19,7 @@
         </div>
         <div class="mb-3">
             <label for="content">내용</label>
-            <textarea class="form-control" name="content" id="content" rows="5">내용을 입력하세요</textarea>
+            <textarea class="form-control" name="content" id="content" rows="5" placeholder="내용을 입력하세요"></textarea>
         </div>
         <div style="text-align: center">
             <button type="submit" class="btn btn-sm btn-primary" id="btnSave">등록</button>
