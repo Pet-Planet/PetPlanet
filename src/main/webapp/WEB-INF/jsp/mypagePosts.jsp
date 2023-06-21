@@ -7,78 +7,75 @@
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 
 <html>
-<script>
-    $(document).ready(function (){
-        $("#btnWrite").click(function (){
-            //페이지 이동
-            location.href = "/board/${memberId}/post";
-        });
-    });
-</script>
-
-<style>
-    #board {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    table {
-        width: 600px;
-    }
-    table, td, th {
-        border-collapse: collapse;
-        border : 1px solid black;
-        text-align: center;
-    }
-    div#btn {
-        width: 600px;
-        margin: auto;
-    }
-    #btnwrite {
-        width: 70px;
-        margin-right: 530px;
-    }
-
-</style>
-<jsp:include page="header2.jsp" />
-
+<head>
+    <link rel="stylesheet" href="/static/board.css" />
+    <%--    페이징 스타일 시트--%>
+    <link rel="stylesheet" href="/static/board_page.css" />
+    <script>
+        function selectBoxChange(obj) {
+            var type = obj.value;
+            console.log("type => " + type);
+            location.href = "/board/${memberId}?sortType=" + type;
+        }
+    </script>
+    <jsp:include page="header2.jsp" />
+</head>
+<br><br><br>
 <body>
-    <div id="btn">
-        <button id="btnwrite" type="button" onclick="location.href='/board/${memberId}/post'">작성하기</button>
-    </div>
-    <div>
-        <table id="board">
-            <tr>
-                <th>번호</th>
-                <th>카테고리</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>조회수</th>
-            </tr>
-            <c:forEach var="row" items="${boardList}">
-                <tr>
-                    <td>${row.postId}</td>
-                    <td>${row.category}</td>
-                    <td><a href="/board/${memberId}/post/${row.postId}" >${row.title}</a></td>
-                    <td>${row.writer}</td>
-                    <td>
-                        <fmt:parseDate value="${ row.createdDate }" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
-                        <fmt:formatDate value="${ createdTime }" pattern="yyyy-MM-dd" var="time" />
-                        <c:choose>
-                            <c:when test="${time < today}">
-                                ${time}
-                            </c:when>
-                            <c:otherwise>
-                                <fmt:formatDate value="${ createdTime }" pattern="HH:mm" var="time2" />
-                                ${time2}
-                            </c:otherwise>
+<%--    board search area    --%>
+<%--<div id="board-search">--%>
+<%--    <div class="board-sort">--%>
+<%--        <form>--%>
+<%--            <select id="sortType" name="sortType" onchange="selectBoxChange(this)">--%>
+<%--                <option value="0" <c:if test="${sortType == '0'}">selected="selected"</c:if>>최신순</option>--%>
+<%--                <option value="1" <c:if test="${sortType == '1'}">selected="selected"</c:if>>조회수순</option>--%>
+<%--            </select>--%>
+<%--        </form>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
-                        </c:choose>
-                    </td>
-                    <td>${row.countView}</td>
-                </tr>
-            </c:forEach>
-        </table>
+<%-- board list --%>
+<div id="board_list">
+    <table class="board-table">
+        <tr>
+            <th cope="col" class="th-num">번호</th>
+            <th>카테고리</th>
+            <th scope="col" class="th-title">제목</th>
+            <th>작성자</th>
+            <th scope="col" class="th-date">작성일</th>
+            <th>조회수</th>
+        </tr>
+        <c:forEach var="row" items="${boardList}">
+            <tr>
+                <td>${row.postId}</td>
+                <td>${row.category}</td>
+                <td id="board-title"><a href="/board/${memberId}/post/${row.postId}" >${row.title}</a></td>
+                <td>${row.writer}</td>
+                <td>
+                    <fmt:parseDate value="${ row.createdDate }" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
+                    <fmt:formatDate value="${ createdTime }" pattern="yyyy-MM-dd" var="time" />
+                    <c:choose>
+                        <c:when test="${time < today}">
+                            ${time}
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:formatDate value="${ createdTime }" pattern="HH:mm" var="time2" />
+                            ${time2}
+                        </c:otherwise>
+
+                    </c:choose>
+                </td>
+                <td>${row.countView}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+<div class="page_wrap">
+    <div class="page_nation">
+        <c:forEach begin="1" end="${totalPage}" var="i">
+            <a id="pageBtn" href="<c:url value="/board/${memberId}/?page=${i - 1}" />">${i}</a>
+        </c:forEach>
     </div>
+</div>
 </body>
 </html>
