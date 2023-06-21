@@ -37,7 +37,10 @@
     }
 
     .reservation-details {
-        text-align: left;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* 왼쪽 정렬 */
     }
 
     .reservation-details p {
@@ -45,17 +48,37 @@
         text-align: left;
     }
 
+    .reservation-details span {
+        text-align: left;
+        display: inline-block;
+        width: 200px; /* 조정 가능한 값 */
+    }
+
     .amount {
         font-size: 25px;
-        margin-top: 80px;
+        margin-top: 50px;
     }
 
     .amount-value {
         color: red;
     }
 
-    strong {
-        margin-right: 70px;
+    .reservation-details strong {
+        width: 150px; /* 조정 가능한 값 */
+        display: inline-block;
+        margin-right: 30px;
+    }
+    .placeName{
+
+        text-align: center;
+    }
+
+    .amount p {
+        background-color: white; /* 사각형 배경색을 흰색으로 설정 */
+        border: 2px solid #98C0DC; /* 테두리를 하늘색으로 설정 */
+        border-radius: 10px; /* 둥근 모서리 설정 */
+        padding: 10px; /* 내부 여백 설정 */
+        text-align: center; /* 가운데 정렬 */
     }
 </style>
 
@@ -63,14 +86,13 @@
     <div class="title">
         <h1>입력정보 확인</h1>
     </div>
+    <div class="placeName"><h1>${rev.placeName}</h1><br></div>
     <div class="reservation-details">
-        <h1>${rev.placeName}</h1><br>
-        <p><strong>예약일자</strong> ${rev.startDate}</p>
-        <p><strong>예약시간</strong> ${rev.time}</p>
-        <p><strong>총인원수</strong> ${rev.guests}명 (동반 반려동물 ${rev.pets}마리)</p>
-        <p><strong>예약자명</strong> ${rev.revName}</p>
-        <p><strong>연락처</strong>   ${rev.phoneNum}</p>
-
+        <p><strong>예약일자</strong> <span>${rev.startDate}</span></p>
+        <p><strong>예약시간</strong> <span>${rev.time}</span></p>
+        <p><strong>총인원수</strong> <span>${rev.guests}명 (동반 반려동물 ${rev.pets}마리)</span></p>
+        <p><strong>예약자명</strong> <span>${rev.revName}</span></p>
+        <p><strong>연락처</strong>   <span>${rev.phoneNum}</span></p>
         <div class="amount">
             <p><strong>결제금액</strong> <span class="amount-value"><fmt:formatNumber value="${rev.amount}" pattern="#,###"/>원</span></p>
         </div>
