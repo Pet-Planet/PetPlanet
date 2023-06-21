@@ -116,8 +116,12 @@
 
 <script>
     function showReservConfirmation() {
-        alert("예약 되었습니다.");
-        return true;
+        if (confirm("예약 하시겠습니까?")) {
+            alert("예약 되었습니다.");
+            return true;
+        } else {
+            return false;
+        }
     }
 </script>
 </body>
