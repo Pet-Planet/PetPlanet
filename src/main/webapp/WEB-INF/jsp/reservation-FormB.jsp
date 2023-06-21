@@ -96,7 +96,7 @@
             <input type="text" name="phoneNum" placeholder="핸드폰 번호를 입력해주세요" required>
         </div>
 
-        <button type="submit" class="rev-button">작 성</button>
+        <button type="submit" class="rev-button">등 록</button>
         <button type="button" onclick="history.back()" class="rev-button">취 소</button>
     </form>
 </div>
