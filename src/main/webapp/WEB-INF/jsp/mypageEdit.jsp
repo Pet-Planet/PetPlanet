@@ -8,15 +8,75 @@
     <title>Pet Planet</title>
     <style>
         table {
-            background-color: #008800;
+            background-color: #98C0DC;
             border: none;
-            border-spacing: 2px;
+            border-spacing: 3px;
+            font-family: 'GmarketSansMedium';
         }
         tr {
             background-color: white;
         }
         tr td {
             padding: 20px;
+        }
+
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .rev-button{
+            background-color: #98C0DC;
+            color: white;
+            padding: 8px 8px;
+            border: none;
+            cursor: pointer;
+            width: 80px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .edit-button{
+            background-color: white;
+            color: #98C0DC;
+            padding: 10px 10px;
+            border-width: 2px;
+            border-color: #98C0DC;
+            cursor: pointer;
+            width: 80px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 240px;
+            height: 32px;
+            font-size: 15px;
+            border: 0;
+            border-radius: 10px;
+            outline: none;
+            padding-left: 10px;
+            background-color: rgb(233, 233, 233);
+            font-family: 'GmarketSansMedium';
+        }
+
+        .pl{
+            width: 250px;
+            border: 1px solid #C4C4C4;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 7px 7px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 16px;
+            font-family: 'GmarketSansMedium';
         }
     </style>
 
@@ -78,20 +138,21 @@
     </script>
 
     <jsp:include page="header2.jsp" />
+    <br><br><br><br><br><br><br><br>
 </head>
 <body>
 <form action="/mypage/${memberId}/edit" method="post">
     <br><br><br>
     <table align="center">
-        <tr>
-            <td>닉네임</td>
-            <td><input type="text" name="nickname" value="${member.nickname}" required></td>
+        <tr style="height:70px;">
+            <td style="width:100px;">닉네임</td>
+            <td style="width:350px;"><input type="text" name="nickname" value="${member.nickname}" required></td>
         </tr>
-        <tr>
+        <tr style="height:70px;">
             <td>주소</td>
             <td>
-                <input type="text" name="address" id="sample4_roadAddress" value="${member.address}" required>
-                <input class="button" type="button" onclick="sample4_execDaumPostcode()" value="주소검색">
+                <input type="text" name="address" id="sample4_roadAddress" value="${member.address}" required>&nbsp;&nbsp;
+                <input class="rev-button" type="button" onclick="sample4_execDaumPostcode()" value="주소검색">
 
                 <input type="hidden" id="sample4_postcode" placeholder=" 우편번호">
                 <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
@@ -100,10 +161,10 @@
                 <input type="hidden" id="sample4_engAddress" placeholder="영문주소">
             </td>
         </tr>
-        <tr>
+        <tr style="height:70px;">
             <td>반려동물 종류</td>
             <td>
-                <select name="petType">
+                <select name="petType" class="pl">
                     <option value="강아지">강아지</option>
                     <option value="고양이">고양이</option>
                     <option value="햄스터">햄스터</option>
@@ -111,14 +172,16 @@
                     <option value="새">새</option>
                 </select>
         </tr>
-        <tr>
+        <tr style="height:70px;">
             <td>반려동물 이름</td>
             <td><input type="text" name="petName" value="${member.petName}" required></td>
         </tr>
     </table>
-    <br>
+    <br><br>
     <div align="center">
-    <button type="submit">수정</button>
+        <button type="submit" class="edit-button">수정</button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="edit-button" onclick="history.back()">취소</button>
     </div>
 </form>
 </body>
