@@ -67,9 +67,10 @@ public class ReservationService {
 
         LocalDate checkInDate = reservationDto.getStartDate();
         LocalDate checkOutDate = reservationDto.getEndDate();
+        int guests = reservationDto.getGuests();
 
         int price = place.get().getPrice();     // 숙박요금 계산
-        reservationDto.setAmount(hotelAmount(price, checkInDate, checkOutDate));
+        reservationDto.setAmount(hotelAmount(price, checkInDate, checkOutDate, guests));
 
         String placeName = place.get().getPlaceTitle();
         reservationDto.setPlaceName(placeName);
@@ -80,7 +81,7 @@ public class ReservationService {
     /*
     숙소 결제 금액 구하기
      */
-    public int hotelAmount(int price, LocalDate checkIn, LocalDate checkOut) {
+    public int hotelAmount(int price, LocalDate checkIn, LocalDate checkOut, int guests) {
 
         int totalPrice = 0;
         LocalDateTime date1 = checkIn.atStartOfDay();
@@ -88,7 +89,7 @@ public class ReservationService {
 
         int days = (int) Duration.between(date1, date2).toDays();
 
-        totalPrice = price * days;
+        totalPrice = price * days * guests;
 
         return totalPrice;
 
