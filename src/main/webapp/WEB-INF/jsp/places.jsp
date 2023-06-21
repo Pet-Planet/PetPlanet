@@ -71,6 +71,25 @@
                                         <div class="card-body">
                                             <h5 class="card-title">${place.placeTitle}</h5>
                                             <p class="card-text">${place.address}</p>
+                                            <div class="text-end">
+                                                <p class="card-text" style="position: absolute; top: 8px; right: 25px;">
+                                                    <c:choose>
+                                                        <c:when test="${place.placeType eq 'restaurant'}">
+                                                            <img src="/img/식당.png" width="50" height="50"/>
+                                                        </c:when>
+                                                        <c:when test="${place.placeType eq 'cafe'}">
+                                                            <img src="/img/cafe.png" width="50" height="50"/>
+                                                        </c:when>
+                                                        <c:when test="${place.placeType eq 'hotel'}">
+                                                            <img src="/img/hotel.png" width="40" height="40"/>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            기타
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </p>
+                                            </div>
+
                                             <p class="card-text">
                                                 <meter class="average-rating" min="0" max="5" value="${place.avgRating}"
                                                        title="${place.avgRating} out of 5 stars"
@@ -85,6 +104,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
