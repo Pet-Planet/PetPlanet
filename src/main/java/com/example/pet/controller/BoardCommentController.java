@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -31,43 +32,40 @@ public class BoardCommentController {
     private final MemberService memberService;
     private final MypageService mypageService;
 
-    //게시물에 대한 전체 댓글 조회
-    @GetMapping("/comments")
-    public String getBoardComments(@PathVariable int memberId, @PathVariable int postId, Model model) {
-        List<BoardComment> comments = boardCommentService.getBoardCommentsByPostId(postId);
-        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
-        model.addAttribute("comments", comments);
-        model.addAttribute("member", memberResponseDto);
-        return "commentList";
-    }
+    //게시물에 대한 전체 댓글 조회 --> BoardController로 이동
+//    @GetMapping("/comments")
+//    public String getBoardComments(@PathVariable int memberId, @PathVariable int postId, Model model) {
+//        List<BoardComment> comments = boardCommentService.getBoardCommentsByPostId(postId);
+//        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
+//        model.addAttribute("comments", comments);
+//        model.addAttribute("member", memberResponseDto);
+//
+//        // 작성일자를 기준으로 정렬
+//        comments.sort(Comparator.comparing(BoardComment::getCreatedDate));
+//
+//        return "commentList";
+//    }
 
-    //댓글 등록
-    @GetMapping("/comment")
-    public String commentWriteForm(@PathVariable int memberId, @PathVariable int postId, Model model){
-        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
-        model.addAttribute("member", memberResponseDto);
-        model.addAttribute("memberId", memberId);
-        model.addAttribute("postId", postId);
-
-        return "commentForm";
-    }
-    @PostMapping("/comment")
+    //댓글 등록 --> BoardController로 이동
+//    @GetMapping("")
+//    public String commentWriteForm(@PathVariable int memberId, @PathVariable int postId, Model model){
+//        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
+//        model.addAttribute("member", memberResponseDto);
+//        model.addAttribute("memberId", memberId);
+//        model.addAttribute("postId", postId);
+//
+//        return "commentForm";
+//    }
+    @PostMapping("")
     public String commentSave(@PathVariable int memberId, @ModelAttribute("boardComment") BoardCommentSaveDto dto) {
         Member member = memberService.findMe(memberId);
         BoardComment boardComment = boardCommentService.saveBoardComment(member, dto);
         int commentId = boardComment.getId();
 
-        return "redirect:/board/{memberId}/post/{postId}/comments";
+        return "redirect:/board/{memberId}/post/{postId}";
     }
 
-    // 댓글 수정 --> controller로 변경 전
-//    @PutMapping("/update/{commentId}")
-//    public ResponseEntity<BoardComment> updateBoardComment(@PathVariable int commentId, @RequestBody BoardCommentUpdateRequestDto requestDto) {
-//        BoardComment updatedComment = boardCommentService.updateBoardComment(commentId, requestDto);
-//
-//        return ResponseEntity.ok(updatedComment);
-//    }
-
+    //댓글 수정
     @GetMapping("/update/{commentId}")
     public String boardCommentUpdateForm(@PathVariable int memberId, @PathVariable int postId, @PathVariable int commentId, Model model) {
         BoardComment updatedComment = boardCommentService.getBoardCommentById(commentId);
@@ -88,7 +86,7 @@ public class BoardCommentController {
         model.addAttribute("postId", postId);
         model.addAttribute("commentId", commentId);
 
-        return "redirect:/board/{memberId}/post/{postId}/comments";
+        return "redirect:/board/{memberId}/post/{postId}";
     }
 
     // 댓글 삭제
@@ -99,6 +97,6 @@ public class BoardCommentController {
         model.addAttribute("memberId", memberId);
         model.addAttribute("postId", postId);
 
-        return "commentList";
+        return "boardOne";
     }
 }
