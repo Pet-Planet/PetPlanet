@@ -1,11 +1,15 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.board.Board;
+import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.*;
+import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.repository.BoardRepository;
+import com.example.pet.service.BoardCommentService;
 import com.example.pet.service.BoardService;
 import com.example.pet.service.MemberService;
+import com.example.pet.service.MypageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -21,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -33,8 +38,8 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
-    private final BoardRepository boardRepository;
-
+    private final BoardCommentService boardCommentService;
+    private final MypageService mypageService;
 
     // 전체 글 조회
     @GetMapping("")
@@ -74,6 +79,16 @@ public class BoardController {
         //BoardResponseDto responseDto = new BoardResponseDto(board);
         model.addAttribute("board", dto);
         model.addAttribute("memberId", memberId);   //중요
+
+        //추가
+        List<BoardComment> comments = boardCommentService.getBoardCommentsByPostId(postId);
+        MemberResponseDto memberResponseDto = mypageService.findMe(memberId);
+        model.addAttribute("comments", comments);
+        model.addAttribute("member", memberResponseDto);
+        model.addAttribute("postId", postId);
+
+        // 작성일자를 기준으로 정렬
+        comments.sort(Comparator.comparing(BoardComment::getCreatedDate));
 
         return "boardOne";
     }

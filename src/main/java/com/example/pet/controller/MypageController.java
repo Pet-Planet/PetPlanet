@@ -1,7 +1,9 @@
 package com.example.pet.controller;
 
+import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
+import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
 import com.example.pet.dto.bookmark.BookMarkDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -27,6 +29,7 @@ public class MypageController {
     private final MypageService mypageService;
     private final ReviewService reviewService;
     private final ReservationService reservationService;
+    private final BoardCommentService boardCommentService;
 
     //마이페이지
     @GetMapping("")
@@ -89,6 +92,48 @@ public class MypageController {
         model.addAttribute("boardList", boardList);
 
         return "mypagePosts";
+    }
+
+    // 내가 쓴 댓글 조회
+    @GetMapping("/comments")
+    public String getMyComments(@PathVariable int memberId, Model model) {
+        List<BoardComment> boardCommentList = boardCommentService.getBoardCommentsByMemberId(memberId);
+        model.addAttribute("boardCommentList", boardCommentList);
+        model.addAttribute("memberId", memberId);
+
+        return "mypageComments";
+    }
+
+    // 내 댓글 수정
+    @GetMapping("/updateMy/{commentId}")
+    public String boardCommentUpdateForm(@PathVariable int memberId, @PathVariable int commentId, Model model) {
+        BoardComment updatedComment = boardCommentService.getBoardCommentById(commentId);
+        model.addAttribute("comment", updatedComment);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("commentId", commentId);
+
+        return "commentUpdate2";
+    }
+
+    @PostMapping("/updateMy/{commentId}")
+    public String boardCommentUpdate(@PathVariable int memberId, @PathVariable int commentId, @ModelAttribute("comment") BoardCommentUpdateRequestDto commentUpdateDto, Model model) {
+        boardCommentService.updateBoardComment(commentId, commentUpdateDto);
+        BoardComment updatedComment = boardCommentService.getBoardCommentById(commentId);
+        model.addAttribute("comment", updatedComment);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("commentId", commentId);
+
+        return "redirect:/mypage/{memberId}/comments";
+    }
+
+    // 내 댓글 삭제
+    @DeleteMapping("/deleteMy/{commentId}")
+    public String commentDelete(@PathVariable int commentId, @PathVariable int memberId, Model model) {
+        boardCommentService.deleteBoardComment(commentId);
+        model.addAttribute("commentId", commentId);
+        model.addAttribute("memberId", memberId);
+
+        return "mypageComments";
     }
 
     // 내 북마크 조회
