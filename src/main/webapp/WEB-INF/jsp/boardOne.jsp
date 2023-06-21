@@ -7,15 +7,21 @@
 <html>
 <%@ include file="header2.jsp"%>
 <style>
-    #view {
+    #board-view {
         float: right;
     }
+    /*제목과 본문을 모두 포함하는 div*/
     div.boardOne {
         margin: auto;
-        text-align: center;
         width: 600px;
     }
+    /*제목과 본문*/
     div.inside {
+
+    }
+    /*본문*/
+    div#board-content {
+        height: 200px;
         text-align: justify;
     }
     div#bookmark {
@@ -112,16 +118,17 @@
 
 <body>
     <div class="boardOne">
-        <div class="inside">
+        <div class="inside" id="board-title">
             <h3>${board.category} ${board.title}</h3>
             ${board.writer}
-            <fmt:parseDate value="${board.lastModifiedDate}" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
+            <fmt:parseDate value="${board.createdDate}" pattern="yyyy-MM-dd'T'HH:mm" var="createdTime" type="both" />
             <fmt:formatDate value="${ createdTime }" pattern="yyyy-MM-dd HH:mm" var="time" />
             ${time}
-            <span id="view">${board.countView}</span>
+            <span id="board-view">${board.countView}</span>
+            <hr>
         </div>
-        <hr>
-        <div class="inside">
+        <%--본문--%>
+        <div class="inside" id="board-content">
             ${board.content}
         </div>
         <div class="boardBtn">
