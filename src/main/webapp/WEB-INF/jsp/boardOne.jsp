@@ -22,7 +22,7 @@
             background-color: white;
         }
         tr td {
-            padding: 10px;
+            padding: 20px;
         }
     </style>
     <script>
@@ -153,31 +153,27 @@
 
 <!--댓글 목록-->
     <br><br><br>
-    <table align="center">
-        <c:forEach var="comment" items="${comments}">
-            <tr>
-                <td style="width:100px;">${comment.writer}</td>
-                <td style="width:400px;">${comment.content}</td>
-                <td style="width:100px;">
-                    <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
-                    <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
-                    <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
-                    <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
-                        ${parsedDate} ${hours}:${minutes}
-                </td>
-                <td style="width:50px;">
-                    <c:if test="${comment.member.memberId == memberId}">
-                        <button id="btnUpdate" type="button" onclick="location.href='/board/${memberId}/post/${postId}/update/${comment.id}'">수정</button>
-                    </c:if>
-                </td>
-                <td style="width:50px;">
-                    <c:if test="${comment.member.memberId == memberId}">
-                        <button id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</button>
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
+        <table align="center">
+            <c:forEach var="comment" items="${comments}">
+                <tr>
+                    <td style="width:500px;">
+                        <b>${comment.writer}</b><br>
+                            ${comment.content}<br>
+                        <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
+                        <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
+                        <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
+                        <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
+                            ${parsedDate} ${hours}:${minutes}
+                    </td>
+                    <td style="width:50px; text-align:center;">
+                        <c:if test="${comment.member.memberId == memberId}">
+                            <button id="btnUpdate" type="button" onclick="location.href='/board/${memberId}/post/${postId}/update/${comment.id}'">수정</button><br>
+                            <button id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</button>
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
     <br><br><br>
     <!--댓글 입력창-->
     <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
