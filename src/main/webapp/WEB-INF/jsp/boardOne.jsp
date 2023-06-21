@@ -173,18 +173,8 @@
                             ${comment.content}
                     </p>
                 </div>
-                            <b></b><br>
-                                <br>
-
-                        </td>
-                        <td style="width:50px; text-align:center;">
-
-                        </td>
-                    </tr>
                 </c:forEach>
-            </table>
         </div>
-    <br><br><br>
     <!--댓글 입력창-->
     <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
         <form name="form" id="form" role="form" action="/board/${memberId}/post/${postId}" method="post">
