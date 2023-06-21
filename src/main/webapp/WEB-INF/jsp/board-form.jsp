@@ -3,8 +3,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" isELIgnored="false"%>
 <html>
-<%@ include file="header2.jsp"%>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<head>
+    <%@ include file="header2.jsp"%>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/button.css">
+</head>
 <body>
 <div class="container" role="main">
     <form id="form" name="form_board" method="post" action="/board/${memberId}/post">
