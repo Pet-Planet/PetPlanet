@@ -42,7 +42,7 @@
         <option value="avgRatingAsc">평점 낮은 순</option>
     </select>
 
-    <input type="text" name="keyword" value="${param.keyword}">
+    <input type="text" name="keyword" placeholder="장소 이름을 입력하세요" value="${param.keyword}">
     <button type="button" class="btn btn-outline-info" onclick="search()">검색</button>
 </form>
 <script>
