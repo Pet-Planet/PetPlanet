@@ -1,20 +1,6 @@
-#board-view {
-    float: right;
-}
-/*제목과 본문을 모두 포함하는 div*/
-div.boardOne {
-    margin: auto;
-    width: 600px;
-}
-/*제목과 본문*/
-div.inside {
 
-}
-/*본문*/
-div#board-content {
-    height: 200px;
-    text-align: justify;
-}
+/*제목과 본문을 모두 포함하는 div*/
+
 div#bookmark {
     display: inline-block;
     float: right;
