@@ -31,10 +31,10 @@
         .reviews {
             background-color: #ffffff;
             border-radius: 0.5rem;
-            height: 100%;
             overflow: hidden;
             position: relative;
             width: 100%;
+            height: auto;
         }
 
         /*리뷰 스타일*/
@@ -79,6 +79,9 @@
         .btn:hover {
             background-color: #98C0DC;
             color: #fff;
+        }
+        html, body {
+            height: 100%;
         }
 
     </style>
@@ -129,7 +132,7 @@
 
 </script>
 <body>
-<div style="margin:50px">
+<div style="margin:50px;">
     <button type="button" class="btn btn-outline-info review-button" style="float: left; margin-bottom: 10px;"
             onClick="location.href='/places/${memberId}'">목록으로 돌아가기
     </button>
@@ -175,7 +178,7 @@
             </div>
             <div style="flex-grow: 1; display: flex; justify-content: flex-end; margin-right: 50px;">
                 <button id="btn-reviewWrite" type="button" class="btn btn-outline-info"
-                        onclick="goToReviewForm('${placeDetail.placeId}')">리뷰 쓰기
+                        onclick="goToReviewForm('${placeDetail.placeId}')">리뷰 작성
                 </button>
             </div>
         </div>
