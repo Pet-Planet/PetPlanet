@@ -1,4 +1,53 @@
-body {
-    padding-top: 70px;
-    padding-bottom: 30px;
+
+/*제목과 본문을 모두 포함하는 div*/
+
+div#bookmark {
+    display: inline-block;
+    float: right;
+}
+div#boardBtn {
+    float: left;
+}
+#btnDel, #btnUp {
+    visibility: hidden;
+}
+#create, #cancel {
+    display: none;
+}
+
+/*추가*/
+.board_title {
+
+    font-weight : 700;
+
+    font-size : 22pt;
+
+    margin : 10pt;
+
+}
+
+.board_info_box {
+    color : #6B6B6B;
+    margin : 10pt;
+}
+
+.board_author {
+    font-size : 10pt;
+    margin-right : 10pt;
+}
+
+.board_date {
+    margin-right : 10pt;
+    font-size : 10pt;
+}
+
+.board_content {
+    color : #444343;
+    font-size : 12pt;
+    margin : 10pt;
+    height: 200px;
+}
+
+.board_view {
+    font-size : 10pt;
 }
