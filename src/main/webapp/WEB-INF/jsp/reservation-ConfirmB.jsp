@@ -9,7 +9,7 @@
 
     .rev-button{
 
-        background-color: #B9E9FC;
+        background-color: #98C0DC;
         color: white;
         padding: 15px 30px;
         margin: 100px 70px;
@@ -30,8 +30,9 @@
     }
 
     .title {
-        color: #B9E9FC;
+        color: #98C0DC;
         margin-top: 50px;
+        margin-bottom: 50px;
         font-size: 25px;
         font-weight: bold;
     }
@@ -57,7 +58,7 @@
 
     strong{
 
-        margin-right: 50px;
+        margin-right: 70px;
     }
 
 </style>

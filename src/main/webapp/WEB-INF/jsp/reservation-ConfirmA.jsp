@@ -6,10 +6,8 @@
     <jsp:include page="header2.jsp" />
 </head>
 <style>
-
-    .rev-button{
-
-        background-color: #B9E9FC;
+    .rev-button {
+        background-color: #98C0DC;
         color: white;
         padding: 15px 30px;
         margin: 100px 70px;
@@ -30,12 +28,12 @@
     }
 
     .title {
-        color: #B9E9FC;
+        color: #98C0DC;
         margin-top: 50px;
+        margin-bottom: 50px;
         font-size: 25px;
         font-weight: bold;
     }
-
 
     .reservation-details {
         text-align: left;
@@ -46,33 +44,35 @@
         text-align: left;
     }
 
-    .amount{
+    .amount {
         font-size: 25px;
         margin-top: 80px;
     }
-    .amount-value{
 
+    .amount-value {
         color: red;
     }
 
-    strong{
-
-        margin-right: 50px;
+    strong {
+        margin-right: 70px;
     }
-
 </style>
 
 <div class="reservation-form">
-    <div class="title"><h1>입력정보 확인</h1></div>
+    <div class="title">
+        <h1>입력정보 확인</h1>
+    </div>
     <div class="reservation-details">
         <h1>${rev.placeName}</h1><br>
         <p><strong>예약일자</strong> ${rev.startDate}</p>
         <p><strong>예약시간</strong> ${rev.time}</p>
         <p><strong>총인원수</strong> ${rev.guests}명 (동반 반려동물 ${rev.pets}마리)</p>
         <p><strong>예약자명</strong> ${rev.revName}</p>
-        <p><strong>연락처</strong> ${rev.phoneNum}</p>
+        <p><strong>연락처</strong>   ${rev.phoneNum}</p>
 
-       <div class="amount"><p><strong>결제금액</strong> <span class="amount-value">${rev.amount}원</span></p></div>
+        <div class="amount">
+            <p><strong>결제금액</strong> <span class="amount-value">${rev.amount}원</span></p>
+        </div>
     </div>
 
     <form action="/reservation/${memberId}" method="post" onsubmit="return showReservConfirmation()">
@@ -92,11 +92,8 @@
 </div>
 
 <script>
-
     function showReservConfirmation() {
-
         alert("예약 되었습니다.");
-
         return true;
     }
 </script>

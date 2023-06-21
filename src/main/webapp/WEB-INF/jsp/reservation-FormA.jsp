@@ -39,13 +39,13 @@
 
         .title{
             font-size: 25px;
-            color: #B9E9FC;
+            color: #98C0DC;
             margin-bottom: 50px;
         }
 
         .rev-button{
 
-            background-color: #B9E9FC;
+            background-color: #98C0DC;
             color: white;
             padding: 15px 30px;
             margin: 100px 70px;
