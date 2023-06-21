@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -145,8 +146,11 @@ public class PlaceService {
     }
 
 
-
-
+    public List<PlaceDto> getTopPlacesByAvgRating() {
+        List<Place> placeList = placeRepository.findTop5ByOrderByAvgRatingDesc();
+        updateReviewStats(placeList);
+        return convertToPlaceDtoList(placeList);
+    }
 
     public List<PlaceDto> getPlacesByTypeAndRegionAndKeyword(String placeType, Integer regionId, String keyword) {
         List<Place> placeList = placeRepository.findByPlaceTypeAndRegionIdAndPlaceTitle(placeType, regionId, keyword);

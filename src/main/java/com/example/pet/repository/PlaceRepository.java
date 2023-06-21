@@ -22,4 +22,5 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
     List<Place> findByPlaceTypeAndRegionIdAndPlaceTitle(@Param("placeType") String placeType, @Param("regionId") Integer regionId, String keyword);
 
 
+    List<Place> findTop5ByOrderByAvgRatingDesc();
 }
