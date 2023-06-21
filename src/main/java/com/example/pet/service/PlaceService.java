@@ -32,6 +32,7 @@ public class PlaceService {
         Optional<Place> placeResult = placeRepository.findById(placeId);
         if (placeResult.isPresent()) {
             Place place = placeResult.get();
+            updateReviewStatusById(placeId);
 
             RegionDto regionDto = null;
             Optional<Region> regionResult = regionRepository.findById(place.getRegion().getRegionId());
@@ -113,28 +114,6 @@ public class PlaceService {
         return placeRepository.findByPlaceTypeAndRegionIdAndPlaceTitle(placeType, regionId, keyword, pageable);
     }
 
-//    //타입별 장소 조회
-//    public List<PlaceDto> getPlacesByPlaceType(String placeType) {
-//        List<Place> placeList = placeRepository.findByPlaceType(placeType);
-//        updateReviewStats(placeList);
-//        return convertToPlaceDtoList(placeList);
-//    }
-//
-//    // 지역별 장소 조회
-//    public List<PlaceDto> getPlacesByRegionId(int regionId) {
-//        List<Place> placeList = placeRepository.findByRegionId(regionId);
-//        updateReviewStats(placeList);
-//        return convertToPlaceDtoList(placeList);
-//    }
-//
-//    //타입 & 지역별 장소 조회
-//    public List<PlaceDto> getPlacesByTypeAndRegion(String placeType, Integer regionId) {
-//        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionId(placeType, regionId);
-//        updateReviewStats(placeList);
-//        return convertToPlaceDtoList(placeList);
-//    }
-
-
     // Place 리스트를 PlaceDto 리스트로 변환하는 메서드
     private List<PlaceDto> convertToPlaceDtoList(List<Place> placeList) {
         List<PlaceDto> placeDtoList = new ArrayList<>();
@@ -171,16 +150,29 @@ public class PlaceService {
         placeRepository.saveAll(placeList);
     }
 
+    public void updateReviewStatusById(int placeId) {
+        Integer reviewCnt = 0;
+        Double avgRating = 0.0;
+        Place place = placeRepository.findById(placeId).orElseThrow(() -> new RuntimeException("not found"));
+
+        if (reviewRepository.countByPlaceId(place.getPlaceId()) == 0) {
+            reviewCnt = 0;
+            avgRating = 0.0;
+        } else {
+            reviewCnt = reviewRepository.countByPlaceId(place.getPlaceId());
+            avgRating = reviewRepository.calculateAverageRatingByPlaceId(place.getPlaceId());
+        }
+
+        place.setReviewCnt(reviewCnt);
+        place.setAvgRating(avgRating);
+
+        placeRepository.save(place);
+    }
+
 
     public List<PlaceDto> getTopPlacesByAvgRating() {
         List<Place> placeList = placeRepository.findTop5ByOrderByAvgRatingDesc();
         updateReviewStats(placeList);
         return convertToPlaceDtoList(placeList);
     }
-
-//    public List<PlaceDto> getPlacesByTypeAndRegionAndKeyword(String placeType, Integer regionId, String keyword) {
-//        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionIdAndPlaceTitle(placeType, regionId, keyword);
-//        updateReviewStats(placeList);
-//        return convertToPlaceDtoList(placeList);
-//    }
 }

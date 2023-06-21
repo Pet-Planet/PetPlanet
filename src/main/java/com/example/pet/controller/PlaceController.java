@@ -62,9 +62,23 @@ public class PlaceController {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<Place> placePage;
 
+
         if (keyword == "") {
             if (placeType.equals("all") && regionId == -1) {
                 placePage = placeService.getAllPlacesPaging(pageable);
+                List<Place> placeList = placePage.getContent();
+                List<PlaceDto> places = convertToPlaceDtoList(placeList);
+
+                // 정렬
+                if (sortOption != null) {
+                    sortPlaces(places, sortOption);
+                }
+
+                model.addAttribute("places", places);
+                model.addAttribute("currentPage", page);
+                model.addAttribute("totalPages", placePage.getTotalPages());
+
+                return "places";
             } else if (!placeType.equals("all") && regionId == -1) {
                 placePage = placeService.getPlacesByPlaceType(placeType, pageable);
             } else if (placeType.equals("all") && regionId != -1) {
@@ -73,13 +87,13 @@ public class PlaceController {
                 placePage = placeService.getPlacesByTypeAndRegion(placeType, regionId, pageable);
             }
         } else {
-            if(placeType.equals("all") && regionId == -1) {
+            if (placeType.equals("all") && regionId == -1) {
                 //지역과 타입을 모두 선택 안 한 경우
                 placePage = placeService.getPlacesByKeyword(keyword, pageable);
-            } else if(placeType.equals("all")) {
+            } else if (placeType.equals("all")) {
                 //타입만 선택 안 한 경우
                 placePage = placeService.getPlacesByRegionIdAndKeyword(regionId, keyword, pageable);
-            } else if(regionId == -1) {
+            } else if (regionId == -1) {
                 //지역만 선택 안 한 경우
                 placePage = placeService.getPlacesByTypeAndKeyword(placeType, keyword, pageable);
             } else {
@@ -88,25 +102,30 @@ public class PlaceController {
             }
         }
 
-        //변환
+        // 변환
         List<Place> placeList = placePage.getContent();
         List<PlaceDto> places = convertToPlaceDtoList(placeList);
 
-        //정렬
+        // 정렬
         if (sortOption != null) {
-            if (sortOption.equals("reviewCountDesc")) {
-                places.sort((p1, p2) -> p2.getReviewCnt() - p1.getReviewCnt());
-            } else if (sortOption.equals("reviewCountAsc")) {
-                places.sort(Comparator.comparingInt(PlaceDto::getReviewCnt));
-            } else if (sortOption.equals("avgRatingDesc")) {
-                places.sort((p1, p2) -> Double.compare(p2.getAvgRating(), p1.getAvgRating()));
-            } else if (sortOption.equals("avgRatingAsc")) {
-                places.sort(Comparator.comparingDouble(PlaceDto::getAvgRating));
-            }
+            sortPlaces(places, sortOption);
         }
 
         model.addAttribute("places", places);
         return "places";
+    }
+
+    //정렬
+    private void sortPlaces(List<PlaceDto> places, String sortOption) {
+        if (sortOption.equals("reviewCountDesc")) {
+            places.sort((p1, p2) -> p2.getReviewCnt() - p1.getReviewCnt());
+        } else if (sortOption.equals("reviewCountAsc")) {
+            places.sort(Comparator.comparingInt(PlaceDto::getReviewCnt));
+        } else if (sortOption.equals("avgRatingDesc")) {
+            places.sort((p1, p2) -> Double.compare(p2.getAvgRating(), p1.getAvgRating()));
+        } else if (sortOption.equals("avgRatingAsc")) {
+            places.sort(Comparator.comparingDouble(PlaceDto::getAvgRating));
+        }
     }
 
     //placeDto로 변환
