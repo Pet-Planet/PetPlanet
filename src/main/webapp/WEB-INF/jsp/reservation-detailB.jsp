@@ -6,7 +6,7 @@
     <title>Reservation Detail</title>
     <style>
         .title {
-            color: #B9E9FC;
+            color: #98C0DC;
             margin-top: 50px;
             font-size: 25px;
             font-weight: bold;
@@ -23,7 +23,7 @@
         }
 
         .cancel {
-            background-color: #B9E9FC;
+            background-color: #98C0DC;
             color: white;
             padding: 15px 30px;
             margin-top: 100px;
@@ -49,7 +49,7 @@
             text-align: left;
             margin-top: 20px;
             margin-bottom: 100px;
-            border: 3px solid #B9E9FC;
+            border: 3px solid #98C0DC;
             border-radius: 10px;
             background-color: white;
             padding: 50px;
