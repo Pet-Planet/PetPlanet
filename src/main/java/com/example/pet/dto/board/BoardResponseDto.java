@@ -15,7 +15,7 @@ public class BoardResponseDto {
     private String writer;
     private String category;
     private int memberId;
-    private LocalDateTime lastModifiedDate;
+    private LocalDateTime createdDate;
     private int countView;
 
     public BoardResponseDto(Board board) {
@@ -25,7 +25,7 @@ public class BoardResponseDto {
         this.category = board.getCategory();
         this.writer = board.getWriter();
         this.memberId = board.getMember().getMemberId();
-        this.lastModifiedDate = board.getLastModifiedDate();
+        this.createdDate = board.getCreatedDate();
         this.countView = board.getCountView();
     }
 }
