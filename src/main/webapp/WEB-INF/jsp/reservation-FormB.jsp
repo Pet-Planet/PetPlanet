@@ -88,7 +88,7 @@
 
         <div class="input-row">
             <span>예약자명</span>
-            <input type="text" name="revName" required>
+            <input type="text" name="revName" placeholder="성함을 입력해주세요" required>
         </div>
 
         <div class="input-row">

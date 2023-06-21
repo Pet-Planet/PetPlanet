@@ -16,12 +16,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlaceController {
 
-
     private final PlaceService placeService;
 
+    @GetMapping("/places/top/{memberId}")
+    public String getTopPlacesByAvgRating(@PathVariable int memberId, Model model) {
+        List<PlaceDto> places = placeService.getTopPlacesByAvgRating();
+        model.addAttribute("places", places);
+        return "placesTopRating";
+    }
 
-    //장소 id로 장소 상세보기
-    @GetMapping("places/{memberId}/placeDetail/{placeId}")
+    @GetMapping("/places/{memberId}/placeDetail/{placeId}")
     public String getPlaceDetail(@PathVariable int placeId, @PathVariable int memberId, Model model) {
         PlaceDetailDto placeDetailDto = placeService.getPlaceDetail(placeId);
         if (placeDetailDto != null) {
@@ -32,26 +36,12 @@ public class PlaceController {
         }
     }
 
-
-    //전체 장소 조회
     @GetMapping("/places/{memberId}")
     public String getAllPlaces(@PathVariable int memberId, Model model) {
         List<PlaceDto> places = placeService.getAllPlaces();
         model.addAttribute("places", places);
         return "places";
     }
-
-    //검색
-//    @PostMapping("/places/search/{memberId}")
-//    public String getPlacesByKeyword(HttpServletRequest request, @PathVariable int memberId,
-//                                     Model model) {
-//        String keyword = request.getParameter("keyword");
-//        List<PlaceDto> places;
-//        places = placeService.getPlacesByKeyword(keyword);
-//        model.addAttribute("places", places);
-//        return "places";
-//    }
-
 
     @PostMapping("/places/filter/{memberId}")
     public String getPlacesByTypeAndRegion(HttpServletRequest request, @PathVariable int memberId,
@@ -66,17 +56,13 @@ public class PlaceController {
             if (placeType.equals("all") && regionId == -1) {
                 places = placeService.getAllPlaces();
             } else if (!placeType.equals("all") && regionId == -1) {
-                // placeType만 지정된 경우
                 places = placeService.getPlacesByPlaceType(placeType);
             } else if (placeType.equals("all") && regionId != -1) {
-                // regionId만 지정된 경우
                 places = placeService.getPlacesByRegionId(regionId);
             } else {
-                // placeType과 regionId가 모두 지정된 경우
                 places = placeService.getPlacesByTypeAndRegion(placeType, regionId);
             }
-        }
-        else {
+        } else {
             places = placeService.getPlacesByTypeAndRegionAndKeyword(placeType, regionId, keyword);
         }
 

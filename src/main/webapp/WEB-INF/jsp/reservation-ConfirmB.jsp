@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -73,7 +74,9 @@
         <p><strong>예약자명</strong> ${rev.revName}</p>
         <p><strong>연락처</strong> ${rev.phoneNum}</p>
 
-        <div class="amount"><p><strong>결제금액</strong> <span class="amount-value">${rev.amount}원</span></p></div>
+        <div class="amount">
+            <p><strong>결제금액</strong> <span class="amount-value"><fmt:formatNumber value="${rev.amount}" pattern="#,###"/>원</span></p>
+        </div>
     </div>
 <form action="/reservation/${memberId}" method="post" onsubmit="return showReservConfirmation()">
     <input type="hidden" name="placeId" value="${rev.placeId}">
