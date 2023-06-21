@@ -51,3 +51,7 @@ div#boardBtn {
 .board_view {
     font-size : 10pt;
 }
+
+#btnUpdate, #btnDelete {
+    color: #6B6B6B;
+}
