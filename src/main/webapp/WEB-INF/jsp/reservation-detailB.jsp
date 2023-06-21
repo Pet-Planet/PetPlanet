@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
@@ -94,7 +95,7 @@
             <p><span>인원</span>${revDetail.guests}명 (동반 반려동물 ${revDetail.pets}마리)</p>
             <p><span>예약자명</span>${revDetail.revName}</p>
             <p><span>연락처</span>${revDetail.phoneNum}</p>
-            <p><span>결제금액</span>${revDetail.amount}원</p>
+            <p><span>결제금액</span><fmt:formatNumber value="${revDetail.amount}" pattern="#,###"/>원</p>
         </div>
         <button type="button" onclick="cancelRev(${revDetail.revId})" class="cancel">취 소</button>
     </div>
