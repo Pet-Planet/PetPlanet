@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -109,6 +110,8 @@ public class MypageController {
         List<BoardComment> boardCommentList = boardCommentService.getBoardCommentsByMemberId(memberId);
         model.addAttribute("boardCommentList", boardCommentList);
         model.addAttribute("memberId", memberId);
+
+        boardCommentList.sort(Comparator.comparing(BoardComment::getCreatedDate).reversed());
 
         return "mypageComments";
     }

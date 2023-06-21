@@ -24,7 +24,7 @@
     <jsp:include page="header2.jsp" />
 </head>
 <body>
-<br><br><br>
+<br><br><br><br><br><br>
 <table align="center">
     <tr>
         <td style="width:100px;"><img id="profile" src="${member.kakaoProfileImg}"></td>
