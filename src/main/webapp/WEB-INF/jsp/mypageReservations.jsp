@@ -22,7 +22,7 @@
     </style>
 </head>
 <jsp:include page="header2.jsp" />
-<br><br><br>
+<br><br><br><br><br><br>
 <body>
 <table align="center">
     <c:forEach var="reservation" items="${reservationList}">

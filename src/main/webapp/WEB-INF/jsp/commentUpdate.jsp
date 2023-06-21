@@ -30,6 +30,7 @@
 
 </head>
 <jsp:include page="header2.jsp" />
+<br><br><br>
 <body>
 <article>
     <div class="container" role="main">
