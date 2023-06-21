@@ -7,9 +7,10 @@
     <title>Pet Planet</title>
     <style>
         table {
-            background-color: #008800;
+            background-color: #98C0DC;
             border: none;
-            border-spacing: 2px;
+            border-spacing: 3px;
+            font-family: 'GmarketSansMedium';
         }
         tr {
             background-color: white;
@@ -17,8 +18,28 @@
         tr td {
             padding: 20px;
         }
-        #profile {
-            width: 100px;
+        a {
+            text-decoration-line: none; /* 링크의 밑줄 제거 */
+            color: inherit; /* 링크의 색상 제거 */
+        }
+        h1 {
+            margin-top: 0;
+            margin-bottom: 15px; /* 줄간격을 조절합니다. */
+            color: #98C0DC;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 5px; /* 줄간격을 조절합니다. */
+        }
+        h4 {
+            font-family: 'GmarketSansMedium';
+            color: lightgrey;
+        }
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
     </style>
     <jsp:include page="header2.jsp" />
@@ -27,31 +48,36 @@
 <br><br><br><br><br><br>
 <table align="center">
     <tr>
-        <td style="width:100px;"><img id="profile" src="${member.kakaoProfileImg}"></td>
+        <td style="width:100px;"><img src="${member.kakaoProfileImg}" width="100" height="100"></td>
         <td style="width:300px;">
             <h1 style="font-size: 30px"><b>${member.nickname}</b></h1>
+            <p>[ ${member.petType} ]&nbsp;&nbsp;${member.petName}</p>
             ${member.kakaoEmail}
-            <br>
-            [${member.petType}] ${member.petName}
         </td>
     </tr>
 </table>
 <br>
 <table align="center">
-    <tr>
-        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/reservations"/>'>예약 내역</a></td>
-        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/reviews"/>'>나의 리뷰</a></td>
+    <tr style="height:100px;">
+        <td style="width:200px; text-align: center;">
+            <img src="/img/myRes.jpg" width="55" height="50">
+            <a href='<c:url value="/mypage/${memberId}/reservations"/>'>예약 내역</a>
+        </td>
+        <td style="width:200px; text-align: center;">
+            <img src="/img/myRev.jpg" width="50" height="50">
+            <a href='<c:url value="/mypage/${memberId}/reviews"/>'>나의 리뷰</a>
+        </td>
     </tr>
-    <tr>
+    <tr style="height:70px;">
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/edit"/>'>회원 정보 수정</a></td>
     </tr>
-    <tr>
+    <tr style="height:70px;">
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/posts"/>'>내가 쓴 글</a></td>
     </tr>
-    <tr>
+    <tr style="height:70px;">
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/comments"/>'>내가 쓴 댓글</a></td>
     </tr>
-    <tr>
+    <tr style="height:70px;">
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/bookmarks"/>'>북마크</a></td>
     </tr>
 </table>

@@ -43,7 +43,7 @@
     </script>
     <jsp:include page="header2.jsp" />
 </head>
-<br><br><br>
+<br><br><br><br><br><br>
 <body>
 <table align="center">
     <c:forEach var="comment" items="${boardCommentList}">
@@ -68,5 +68,5 @@
 </table>
 <%--<div id="includedPage"></div>   <!--수정 페이지 삽입-->--%>
 </body>
-<br><br><br>
+<br><br><br><br><br><br>
 </html>
