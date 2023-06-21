@@ -12,9 +12,10 @@ import com.example.pet.repository.RegionRepository;
 import com.example.pet.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,40 +75,65 @@ public class PlaceService {
         return null;
     }
 
-    //전체 장소 조회
-    public List<PlaceDto> getAllPlaces() {
-        List<Place> placeList = placeRepository.findAll();
-        updateReviewStats(placeList);
-        return convertToPlaceDtoList(placeList);
+    //전체 장소 조회(페이징)
+    public Page<Place> getAllPlacesPaging(Pageable pageable) {
+        return placeRepository.findAll(pageable);
     }
 
-    //타입별 장소 조회
-    public List<PlaceDto> getPlacesByPlaceType(String placeType) {
-        List<Place> placeList = placeRepository.findByPlaceType(placeType);
-        updateReviewStats(placeList);
-        return convertToPlaceDtoList(placeList);
+    //타입별 장소 조회(페이징)
+    public Page<Place> getPlacesByPlaceType(String placeType, Pageable pageable) {
+        return placeRepository.findByPlaceType(placeType, pageable);
+    }
+    //지역별 장소 조회(페이징)
+    public Page<Place> getPlacesByRegionId(int regionId, Pageable pageable){
+        return placeRepository.findByRegionId(regionId, pageable);
     }
 
-    // 지역별 장소 조회
-    public List<PlaceDto> getPlacesByRegionId(int regionId) {
-        List<Place> placeList = placeRepository.findByRegionId(regionId);
-        updateReviewStats(placeList);
-        return convertToPlaceDtoList(placeList);
+    //키워드로 장소 조회(페이징)
+    public Page<Place> getPlacesByKeyword(String keyword, Pageable pageable) {
+        return placeRepository.findByPlaceTitle(keyword, pageable);
     }
 
-    //타입 & 지역별 장소 조회
-    public List<PlaceDto> getPlacesByTypeAndRegion(String placeType, Integer regionId) {
-        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionId(placeType, regionId);
-        updateReviewStats(placeList);
-        return convertToPlaceDtoList(placeList);
+    //타입 &지역별 장소 조회(페이징)
+    public Page<Place> getPlacesByTypeAndRegion(String placeType, Integer regionId, Pageable pageable) {
+        return placeRepository.findByPlaceTypeAndRegionId(placeType, regionId, pageable);
     }
 
-    //검색
-//    public List<PlaceDto> getPlacesByKeyword(String keyword) {
-//        List<Place> placeList = placeRepository.findByPlaceTitle(keyword);
+    //타입 & 키워드 장소 조회(페이징)
+    public Page<Place> getPlacesByTypeAndKeyword(String placeType, String keyword, Pageable pageable) {
+        return placeRepository.findByPlaceTypeAndPlaceTitle(placeType, keyword, pageable);
+    }
+    //지역 & 키워드로 조회(페이징)
+    public Page<Place> getPlacesByRegionIdAndKeyword(Integer regionId, String keyword, Pageable pageable) {
+        return placeRepository.findByRegionIdAndPlaceTitle(regionId, keyword,pageable);
+    }
+
+    //지역 & 장소 타입 & keyword로 조회
+    public Page<Place> getPlacesByTypeAndRegionIdAndKeyword(String placeType, Integer regionId, String keyword, Pageable pageable) {
+        return placeRepository.findByPlaceTypeAndRegionIdAndPlaceTitle(placeType, regionId, keyword, pageable);
+    }
+
+//    //타입별 장소 조회
+//    public List<PlaceDto> getPlacesByPlaceType(String placeType) {
+//        List<Place> placeList = placeRepository.findByPlaceType(placeType);
 //        updateReviewStats(placeList);
 //        return convertToPlaceDtoList(placeList);
 //    }
+//
+//    // 지역별 장소 조회
+//    public List<PlaceDto> getPlacesByRegionId(int regionId) {
+//        List<Place> placeList = placeRepository.findByRegionId(regionId);
+//        updateReviewStats(placeList);
+//        return convertToPlaceDtoList(placeList);
+//    }
+//
+//    //타입 & 지역별 장소 조회
+//    public List<PlaceDto> getPlacesByTypeAndRegion(String placeType, Integer regionId) {
+//        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionId(placeType, regionId);
+//        updateReviewStats(placeList);
+//        return convertToPlaceDtoList(placeList);
+//    }
+
 
     // Place 리스트를 PlaceDto 리스트로 변환하는 메서드
     private List<PlaceDto> convertToPlaceDtoList(List<Place> placeList) {
@@ -152,9 +178,9 @@ public class PlaceService {
         return convertToPlaceDtoList(placeList);
     }
 
-    public List<PlaceDto> getPlacesByTypeAndRegionAndKeyword(String placeType, Integer regionId, String keyword) {
-        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionIdAndPlaceTitle(placeType, regionId, keyword);
-        updateReviewStats(placeList);
-        return convertToPlaceDtoList(placeList);
-    }
+//    public List<PlaceDto> getPlacesByTypeAndRegionAndKeyword(String placeType, Integer regionId, String keyword) {
+//        List<Place> placeList = placeRepository.findByPlaceTypeAndRegionIdAndPlaceTitle(placeType, regionId, keyword);
+//        updateReviewStats(placeList);
+//        return convertToPlaceDtoList(placeList);
+//    }
 }
