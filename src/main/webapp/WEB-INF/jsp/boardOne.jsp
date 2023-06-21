@@ -124,23 +124,12 @@
 
             </div>
 
-            <%--        댓글 창--%>
-            <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
-                <form name="form" id="form" role="form" action="/board/${memberId}/post/${postId}/comment" method="post">
-                    <div class="row">
-                        <div class="col-sm-10">
-                            <textarea name="content" class="form-control" name="writer" id="content" rows="3" placeholder="댓글을 입력하세요"></textarea>
-                        </div>
-                        <div class="col-sm-2">
-                            <input path="reg_id" class="form-control" id="reg_id" value="${member.nickname}" readonly/>
-                            <button class="btn btn-sm btn-primary" type="submit" id="btnReplySave" style="width: 100%; margin-top: 10px">등록</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-    </article>
-    <%--        댓글 창--%>
+            <%@ include file="commentForm.jsp"%>
+
+
         </div>
+    </article>
+
 
 
 
