@@ -84,7 +84,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="title"><h1>예약 관리</h1></div>
+    <div class="title"><h1>예약 내역</h1></div>
     <div class="reservation-detail">
         </br><span class="placeNo"><h2>No. ${revDetail.revId}</h2></span>
         <span class="placeName"><h1>${revDetail.placeName}</h1></span></br></br>

@@ -23,13 +23,17 @@
         tr td {
             padding: 20px;
         }
-        .hidden {
-            display:none;
-        }
     </style>
-
+    <script>
+        function goSubmit() {
+            window.opener.name = "parentPage";
+            document.form.target = "parentPage";
+            document.form.action = "/board/${memberId}/post/${postId}/update/${commentId}";
+            document.form.submit();
+            self.close();
+        }
+    </script>
 </head>
-<jsp:include page="header2.jsp" />
 <br><br><br>
 <body>
 <article>
@@ -42,7 +46,7 @@
                     </div>
                     <div class="col-sm-2">
                         <input path="reg_id" name="writer" class="form-control" id="reg_id" value="${comment.writer}" readonly/>
-                        <button class="btn btn-sm btn-primary" type="submit" id="btnReplySave" style="width: 100%; margin-top: 10px">등록</button>
+                        <button class="btn btn-sm btn-primary" type="submit" id="btnReplySave" style="width: 100%; margin-top: 10px" onclick="goSubmit()">등록</button>
                     </div>
                 </div>
             </form>
