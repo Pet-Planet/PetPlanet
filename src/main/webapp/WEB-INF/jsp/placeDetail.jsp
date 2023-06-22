@@ -49,7 +49,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         .average-rating {
             position: relative;
             appearance: none;
@@ -58,7 +57,6 @@
             display: inline-block;
             vertical-align: baseline;
         }
-
         .average-rating::before {
             --percent: calc(var(--rating) / 5 * 100%);
             content: '★★★★★';
@@ -162,7 +160,7 @@
     <div class="review-top">
         <div class="review-top" style="display: flex; align-items: center;">
             <div style="margin-left:40px; width: 200px; height: 90px; font-weight: bold; font-size: 30px; line-height: 100px;">
-                Reviews
+                Reviews (${placeDetail.reviewCnt})
             </div>
             <div style="width: 100px; height: 90px; font-weight: bold; font-size: 35px; line-height: 100px;">
                 <p>
@@ -174,7 +172,7 @@
                 </p>
             </div>
             <div style="width: 200px; height: 90px; margin-left: 100px; font-weight: bold; font-size: 30px; line-height: 100px;">
-                (${placeDetail.reviewCnt})
+                (<fmt:formatNumber value="${placeDetail.avgRating}" pattern="0.0"/>)
             </div>
             <div style="flex-grow: 1; display: flex; justify-content: flex-end; margin-right: 50px;">
                 <button id="btn-reviewWrite" type="button" class="btn btn-outline-info"

@@ -5,6 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <head>
+    <link rel="stylesheet" href="/static/board-one.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/button.css">
     <meta charset="UTF-8">
     <title>Pet Planet</title>
     <style>
@@ -42,31 +45,37 @@
         }
     </script>
     <jsp:include page="header2.jsp" />
+
 </head>
 <br><br><br><br><br><br>
 <body>
-<table align="center">
+<article>
+    <div class="container" role="main">
+<!--댓글 목록-->
+<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
     <c:forEach var="comment" items="${boardCommentList}">
-        <tr>
-            <td style="width:500px;">
-                <b>글 번호 [${comment.board.postId}]</b><br>
-                    ${comment.content}<br>
-                        <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
-                        <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
-                        <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
-                        <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
-                            ${parsedDate} ${hours}:${minutes}
-            </td>
-            <td style="width:50px; text-align:center;">
-                <c:if test="${comment.member.memberId == memberId}">
-                    <button id="btnUpdate" type="button" onclick="location.href='/mypage/${memberId}/updateMy/${comment.id}'">수정</button><br>
-                    <button id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</button>
-                </c:if>
-            </td>
-        </tr>
+        <div class="media text-muted pt-3">
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">
+                        <span class="d-block">
+                            <strong class="text-gray-dark">[ 글 ${comment.board.postId} ]</strong>
+                            <span style="padding-left: 950px; font-size: 9pt">
+                                <c:if test="${comment.member.memberId == memberId}">
+                                    <a style="padding-right:5px" id="btnUpdate" type="button" onclick="location.href='/mypage/${memberId}/updateMy/${comment.id}'">수정</a>
+                                    <a id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</a>
+                                </c:if>
+                            </span>
+                            <br>
+                                ${comment.content}<br>
+                            <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
+                            <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
+                            <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
+                            <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
+                                ${parsedDate} ${hours}:${minutes}
+                        </span>
+            </p>
+        </div>
     </c:forEach>
-</table>
-<%--<div id="includedPage"></div>   <!--수정 페이지 삽입-->--%>
+</article>
 </body>
-<br><br><br><br><br><br>
 </html>
+<br><br><br><br><br><br>

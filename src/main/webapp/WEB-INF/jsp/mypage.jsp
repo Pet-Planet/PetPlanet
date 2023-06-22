@@ -44,6 +44,7 @@
     </style>
     <jsp:include page="header2.jsp" />
 </head>
+<br><br><br><br><br><br>
 <body>
 <table align="center">
     <tr>
@@ -59,12 +60,14 @@
 <table align="center">
     <tr style="height:100px;">
         <td style="width:200px; text-align: center;">
-            <img src="/img/myRes.jpg" width="55" height="50">
-            <a href='<c:url value="/mypage/${memberId}/reservations"/>'>예약 내역</a>
+            <a href='<c:url value="/mypage/${memberId}/reservations"/>'>
+            <img src="/img/myRes.jpg" width="55" height="50"><br>
+            예약 내역</a>
         </td>
         <td style="width:200px; text-align: center;">
-            <img src="/img/myRev.jpg" width="50" height="50">
-            <a href='<c:url value="/mypage/${memberId}/reviews"/>'>나의 리뷰</a>
+            <a href='<c:url value="/mypage/${memberId}/reviews"/>'>
+                <img src="/img/myRev.jpg" width="50" height="50"><br>
+            나의 리뷰</a>
         </td>
     </tr>
     <tr style="height:70px;">

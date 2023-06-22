@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -95,7 +97,7 @@
                                                        title="${place.avgRating} out of 5 stars"
                                                        style="--rating: ${place.avgRating}"> ${place.avgRating} out of 5
                                                 </meter>
-                                                (${place.reviewCnt})
+                                                <fmt:formatNumber value="${place.avgRating}" pattern="0.0"/> (${place.reviewCnt})
                                             </p>
                                             <div class="text-end">
                                                 <button type="button" class="btn btn-outline-info"

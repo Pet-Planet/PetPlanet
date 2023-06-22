@@ -143,30 +143,34 @@
             <button type="button" class="btn btn-sm btn-primary" id="btnDel" onclick="deleteBoard()">삭제</button>
         </div>
 
-<!--댓글 목록-->
+        <!--댓글 목록-->
         <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
             <c:forEach var="comment" items="${comments}">
                 <div class="media text-muted pt-3">
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">
                         <span class="d-block">
                             <strong class="text-gray-dark">${comment.writer}</strong>
-                            <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
-                            <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
-                            <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
-                            <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
-                                ${parsedDate} ${hours}:${minutes}
-                            <span style="padding-left: 7px; font-size: 9pt">
+                            <span style="padding-left: 950px; font-size: 9pt">
                                 <c:if test="${comment.member.memberId == memberId}">
                                     <a style="padding-right:5px" id="btnUpdate" type="button" onclick="location.href='/board/${memberId}/post/${postId}/update/${comment.id}'">수정</a>
                                     <a id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</a>
                                 </c:if>
                             </span>
+                            <br>
+                                ${comment.content}<br>
+                            <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
+                            <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
+                            <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
+                            <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
+                                ${parsedDate} ${hours}:${minutes}
+
                         </span>
-                            ${comment.content}
+
                     </p>
                 </div>
-                </c:forEach>
+            </c:forEach>
         </div>
+
     <!--댓글 입력창-->
     <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
         <form name="form" id="form" role="form" action="/board/${memberId}/post/${postId}" method="post">
