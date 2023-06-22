@@ -171,7 +171,7 @@ public class PlaceService {
 
 
     public List<PlaceDto> getTopPlacesByAvgRating() {
-        List<Place> placeList = placeRepository.findTop5ByOrderByAvgRatingDesc();
+        List<Place> placeList = placeRepository.findTop6ByOrderByAvgRatingDesc();
         updateReviewStats(placeList);
         return convertToPlaceDtoList(placeList);
     }

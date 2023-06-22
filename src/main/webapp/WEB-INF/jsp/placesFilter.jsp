@@ -19,14 +19,14 @@
 </head>
 <body class="text-center">
 <form id="filterForm" action="/places/filter/${memberId}" method="POST">
-    <select class="form-select" aria-label="Default select example" name="placeType">
+    <select class="selectpicker show-tick" name="placeType">
         <option selected value="">장소 타입 선택</option>
         <option value="all">전체 선택</option>
         <option value="restaurant">레스토랑</option>
         <option value="cafe">카페</option>
         <option value="hotel">호텔</option>
     </select>
-    <select class="form-select" aria-label="Default select example" name="regionId">
+    <select class="selectpicker show-tick" name="regionId">
         <option selected value="">지역 선택</option>
         <option value="-1">전체 지역</option>
         <option value="11">서울</option>
@@ -34,7 +34,7 @@
         <option value="13">제주도</option>
         <option value="22">강원도</option>
     </select>
-    <select class="form-select" aria-label="Default select example" name="sortOption">
+    <select class="selectpicker show-tick" name="sortOption">
         <option selected value="">정렬 선택</option>
         <option value="reviewCountDesc">리뷰 많은 순</option>
         <option value="reviewCountAsc">리뷰 적은 순</option>
