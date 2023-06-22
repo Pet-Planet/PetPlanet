@@ -140,6 +140,7 @@
     <jsp:include page="header2.jsp" />
 
 </head>
+<br><br><br><br><br><br>
 <body>
 <form action="/mypage/${memberId}/edit" method="post">
     <br><br><br>
