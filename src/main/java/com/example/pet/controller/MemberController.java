@@ -43,10 +43,10 @@ public class MemberController {
     private final MemberService memberService;
 
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/petplanet")
     public String getKakaoAuthUrl(Model model) {
         String reqUrl = KakaoAuthUrl + "/oauth/authorize?client_id=" + client_id
-                + "&redirect_uri="+ RedirectUrl + "&response_type=code";
+                + "&redirect_uri="+ RedirectUrl + "&response_type=code&prompt=login";
         model.addAttribute("reqUrl", reqUrl);
         return "login";
     }
