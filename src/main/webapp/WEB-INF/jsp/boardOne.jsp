@@ -12,19 +12,6 @@
     <link rel="stylesheet" href="/static/board-one.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/button.css">
-    <style>
-        table {
-            background-color: #008800;
-            border: none;
-            border-spacing: 2px;
-        }
-        tr {
-            background-color: white;
-        }
-        tr td {
-            padding: 20px;
-        }
-    </style>
     <script>
         window.onload=function matchMember () {
             const btn1 = document.getElementById('btnDel');
@@ -57,12 +44,25 @@
                     }
                 });
         }
+        // 글 삭제
         function deleteById() {
-            fetch("/board/${memberId}/delete/${postId}", {
-                method: "DELETE"
-            }).then((response) => response.json())
-            location.href="/board/${memberId}";
+            if (confirm("댓글을 삭제하시겠습니까?")) {
+                fetch('/board/${memberId}/post/${postId}', {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.href="/board/${memberId}";
+                        } else {
+                            console.error('Error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error', error);
+                    });
+            }
         }
+
         function createBookmark() {
             const btnCancel = document.getElementById('cancel');
             const btnBookmark = document.getElementById('create');
