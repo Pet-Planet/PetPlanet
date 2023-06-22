@@ -172,7 +172,7 @@
                 </p>
             </div>
             <div style="width: 200px; height: 90px; margin-left: 100px; font-weight: bold; font-size: 30px; line-height: 100px;">
-                (<fmt:formatNumber value="${placeDetail.avgRating}" pattern=".0"/>)
+                (<fmt:formatNumber value="${placeDetail.avgRating}" pattern="0.0"/>)
             </div>
             <div style="flex-grow: 1; display: flex; justify-content: flex-end; margin-right: 50px;">
                 <button id="btn-reviewWrite" type="button" class="btn btn-outline-info"

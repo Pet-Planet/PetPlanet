@@ -30,10 +30,9 @@ public class PlaceService {
     // 장소 상세 조회하기
     public PlaceDetailDto getPlaceDetail(int placeId) {
         Optional<Place> placeResult = placeRepository.findById(placeId);
+        updateReviewStatusById(placeId);
         if (placeResult.isPresent()) {
             Place place = placeResult.get();
-            updateReviewStatusById(placeId);
-
             RegionDto regionDto = null;
             Optional<Region> regionResult = regionRepository.findById(place.getRegion().getRegionId());
             if (regionResult.isPresent()) {
@@ -41,6 +40,7 @@ public class PlaceService {
                 regionDto = new RegionDto();
                 regionDto.setRegionName(region.getRegionName());
             }
+
             String regionName = (regionDto != null) ? regionDto.getRegionName() : null;
 
             // 장소 상세 정보 DTO를 설정합니다.
