@@ -45,21 +45,13 @@
                 });
         }
         // 글 삭제
-        function deleteById() {
-            if (confirm("댓글을 삭제하시겠습니까?")) {
-                fetch('/board/${memberId}/post/${postId}', {
+        function deleteBoard() {
+            if (confirm("해당 글을 삭제하시겠습니까?")) {
+                fetch('/board/${memberId}/delete/${postId}' , {
                     method: 'DELETE'
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            location.href="/board/${memberId}";
-                        } else {
-                            console.error('Error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error', error);
-                    });
+                alert("해당 글이 삭제되었습니다")
+                location.href="/board/${memberId}";
             }
         }
 
@@ -148,7 +140,7 @@
             </a>
             <button type="button" class="btn btn-sm btn-primary" onclick="location.href='/board/${memberId}'">목록</button>
             <button type="button" class="btn btn-sm btn-primary" id="btnUp" onclick="location.href='/board/${memberId}/update/${postId}'">수정</button>
-            <button type="button" class="btn btn-sm btn-primary" id="btnDel" onclick="deleteById()">삭제</button>
+            <button type="button" class="btn btn-sm btn-primary" id="btnDel" onclick="deleteBoard()">삭제</button>
         </div>
 
         <!--댓글 목록-->
