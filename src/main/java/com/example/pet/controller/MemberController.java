@@ -50,6 +50,14 @@ public class MemberController {
         model.addAttribute("reqUrl", reqUrl);
         return "login";
     }
+
+    //access token 찾아오는
+    @GetMapping("/accessToken")
+    @ResponseBody
+    public OauthToken getAccessToken(@RequestParam(value = "code") String code) {
+        return memberService.getAccessToken(code);
+    }
+
     //프론트에서 인가코드 받아오는 url
     @RequestMapping("/oauth/token")
     public String getLogin(@RequestParam(value = "code") String code, HttpServletResponse response) throws IOException {

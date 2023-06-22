@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -64,6 +65,10 @@ public class Member extends BaseEntity {
 
     @Column
     private String petName;
+
+    @Column
+    @ColumnDefault("1") // 0 이면 탈퇴회원
+    private int status;
 
     @OneToMany(mappedBy = "member")
     @JsonManagedReference

@@ -43,6 +43,18 @@
         }
     </style>
     <jsp:include page="header2.jsp" />
+    <script>
+        function withdrawn(){
+            if (window.confirm('정말 탈퇴하시겠습니까?'))
+            {
+                location.href='<c:url value="/mypage/${memberId}/withdraw"/>'
+            }
+            else
+            {
+                // They clicked no
+            }
+        }
+    </script>
 </head>
 <br><br><br><br><br><br>
 <body>
@@ -83,6 +95,6 @@
         <td colspan="2"><a href='<c:url value="/mypage/${memberId}/bookmarks"/>'>북마크</a></td>
     </tr>
 </table>
-<h4 align="center"><a href='<c:url value="/mypage/${memberId}/withdraw"/>'>탈퇴하기</a></h4>
+<h4 align="center"><a onclick="withdrawn()">탈퇴하기</a></h4>
 </body>
 </html>

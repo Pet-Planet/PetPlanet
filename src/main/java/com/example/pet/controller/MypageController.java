@@ -65,7 +65,7 @@ public class MypageController {
     }
 
     // 회원 탈퇴
-    @PostMapping("/withdraw")
+    @GetMapping("/withdraw")
     public String withdrawMember(@PathVariable int memberId) {
         mypageService.withdrawMember(memberId);
 

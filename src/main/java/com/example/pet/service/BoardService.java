@@ -44,9 +44,9 @@ public class BoardService {
     public Page<Board> findBoardPage(String title, String content, int page, int sortType) {
         Pageable pageable;
         if(sortType==1) {
-            pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "countView"));
+            pageable = PageRequest.of(page, 15, Sort.by(Sort.Direction.DESC, "countView"));
         } else {
-            pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "postId"));
+            pageable = PageRequest.of(page, 15, Sort.by(Sort.Direction.DESC, "postId"));
         }
         return boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
     }
