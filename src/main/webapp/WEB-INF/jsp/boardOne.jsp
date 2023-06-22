@@ -107,6 +107,18 @@
                     });
             }
         }
+
+        function openCommentUpdateWindow(commentId) {
+            const url = `/board/${memberId}/post/${postId}/update/` + commentId;
+
+            var _width = '800';
+            var _height = '300';
+
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+
+            window.open(url, 'commentUpdateWindow', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+        }
     </script>
 </head>
 
@@ -152,7 +164,8 @@
                             <strong class="text-gray-dark">${comment.writer}</strong>
                             <span style="padding-left: 950px; font-size: 9pt">
                                 <c:if test="${comment.member.memberId == memberId}">
-                                    <a style="padding-right:5px" id="btnUpdate" type="button" onclick="location.href='/board/${memberId}/post/${postId}/update/${comment.id}'">수정</a>
+<%--                                    <a style="padding-right:5px" id="btnUpdate" type="button" onclick="location.href='/board/${memberId}/post/${postId}/update/${comment.id}'">수정</a>--%>
+                                    <a style="padding-right:5px" id="btnUpdate" type="button" onclick="openCommentUpdateWindow(${comment.id})">수정</a>
                                     <a id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</a>
                                 </c:if>
                             </span>

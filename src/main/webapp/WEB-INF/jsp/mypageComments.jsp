@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <head>
+    <%@ include file="header2.jsp"%>
     <link rel="stylesheet" href="/static/board-one.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/button.css">
@@ -43,9 +44,19 @@
                     });
             }
         }
-    </script>
-    <jsp:include page="header2.jsp" />
 
+        function openCommentUpdateWindow(commentId) {
+            const url = `/mypage/${memberId}/updateMy/` + commentId;
+
+            var _width = '800';
+            var _height = '300';
+
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+
+            window.open(url, 'commentUpdateWindow', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+        }
+    </script>
 </head>
 <br><br><br><br><br><br>
 <body>
@@ -60,7 +71,8 @@
                             <strong class="text-gray-dark">[ 글 ${comment.board.postId} ]</strong>
                             <span style="padding-left: 950px; font-size: 9pt">
                                 <c:if test="${comment.member.memberId == memberId}">
-                                    <a style="padding-right:5px" id="btnUpdate" type="button" onclick="location.href='/mypage/${memberId}/updateMy/${comment.id}'">수정</a>
+<%--                                    <a style="padding-right:5px" id="btnUpdate" type="button" onclick="location.href='/mypage/${memberId}/updateMy/${comment.id}'">수정</a>--%>
+                                    <a style="padding-right:5px" id="btnUpdate" type="button" onclick="openCommentUpdateWindow(${comment.id})">수정</a>
                                     <a id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</a>
                                 </c:if>
                             </span>
