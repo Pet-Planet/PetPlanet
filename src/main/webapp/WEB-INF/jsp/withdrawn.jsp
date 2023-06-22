@@ -6,8 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 탈퇴</title>
+    <script>
+    </script>
 </head>
 <body>
 <h1>탈퇴 완료</h1>
+Response.Write("<script Response.Write("<script
+        language='javascript'>window.alert('탈퇴가 완료되었습니다.');location.href='/login';</script>");
 </body>
 </html>

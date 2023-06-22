@@ -14,6 +14,7 @@ public class MemberResponseDto {
     private String petType;
     private String petName;
     private String kakaoProfileImg;
+    private Long kakaoId;
 
     public MemberResponseDto(Member member){
         this.kakaoNickname = member.getKakaoNickname();
@@ -23,6 +24,7 @@ public class MemberResponseDto {
         this.petName = member.getPetName();
         this.petType = member.getPetType();
         this.kakaoProfileImg = member.getKakaoProfileImg();
+        this.kakaoId = member.getKakaoId();
     }
 
 }
