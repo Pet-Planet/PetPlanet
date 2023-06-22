@@ -4,6 +4,9 @@
     font-weight: normal;
     font-style: normal;
 }
+*{
+    font-family: 'GmarketSansMedium';
+}
 #logo { width: 150px;  }
 /*#head { background-color: #D8D2CA}*/
 a.menu_a {

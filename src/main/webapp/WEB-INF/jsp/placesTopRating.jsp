@@ -53,7 +53,7 @@
 </head>
 <body class="text-center">
 <br>
-  <h1 style="color: #98C0DC;">Hot Petplace </h1>
+  <p style="color: #98C0DC; font-size: 40px; font-family: 'GmarketSansMedium'">Hot Petplace </p>
 <br>
     <div class="container text-center">
       <div class="item-place">
