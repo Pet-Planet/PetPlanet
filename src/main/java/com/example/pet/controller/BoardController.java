@@ -106,7 +106,7 @@ public class BoardController {
         Board board = boardService.boardSave(member, boardDto);
         int postId = board.getPostId();
 
-        return "redirect:/board/{memberId}/post/" + postId;
+        return "boardOne";
     }
 
     // 게시판 글 수정
@@ -125,7 +125,7 @@ public class BoardController {
         model.addAttribute("board", updatedBoard);
         model.addAttribute("memberId", memberId);   //중요
 
-        return "boardOne";
+        return "redirect:/board/{memberId}/post/{postId}";
     }
 
     // 게시판 글 삭제

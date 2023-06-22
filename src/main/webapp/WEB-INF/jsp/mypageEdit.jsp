@@ -138,7 +138,7 @@
     </script>
 
     <jsp:include page="header2.jsp" />
-    <br><br><br><br><br><br><br><br>
+
 </head>
 <body>
 <form action="/mypage/${memberId}/edit" method="post">

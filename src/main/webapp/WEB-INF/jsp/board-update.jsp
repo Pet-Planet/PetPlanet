@@ -9,28 +9,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/button.css">
 </head>
-<script>
-    $(function (){
-        $("btnSave").click(function () {
-            var title = $("#title").val();
-            var content = $("#content").val();
-            var category = $("#category").val();
-            if(title = "") {
-                alert("제목을 입력하세요");
-                $("#form_board").title.focus();
-                return;
-            }
-            if(content == "") {
-                alert("내용을 입력하세요");
-                $("#form_board").content.focus();
-                return;
-            }
-            $("#form_board").action="/board/${memberId}/update/${postId}";
-            $("#form_board").submit();
+<%--<script>--%>
+<%--    $(function (){--%>
+<%--        $("btnSave").click(function () {--%>
+<%--            var title = $("#title").val();--%>
+<%--            var content = $("#content").val();--%>
+<%--            var category = $("#category").val();--%>
+<%--            if(title = "") {--%>
+<%--                alert("제목을 입력하세요");--%>
+<%--                $("#form_board").title.focus();--%>
+<%--                return;--%>
+<%--            }--%>
+<%--            if(content == "") {--%>
+<%--                alert("내용을 입력하세요");--%>
+<%--                $("#form_board").content.focus();--%>
+<%--                return;--%>
+<%--            }--%>
+<%--            $("#form_board").action="/board/${memberId}/update/${postId}";--%>
+<%--            $("#form_board").submit();--%>
 
-        })
-    });
-</script>
+<%--        })--%>
+<%--    });--%>
+<%--</script>--%>
 <body>
 <div class="container" role="main">
     <form id="form" action="/board/${memberId}/update/${postId}" method="post" >
