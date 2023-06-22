@@ -106,7 +106,7 @@ public class BoardController {
         Board board = boardService.boardSave(member, boardDto);
         int postId = board.getPostId();
 
-        return "boardOne";
+        return "redirect:/board/{memberId}/post/" + postId;
     }
 
     // 게시판 글 수정
