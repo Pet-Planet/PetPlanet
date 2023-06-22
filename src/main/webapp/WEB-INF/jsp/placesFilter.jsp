@@ -15,6 +15,27 @@
             background-color: #98C0DC;
             color: #fff;
         }
+        select {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            padding: 0.6em 1.4em 0.5em 0.8em;
+            margin: 0;
+
+            border: 1px solid #aaa;
+            border-radius: 0.5em;
+            box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+
+            font-family: 'GmarketSansMedium';
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+
+            color: #444;
+            background-color: #fff;
+
+        }
     </style>
 </head>
 <body class="text-center">
@@ -41,7 +62,6 @@
         <option value="avgRatingDesc">평점 높은 순</option>
         <option value="avgRatingAsc">평점 낮은 순</option>
     </select>
-
     <input type="text" name="keyword" placeholder="장소 이름을 입력하세요" value="${param.keyword}">
     <button type="button" class="btn btn-outline-info" onclick="search()">검색</button>
 </form>
