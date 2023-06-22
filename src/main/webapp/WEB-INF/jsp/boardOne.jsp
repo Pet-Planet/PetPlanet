@@ -12,19 +12,6 @@
     <link rel="stylesheet" href="/static/board-one.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/button.css">
-    <style>
-        table {
-            background-color: #008800;
-            border: none;
-            border-spacing: 2px;
-        }
-        tr {
-            background-color: white;
-        }
-        tr td {
-            padding: 20px;
-        }
-    </style>
     <script>
         window.onload=function matchMember () {
             const btn1 = document.getElementById('btnDel');
@@ -57,12 +44,17 @@
                     }
                 });
         }
-        function deleteById() {
-            fetch("/board/${memberId}/delete/${postId}", {
-                method: "DELETE"
-            }).then((response) => response.json())
-            location.href="/board/${memberId}";
+        // 글 삭제
+        function deleteBoard() {
+            if (confirm("해당 글을 삭제하시겠습니까?")) {
+                fetch('/board/${memberId}/delete/${postId}' , {
+                    method: 'DELETE'
+                })
+                alert("해당 글이 삭제되었습니다")
+                location.href="/board/${memberId}";
+            }
         }
+
         function createBookmark() {
             const btnCancel = document.getElementById('cancel');
             const btnBookmark = document.getElementById('create');
@@ -148,33 +140,37 @@
             </a>
             <button type="button" class="btn btn-sm btn-primary" onclick="location.href='/board/${memberId}'">목록</button>
             <button type="button" class="btn btn-sm btn-primary" id="btnUp" onclick="location.href='/board/${memberId}/update/${postId}'">수정</button>
-            <button type="button" class="btn btn-sm btn-primary" id="btnDel" onclick="deleteById()">삭제</button>
+            <button type="button" class="btn btn-sm btn-primary" id="btnDel" onclick="deleteBoard()">삭제</button>
         </div>
 
-<!--댓글 목록-->
+        <!--댓글 목록-->
         <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
             <c:forEach var="comment" items="${comments}">
                 <div class="media text-muted pt-3">
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">
                         <span class="d-block">
                             <strong class="text-gray-dark">${comment.writer}</strong>
-                            <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
-                            <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
-                            <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
-                            <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
-                                ${parsedDate} ${hours}:${minutes}
-                            <span style="padding-left: 7px; font-size: 9pt">
+                            <span style="padding-left: 950px; font-size: 9pt">
                                 <c:if test="${comment.member.memberId == memberId}">
                                     <a style="padding-right:5px" id="btnUpdate" type="button" onclick="location.href='/board/${memberId}/post/${postId}/update/${comment.id}'">수정</a>
                                     <a id="btnDelete" type="button" onclick="deleteComment(${comment.id})">삭제</a>
                                 </c:if>
                             </span>
+                            <br>
+                                ${comment.content}<br>
+                            <c:set var="parsedDate" value="${fn:split(comment.createdDate, 'T')[0]}"/>
+                            <c:set var="time" value="${fn:split(comment.createdDate, 'T')[1]}"/>
+                            <c:set var="hours" value="${fn:split(time, ':')[0]}"/>
+                            <c:set var="minutes" value="${fn:split(time, ':')[1]}"/>
+                                ${parsedDate} ${hours}:${minutes}
+
                         </span>
-                            ${comment.content}
+
                     </p>
                 </div>
-                </c:forEach>
+            </c:forEach>
         </div>
+
     <!--댓글 입력창-->
     <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
         <form name="form" id="form" role="form" action="/board/${memberId}/post/${postId}" method="post">
