@@ -87,7 +87,9 @@
     <div class="title"><h1>예약 내역</h1></div>
     <div class="reservation-detail">
         </br><span class="placeNo"><h2>No. ${revDetail.revId}</h2></span>
-        <span class="placeName"><h1>${revDetail.placeName}</h1></span></br></br>
+        <a href="/places/${memberId}/placeDetail/${revDetail.placeId}" style="text-decoration: none; color: black;">
+            <span class="placeName"><h1>${revDetail.placeName} </h1></span>
+        </a></br></br>
         <div class="reservation-info">
             <p><span>위치</span>${revDetail.address}</p>
             <p><span>체크인</span>${revDetail.startDate}</p>

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class ReservationDetailDto{
 
         private int revId;
+        private int placeId;
         private String placeName;
         private String revName;
         private String phoneNum;
