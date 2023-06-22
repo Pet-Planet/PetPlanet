@@ -147,7 +147,6 @@
                     <p class="card-text">&nbsp;${placeDetail.address}</p>
                     <p class="card-text">&nbsp;${placeDetail.placeContent}</p>
                     <p class="card-text">&nbsp;1인당 이용 금액 : <fmt:formatNumber value="${placeDetail.price}" pattern="#,###"/>원</p>
-                    <p class="card-text">&nbsp;&nbsp;* 반려동물 1마리당 이용 금액 : 10,000원</p>
                     <p class="card-text"><small class="text-muted"></small></p>
                     <button id="btn-reservation" type="button" class="btn btn-outline-info"
                             onclick="goToReservationForm('${placeDetail.placeType}', '${placeDetail.placeId}')">예약하기
