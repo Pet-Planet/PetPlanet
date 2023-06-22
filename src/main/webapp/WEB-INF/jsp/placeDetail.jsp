@@ -49,7 +49,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         .average-rating {
             position: relative;
             appearance: none;
@@ -58,7 +57,6 @@
             display: inline-block;
             vertical-align: baseline;
         }
-
         .average-rating::before {
             --percent: calc(var(--rating) / 5 * 100%);
             content: '★★★★★';
