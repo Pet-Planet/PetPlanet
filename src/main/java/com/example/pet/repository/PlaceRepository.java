@@ -46,7 +46,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
     Page<Place> findByPlaceTypeAndRegionIdAndPlaceTitle(@Param("placeType") String placeType, @Param("regionId") Integer regionId, @Param("keyword") String keyword, Pageable pageable);
 
 
-    List<Place> findTop5ByOrderByAvgRatingDesc();
+    List<Place> findTop6ByOrderByAvgRatingDesc();
 
     Page<Place> findAll(Pageable pageable);
 
