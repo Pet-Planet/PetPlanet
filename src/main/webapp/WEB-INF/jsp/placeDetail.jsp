@@ -144,9 +144,10 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" style="font-weight: bold; font-size: 3em;">${placeDetail.placeTitle}</h5>
-                    <p class="card-text">${placeDetail.address}</p>
-                    <p class="card-text">${placeDetail.placeContent}</p>
-                    <p class="card-text">1인당 이용 금액 : <fmt:formatNumber value="${placeDetail.price}" pattern="#,###"/>원</p>
+                    <p class="card-text">&nbsp;${placeDetail.address}</p>
+                    <p class="card-text">&nbsp;${placeDetail.placeContent}</p>
+                    <p class="card-text">&nbsp;1인당 이용 금액 : <fmt:formatNumber value="${placeDetail.price}" pattern="#,###"/>원</p>
+                    <p class="card-text">&nbsp;&nbsp;* 반려동물 1마리당 이용 금액 : 10,000원</p>
                     <p class="card-text"><small class="text-muted"></small></p>
                     <button id="btn-reservation" type="button" class="btn btn-outline-info"
                             onclick="goToReservationForm('${placeDetail.placeType}', '${placeDetail.placeId}')">예약하기
