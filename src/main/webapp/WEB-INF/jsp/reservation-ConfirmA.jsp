@@ -102,7 +102,7 @@
         <p><strong>예약자명</strong> <span>${rev.revName}</span></p>
         <p><strong>연락처</strong>   <span>${rev.phoneNum}</span></p>
         <div class="amount">
-            <div class="amountTxt">*결제 후 예약이 완료됩니다.</div><br>
+            <div class="amountTxt">*결제 후 예약이 완료됩니다.</div>
             <p><strong>결제금액</strong> <span class="amount-value"><fmt:formatNumber value="${rev.amount}" pattern="#,###"/>원</span></p>
         </div>
     </div>
