@@ -97,7 +97,7 @@
                                                        title="${place.avgRating} out of 5 stars"
                                                        style="--rating: ${place.avgRating}"> ${place.avgRating} out of 5
                                                 </meter>
-                                                <fmt:formatNumber value="${place.avgRating}" pattern=".0"/> (${place.reviewCnt})
+                                                <fmt:formatNumber value="${place.avgRating}" pattern="0.0"/> (${place.reviewCnt})
                                             </p>
                                             <div class="text-end">
                                                 <button type="button" class="btn btn-outline-info"
