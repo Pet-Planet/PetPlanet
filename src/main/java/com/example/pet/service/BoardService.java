@@ -62,7 +62,7 @@ public class BoardService {
     // 게시판에 글 등록하기
     public Board boardSave(Member member, BoardDto boardDto) {
         boardDto.setMemberId(member.getMemberId());
-        boardDto.setWriter(member.getKakaoNickname());
+        boardDto.setWriter(member.getNickname());
         Board board = boardRepository.save(boardDto.toEntity());
 
         board.setMember(member);
