@@ -130,13 +130,12 @@ public class BoardController {
 
     // 게시판 글 삭제
     @DeleteMapping("/delete/{postId}")
-    @ResponseBody
     public String boardDelete(@PathVariable int memberId, @PathVariable int postId) {
         BoardResponseDto board = boardService.findOneBoard(postId);
         boardService.boardDelete(postId);
         
         log.info(" => 게시글 삭제");
-        return "삭제완료";
+        return "redirect:/board/{memberId}";
     }
 
     // 제목으로 검색하기
