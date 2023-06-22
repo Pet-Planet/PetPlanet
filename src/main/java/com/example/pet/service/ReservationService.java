@@ -124,7 +124,7 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(revId).get();
 
         ReservationDetailDto reservationDto = new ReservationDetailDto(
-                reservation.getId(), reservation.getPlace().getPlaceTitle(),
+                reservation.getId(), reservation.getPlace().getPlaceId(), reservation.getPlace().getPlaceTitle(),
                 reservation.getRevName(), reservation.getPhoneNum(),
                 reservation.getStartDate(), reservation.getEndDate(), reservation.getTime(),
                 reservation.getGuests(), reservation.getPets(),
