@@ -37,9 +37,8 @@ public class ReviewService {
         Optional<Member> member = memberRepository.findById(memberId);
         Optional<Place> place = placeRepository.findById(reviewDto.getPlaceId());
 
-        if (member.isPresent() && place.isPresent()) {
-            // 로그인한 멤버의 ID로 예약 내역 조회
-            Optional<Reservation> reservation = reservationRepository.findByMember_MemberIdAndPlace_PlaceId(memberId, reviewDto.getPlaceId());
+
+        Optional<Reservation> reservation = reservationRepository.findByMember_MemberIdAndPlace_PlaceId(memberId, reviewDto.getPlaceId());
 
             if (reservation.isPresent()) {
 
@@ -60,11 +59,7 @@ public class ReviewService {
                 // 예약 내역이 없는 경우 리뷰 작성 제한
                 throw new IllegalStateException("예약 내역이 없어 리뷰를 작성할 수 없습니다.");
             }
-        } else {
-            // 멤버 또는 장소 정보를 찾을 수 없는 경우 예외 처리
-            throw new IllegalArgumentException("멤버 또는 장소 정보를 찾을 수 없습니다.");
         }
-    }
 
 
     /*
