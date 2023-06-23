@@ -4,7 +4,6 @@ import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BookMark;
 import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
-import com.example.pet.dto.board.GetBoardDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;

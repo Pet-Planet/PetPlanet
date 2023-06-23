@@ -1,27 +1,16 @@
 package com.example.pet.controller;
 
-import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.BoardDto;
-import com.example.pet.dto.board.BoardResponseDto;
-import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.dto.boardcomment.BoardCommentSaveDto;
 import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
-import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.service.BoardCommentService;
 import com.example.pet.service.MemberService;
 import com.example.pet.service.MypageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Comparator;
-import java.util.List;
 
 @Controller
 @RequestMapping("/board/{memberId}/post/{postId}")

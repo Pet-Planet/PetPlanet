@@ -1,7 +1,6 @@
 package com.example.pet.repository;
 
 import com.example.pet.domain.reservation.Reservation;
-import com.example.pet.domain.review.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

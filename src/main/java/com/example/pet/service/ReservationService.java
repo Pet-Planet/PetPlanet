@@ -6,7 +6,6 @@ import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.dto.reservation.ReservationDetailDto;
 import com.example.pet.dto.reservation.ReservationDto;
 import com.example.pet.dto.reservation.ReservationListDto;
-import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.repository.MemberRepository;
 import com.example.pet.repository.PlaceRepository;
 import com.example.pet.repository.ReservationRepository;

@@ -7,7 +7,6 @@ import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.board.BookMark;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
-import com.example.pet.dto.bookmark.BookMarkDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;

@@ -1,7 +1,6 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.review.Review;
-import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.dto.review.ReviewDto;
 import com.example.pet.dto.review.ReviewEditDto;
 import com.example.pet.repository.ReviewRepository;
@@ -11,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

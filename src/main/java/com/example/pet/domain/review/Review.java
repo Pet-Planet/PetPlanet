@@ -3,11 +3,11 @@ package com.example.pet.domain.review;
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 
 @Entity @EntityListeners(AuditingEntityListener.class)
 @Getter

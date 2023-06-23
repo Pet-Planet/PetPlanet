@@ -1,6 +1,5 @@
 package com.example.pet.config.jwt;
 
-import com.example.pet.config.jwt.JwtProperties;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

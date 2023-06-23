@@ -2,11 +2,13 @@ package com.example.pet.service;
 
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.*;
+import com.example.pet.dto.board.BoardDto;
+import com.example.pet.dto.board.BoardListResponseDto;
+import com.example.pet.dto.board.BoardResponseDto;
+import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.repository.BoardRepository;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.description.type.TypeDefinition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -2,13 +2,12 @@ package com.example.pet.domain.place;
 
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

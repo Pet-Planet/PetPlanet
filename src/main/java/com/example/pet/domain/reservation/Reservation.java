@@ -3,14 +3,12 @@ package com.example.pet.domain.reservation;
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity @EntityListeners(AuditingEntityListener.class)

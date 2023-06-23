@@ -2,7 +2,6 @@ package com.example.pet.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.support.incrementer.AbstractDataFieldMaxValueIncrementer;
 
 @Getter
 @RequiredArgsConstructor

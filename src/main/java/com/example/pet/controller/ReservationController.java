@@ -4,7 +4,6 @@ import com.example.pet.domain.place.Place;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.dto.reservation.ReservationDetailDto;
 import com.example.pet.dto.reservation.ReservationDto;
-import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.repository.PlaceRepository;
 import com.example.pet.repository.ReservationRepository;
 import com.example.pet.service.ReservationService;
@@ -13,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 import java.util.Optional;
 
 @Controller

@@ -1,10 +1,13 @@
 package com.example.pet.domain.board;
 
 import com.example.pet.domain.member.Member;
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @Getter

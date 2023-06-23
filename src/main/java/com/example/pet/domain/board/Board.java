@@ -2,17 +2,13 @@ package com.example.pet.domain.board;
 
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
-import javax.persistence.*;
-
 import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.net.URL;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

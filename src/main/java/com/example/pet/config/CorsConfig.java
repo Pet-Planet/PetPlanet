@@ -1,6 +1,5 @@
 package com.example.pet.config;
 
-import com.example.pet.config.jwt.JwtProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;

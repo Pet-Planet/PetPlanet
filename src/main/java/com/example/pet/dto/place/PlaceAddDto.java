@@ -1,7 +1,9 @@
 package com.example.pet.dto.place;
 
-import com.example.pet.domain.place.Place;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
