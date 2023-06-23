@@ -1,7 +1,10 @@
 package com.example.pet.dto.board;
 
 import com.example.pet.domain.board.Board;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

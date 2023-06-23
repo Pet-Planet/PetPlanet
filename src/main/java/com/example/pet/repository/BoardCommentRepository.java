@@ -1,6 +1,5 @@
 package com.example.pet.repository;
 
-import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

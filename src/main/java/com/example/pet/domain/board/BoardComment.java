@@ -2,11 +2,8 @@ package com.example.pet.domain.board;
 
 import com.example.pet.domain.BaseEntity;
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
-import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

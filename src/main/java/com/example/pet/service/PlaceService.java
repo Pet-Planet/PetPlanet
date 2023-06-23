@@ -11,7 +11,6 @@ import com.example.pet.repository.PlaceRepository;
 import com.example.pet.repository.RegionRepository;
 import com.example.pet.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

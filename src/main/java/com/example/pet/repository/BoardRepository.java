@@ -1,8 +1,6 @@
 package com.example.pet.repository;
 
 import com.example.pet.domain.board.Board;
-import com.example.pet.domain.review.Review;
-import com.example.pet.dto.board.BoardListResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

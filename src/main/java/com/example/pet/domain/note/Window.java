@@ -1,14 +1,12 @@
 package com.example.pet.domain.note;
 
 import com.example.pet.domain.member.Member;
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.io.Serializable;
 
-import org.hibernate.annotations.CreationTimestamp;
-import java.sql.Timestamp;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter

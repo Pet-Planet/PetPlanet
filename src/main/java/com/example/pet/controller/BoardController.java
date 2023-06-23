@@ -3,28 +3,22 @@ package com.example.pet.controller;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.member.Member;
-import com.example.pet.dto.board.*;
+import com.example.pet.dto.board.BoardDto;
+import com.example.pet.dto.board.BoardListResponseDto;
+import com.example.pet.dto.board.BoardResponseDto;
+import com.example.pet.dto.board.BoardUpdateRequestDto;
 import com.example.pet.dto.member.MemberResponseDto;
-import com.example.pet.repository.BoardRepository;
 import com.example.pet.service.BoardCommentService;
 import com.example.pet.service.BoardService;
 import com.example.pet.service.MemberService;
 import com.example.pet.service.MypageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -47,15 +41,11 @@ public class BoardController {
                               @RequestParam(required = false, defaultValue = "0", value = "page") int page,
                               @RequestParam(required = false, defaultValue = "", value = "searchText") String searchText,
                               @RequestParam(required = false, defaultValue = "0", value="sortType") int sortType) {
-//        List<BoardListResponseDto> boardList = boardService.findAllBoard();
+
         Page<Board> boardList = boardService.findBoardPage(searchText, searchText, page, sortType);
 
-        //int startPage = Math.max(1, boardList.getPageable().getPageNumber() -1);
-        //int endPage = Math.min(boardList.getTotalPages(), boardList.getPageable().getPageNumber()+3);
         int totalPage = boardList.getTotalPages();
         model.addAttribute("boardList", boardList);
-        //model.addAttribute("startPage", startPage);
-        //model.addAttribute("endPage", endPage);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("searchText", searchText);
         model.addAttribute("sortType", sortType);
@@ -141,7 +131,7 @@ public class BoardController {
     // 제목으로 검색하기
     @GetMapping("/findTitle")
     public List<BoardListResponseDto> getBoardByTitle(@RequestParam String searchText) {
-        //String str = "제목";
+
         log.info("=> 검색 시작");
         return boardService.getBoardByTitle(searchText);
     }
