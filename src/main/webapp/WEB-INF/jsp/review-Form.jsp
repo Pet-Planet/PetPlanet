@@ -72,6 +72,7 @@
             </div><br/>
             <textarea name="content" placeholder="리뷰를 입력해 주세요."></textarea><br>
             <input type="hidden" name="placeId" value="${placeId}">
+            <input type="hidden" name="memberId" value="${memberId}">
             <input type="hidden" id="rating" name="rating" value="0">
             <button type="submit" class="review-button">등 록</button>
             <button type="button" onclick="history.back()" class="review-button">취 소</button>
@@ -103,21 +104,23 @@
 
     function showReviewConfirmation() {
 
-        var rating = document.getElementById("rating").value;
-        var content = document.getElementsByName("content")[0].value;
+        if (confirm("리뷰를 등록하시겠습니까?")) {
 
-        if (rating == 0) {
-            alert("별점을 입력해주세요.");
-            return false;
+            var rating = document.getElementById("rating").value;
+            var content = document.getElementsByName("content")[0].value;
+
+            if (rating == 0) {
+                alert("별점을 입력해주세요.");
+                return false;
+            }
+
+            if (content.trim().length === 0) {
+                alert("리뷰를 입력해주세요.");
+                return false;
+            }
+
+            return true;
         }
-
-        if (content.trim().length === 0) {
-            alert("리뷰를 입력해주세요.");
-            return false;
-        }
-
-        alert("리뷰가 등록되었습니다.");
-        return true;
     }
 </script>
 </body>

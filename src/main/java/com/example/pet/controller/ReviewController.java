@@ -42,11 +42,16 @@ public class ReviewController {
      */
 
     @PostMapping("/review/{memberId}")
-    public String createReview(@PathVariable int memberId, @ModelAttribute("review") ReviewDto reviewDto){
+    public String createReview(@PathVariable int memberId, @ModelAttribute("review") ReviewDto reviewDto, Model model) {
+        try {
+            reviewService.createReview(memberId, reviewDto);
+            return "redirect:/places/" + memberId + "/placeDetail/" + reviewDto.getPlaceId();
 
-        reviewService.createReview(memberId, reviewDto);
-
-        return "redirect:/places/" + memberId + "/placeDetail/" + reviewDto.getPlaceId();
+        } catch (IllegalStateException e) {
+            model.addAttribute("placeId", reviewDto.getPlaceId());
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page"; // 에러 페이지로 리다이렉트 또는 템플릿을 렌더링하여 에러 메시지를 표시
+        }
     }
 
 

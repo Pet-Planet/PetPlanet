@@ -2,12 +2,14 @@ package com.example.pet.service;
 
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.place.Place;
+import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.review.GetReviewDto;
 import com.example.pet.dto.review.ReviewDto;
 import com.example.pet.dto.review.ReviewEditDto;
 import com.example.pet.repository.MemberRepository;
 import com.example.pet.repository.PlaceRepository;
+import com.example.pet.repository.ReservationRepository;
 import com.example.pet.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,25 +28,38 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
     private final PlaceRepository placeRepository;
+    private final ReservationRepository reservationRepository;
 
     /*
     리뷰 작성
      */
-    public Review createReview(int memberId, ReviewDto reviewDto){
-
+    public Review createReview(int memberId, ReviewDto reviewDto) {
         Optional<Member> member = memberRepository.findById(memberId);
         Optional<Place> place = placeRepository.findById(reviewDto.getPlaceId());
 
-        reviewDto.setMemberId(memberId);
 
-        Review review = reviewRepository.save(reviewDto.toEntity());
+        Optional<Reservation> reservation = reservationRepository.findByMember_MemberIdAndPlace_PlaceId(memberId, reviewDto.getPlaceId());
 
-        review.setMember(member.get());
-        review.setPlace(place.get());
+            if (reservation.isPresent()) {
 
-        return review;
+                // 이미 리뷰를 작성한 경우 에러 처리
+                if (reviewRepository.existsByMember_MemberIdAndPlace_PlaceId(memberId, reviewDto.getPlaceId())) {
+                    throw new IllegalStateException("이미 리뷰를 작성한 사용자입니다.");
+                }
 
-    }
+                // 예약 내역이 있는 경우 리뷰 작성
+                reviewDto.setMemberId(memberId);
+                Review review = reviewRepository.save(reviewDto.toEntity());
+
+                review.setMember(member.get());
+                review.setPlace(place.get());
+
+                return review;
+            } else {
+                // 예약 내역이 없는 경우 리뷰 작성 제한
+                throw new IllegalStateException("예약 내역이 없어 리뷰를 작성할 수 없습니다.");
+            }
+        }
 
 
     /*
