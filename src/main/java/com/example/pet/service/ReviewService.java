@@ -44,7 +44,7 @@ public class ReviewService {
 
                 // 이미 리뷰를 작성한 경우 에러 처리
                 if (reviewRepository.existsByMember_MemberIdAndPlace_PlaceId(memberId, reviewDto.getPlaceId())) {
-                    throw new IllegalStateException("이미 리뷰를 작성한 사용자입니다.");
+                    throw new IllegalStateException("이미 리뷰를 작성한 유저입니다.");
                 }
 
                 // 예약 내역이 있는 경우 리뷰 작성
@@ -57,7 +57,7 @@ public class ReviewService {
                 return review;
             } else {
                 // 예약 내역이 없는 경우 리뷰 작성 제한
-                throw new IllegalStateException("예약 내역이 없어 리뷰를 작성할 수 없습니다.");
+                throw new IllegalStateException("예약내역이 있는 유저만 리뷰를 작성할 수 있습니다.");
             }
         }
 
