@@ -72,15 +72,6 @@ public class MemberController {
 
         return "loginsuccess";
     }
-    // jwt 토큰으로 유저정보 요청하기
-    @GetMapping("/memberinfo")
-    @ResponseBody
-    public int getCurrentUser(HttpServletRequest request) {
-        Member member = memberService.getMember(request);
-        int memberId = member.getMemberId();
-        log.info("현재 회원 id : " + memberId);
-        return memberId;
-    }
 
     // 현재 멤버 조회
     @GetMapping("/member/{memberId}")

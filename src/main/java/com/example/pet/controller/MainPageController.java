@@ -22,7 +22,7 @@ public class MainPageController {
     private final PlaceService placeService;
 
     @GetMapping("/main/{memberId}")
-    public String mainPgae(@PathVariable int memberId, Model model) {
+    public String mainPage(@PathVariable int memberId, Model model) {
         Member member = memberService.findMe(memberId);
         List<PlaceDto> places = placeService.getTopPlacesByAvgRating();
         model.addAttribute("placesTopRating", places);

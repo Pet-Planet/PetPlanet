@@ -31,13 +31,10 @@ public class MemberService {
 
     @Value("${kakao.clientId}")
     String client_id;
-
     @Value("${kakao.secret}")
     String client_secret;
-
     @Value("http://localhost:8088/oauth/token")
     private String RedirectUrl;
-
     @Autowired
     MemberRepository memberRepository;
 
