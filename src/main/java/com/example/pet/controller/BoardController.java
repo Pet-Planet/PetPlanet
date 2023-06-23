@@ -128,12 +128,4 @@ public class BoardController {
         return "redirect:/board/{memberId}";
     }
 
-    // 제목으로 검색하기
-    @GetMapping("/findTitle")
-    public List<BoardListResponseDto> getBoardByTitle(@RequestParam String searchText) {
-
-        log.info("=> 검색 시작");
-        return boardService.getBoardByTitle(searchText);
-    }
-
 }
