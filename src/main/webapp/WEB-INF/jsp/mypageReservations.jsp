@@ -53,12 +53,17 @@
             text-decoration-line: none; /* 링크의 밑줄 제거 */
             color: inherit; /* 링크의 색상 제거 */
         }
+
+        h1{
+            color: #98C0DC;
+        }
     </style>
 </head>
 <jsp:include page="header2.jsp" />
 <br><br><br><br><br><br>
 <body>
 <div class="container">
+    <div><h1>예약 내역</h1></div><br>
     <c:forEach var="reservation" items="${reservationList}">
         <div class="reservation-detail">
             <table align="center">

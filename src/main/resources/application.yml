@@ -1,15 +1,11 @@
 # port
 server:
   port: 8088
-  tomcat:
-    additional-tld-skip-patterns:
-      - oraclepki.jar
-      - osdt_core.jar
-      - osdt_cert.jar
+
 spring:
   jpa:
-    database: oracle
-    database-platform: org.hibernate.dialect.Oracle12cDialect
+    database: mysql   # 추가 해준 부분
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
     properties:
@@ -40,3 +36,13 @@ logging:
         type:
           descriptor:
             sql: trace
+
+
+#  jpa:   #oracle
+#    database: oracle
+#    database-platform: org.hibernate.dialect.Oracle12cDialect
+#  tomcat:
+#    additional-tld-skip-patterns:
+#      - oraclepki.jar
+#      - osdt_core.jar
+#      - osdt_cert.jar
