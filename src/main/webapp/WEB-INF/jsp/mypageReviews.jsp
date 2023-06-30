@@ -130,7 +130,7 @@
 
 <br><br><br>
 <body>
-<div style="margin-left:500px; margin-right:500px;">
+<div style="margin-left:50px; margin-right:50px;">
     <div class="reviews">
         <c:forEach var="review" items="${reviewList}">
             <div class="item--QDh" id="review-${review.id}" style="position: relative;">
