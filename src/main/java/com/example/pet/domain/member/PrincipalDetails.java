@@ -14,7 +14,8 @@ public class PrincipalDetails implements UserDetails {
     public PrincipalDetails(Member member) {
         this.member = member;
     }
-
+    
+    // 해당 유저의 권한을 리턴한다
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
@@ -35,7 +36,7 @@ public class PrincipalDetails implements UserDetails {
     // 계정 만료됐는지 확인 -> true 면 아니요.
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     // 계정 잠겼는지 확인 -> true 면 아니요.

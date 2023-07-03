@@ -59,13 +59,16 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
         }
         log.info("===========================");
         log.info("3. JWT 토큰을 검증해서 정상적인 사용자인지, 권한이 맞는지 확인");
-        String token = jwtHeader.replace(JwtProperties.TOKEN_PREFIX, "");
-
+        String jwtToken = jwtHeader.replace(JwtProperties.TOKEN_PREFIX, "");
+        String username = null;
         int memberId = 0;
-
         try {
-            memberId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
-                    .getClaim("id").asInt();
+            memberId = JWT
+                    .require(Algorithm.HMAC512(JwtProperties.SECRET))
+                    .build()
+                    .verify(jwtToken)
+                    .getClaim("id")
+                    .asInt();
         } catch (TokenExpiredException e){
             e.printStackTrace();
             request.setAttribute(JwtProperties.HEADER_STRING, "토큰 만료");
@@ -97,7 +100,7 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
                     null, // 패스워드는 없으니까 null 처리
                     principalDetails.getAuthorities());
             log.info("===========================");
-            
+
             log.info("6. 시큐리티 세션에 접근하여 Authentication 객체 저장");
             // 강제로 시큐리티의 세션에 접근하여 값 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);

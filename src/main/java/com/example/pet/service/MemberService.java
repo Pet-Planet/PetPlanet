@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.example.pet.config.jwt.JwtProperties;
 import com.example.pet.domain.Role;
 import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.domain.oauth.KakaoProfile;
 import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.repository.MemberRepository;
@@ -20,6 +21,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -102,31 +106,14 @@ public class MemberService {
 
             memberRepository.save(member);
         }
+        PrincipalDetails principalDetails = new PrincipalDetails(member);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return createToken(member);
     }
 
     public String createToken(Member member) {
-        Claims claims = Jwts.claims().setSubject(member.getKakaoNickname()); // JWT payload에 저장되는 정보단위
-        claims.put("roles", member.getRole());
-        Date now = new Date();
-
-        // Access Token
-        String accessToken = Jwts.builder()
-                .setClaims(claims) // 정보 저장
-                .setIssuedAt(now) // 토큰 발행 시간 정보
-                .setExpiration(new Date(now.getTime() + JwtProperties.ACCESSS_EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, JwtProperties.SECRET)
-                .compact();
-
-        // Refresh Token
-        String refreshToken = Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + JwtProperties.REFRESH_EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, JwtProperties.SECRET)
-                .compact();
-
         // (2-2)
         String jwtToken = JWT.create()
 
