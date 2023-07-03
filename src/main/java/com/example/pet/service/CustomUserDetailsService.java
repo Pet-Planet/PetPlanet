@@ -10,14 +10,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PrincipalDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    // 시큐리티 session -> Authentication -> UserDetails
+    // 시큐리티 세션(내부 Authentication(내부 UserDetails(PrincipalDetails)))
+
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("PrincipalDetailService.loadUserByUsername");
         log.info("LOGIN");

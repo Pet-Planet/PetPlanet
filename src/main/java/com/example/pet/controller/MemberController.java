@@ -2,6 +2,7 @@ package com.example.pet.controller;
 
 import com.example.pet.config.jwt.JwtProperties;
 import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -72,6 +74,13 @@ public class MemberController {
         log.info("headers : " + headers);
 
         return "loginsuccess";
+        //return "redirect:/home";
+    }
+    @GetMapping("/home")
+    public String home(Model model,
+                       @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        model.addAttribute("username", principalDetails.getUsername());
+        return "home";
     }
 
     // 현재 멤버 조회
