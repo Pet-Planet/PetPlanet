@@ -1,7 +1,6 @@
 package com.example.pet.config.jwt;
 
 import com.example.pet.dto.member.TokenDto;
-import com.example.pet.service.PrincipalDetailsService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

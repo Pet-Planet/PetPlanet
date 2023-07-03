@@ -8,7 +8,7 @@ import com.example.pet.domain.member.Member;
 import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.repository.MemberRepository;
 import com.example.pet.service.MemberService;
-import com.example.pet.service.PrincipalDetailsService;
+import com.example.pet.service.CustomUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +30,7 @@ import java.io.IOException;
 public class JwtRequestFilter extends BasicAuthenticationFilter {
 
     private MemberRepository memberRepository;
-    private PrincipalDetailsService principalDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     public JwtRequestFilter(AuthenticationManager authenticationManager, MemberRepository memberRepository) {
         super(authenticationManager);
