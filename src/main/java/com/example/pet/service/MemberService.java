@@ -10,6 +10,10 @@ import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -27,6 +31,7 @@ import java.util.Date;
 
 @Transactional
 @Service
+@Slf4j
 public class MemberService {
 
     @Value("${kakao.clientId}")
@@ -65,6 +70,8 @@ public class MemberService {
                 kakaoTokenRequest,
                 String.class
         );
+        log.info("응답 내용 : " + accessTokenResponse);
+        log.info("응답 내용 : " + accessTokenResponse.getBody());
         //(7)String으로 받은 Json 형식의 데이터를 ObjectMapper 라는 클래스를 사용해 객체로 변환해줄 것이다. 그러기 위해서는 해당 Json 형식과 맞는 OauthToken 이라는 클래스를 만들어 줘야한다(👇아래 참고).
         //.readValue(Json 데이터, 변환할 클래스) 메소드를 이용해 바디값을 읽어온다.
         ObjectMapper objectMapper = new ObjectMapper();
@@ -100,6 +107,26 @@ public class MemberService {
     }
 
     public String createToken(Member member) {
+        Claims claims = Jwts.claims().setSubject(member.getKakaoNickname()); // JWT payload에 저장되는 정보단위
+        claims.put("roles", member.getRole());
+        Date now = new Date();
+
+        // Access Token
+        String accessToken = Jwts.builder()
+                .setClaims(claims) // 정보 저장
+                .setIssuedAt(now) // 토큰 발행 시간 정보
+                .setExpiration(new Date(now.getTime() + JwtProperties.ACCESSS_EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, JwtProperties.SECRET)
+                .compact();
+
+        // Refresh Token
+        String refreshToken = Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + JwtProperties.REFRESH_EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, JwtProperties.SECRET)
+                .compact();
+
         // (2-2)
         String jwtToken = JWT.create()
 
