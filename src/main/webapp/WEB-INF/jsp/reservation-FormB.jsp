@@ -63,7 +63,7 @@
 <body>
 <div class="reservation-form">
     <div class="title"><h1>예약정보 작성</h1></div>
-    <form action="/reservation/${memberId}/confirm/b" method="post">
+    <form action="/reservation/${memberId}/confirm" method="post">
         <input type="hidden" name="placeId" value="${placeId}">
 
         <div class="input-row">

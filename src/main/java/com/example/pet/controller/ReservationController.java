@@ -46,35 +46,49 @@ public class ReservationController {
 
 
         /*
-    예약 정보 입력 (카페, 운동장, 식당 전용)
-    (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
+    예약 정보 입력  API
      */
 
-    @PostMapping("/reservation/{memberId}/confirm/a")
+    @PostMapping("/reservation/{memberId}/confirm")
     public String checkReservationFormA(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto, Model model){
 
         model.addAttribute("memberId", memberId);
-        reservationService.checkFormA(reservationDto);
 
-        return "reservation-ConfirmA";
+        String placeType = placeRepository.findById(reservationDto.getPlaceId()).get().getPlaceType();
+
+        if("hotel".equals(placeType)){
+
+            reservationService.checkFormB(reservationDto);
+
+            return "reservation-ConfirmB";
+
+        }
+
+        else {
+            reservationService.checkFormA(reservationDto);
+
+            return "reservation-ConfirmA";
+        }
+
+
 
     }
 
 
 
-    /*
-    예약 정보 입력 (숙소 전용)
-    (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
-     */
-
-    @PostMapping("/reservation/{memberId}/confirm/b")
-    public String checkReservationFormB(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto){
-
-        reservationService.checkFormB(reservationDto);
-
-        return "reservation-ConfirmB";
-
-    }
+//    /*
+//    예약 정보 입력 (숙소 전용)
+//    (type=Unsupported Media Type, status=415) 에러 -> @ModelAttribute 사용
+//     */
+//
+//    @PostMapping("/reservation/{memberId}/confirm/b")
+//    public String checkReservationFormB(@PathVariable int memberId, @ModelAttribute("rev") ReservationDto reservationDto){
+//
+//        reservationService.checkFormB(reservationDto);
+//
+//        return "reservation-ConfirmB";
+//
+//    }
 
 
 
