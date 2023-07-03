@@ -58,10 +58,11 @@ public class MemberController {
 
         //넘어온 인가 코드를 통해 access_token 발급
         OauthToken oauthToken = memberService.getAccessToken(code);
-
+        log.info("access token 발급");
         //발급 받은 accessToken 으로 카카오 회원 정보 DB 저장 후 JWT 생성
         String jwtToken = memberService.saveUserAndGetToken(oauthToken.getAccess_token());
-
+        log.info("access token으로 회원정보 저장");
+        log.info("jwt token 발급");
         // 응답 헤더의 Authorization 이라는 항목에 JWT 를 넣어준다
         HttpHeaders headers = new HttpHeaders();
         headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
@@ -79,6 +80,12 @@ public class MemberController {
     public ResponseEntity findMember(@PathVariable int memberId) {
         Member member = memberService.findMe(memberId);
         return ResponseEntity.ok().body(member);
+    }
+
+    @GetMapping("memberinfo")
+    public ResponseEntity returnMemberId(HttpServletRequest request) {
+        int id = memberService.getMember(request).getMemberId();
+        return ResponseEntity.ok().body(id);
     }
 
 
