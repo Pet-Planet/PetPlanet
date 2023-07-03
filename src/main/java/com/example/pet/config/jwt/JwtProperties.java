@@ -8,6 +8,11 @@ public interface JwtProperties {
     // 토큰 만료 기간. 초 단위로 계산. <refresh_token을 사용하지않는다면 설정할 것!>
     int EXPIRATION_TIME = 864000000;
 
+    // Access Token 만료시간 : 1시간
+    int ACCESSS_EXPIRATION_TIME = 3600000;
+
+    // Refresh Token 만료시간 : 14일
+    int REFRESH_EXPIRATION_TIME = 1209600000;
     // 토큰 앞에 붙는 정해진 형식. Bearer 뒤에 한 칸 공백을 넣어줘야 함
     String TOKEN_PREFIX = "Bearer ";
 

@@ -10,6 +10,9 @@ import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -104,6 +107,26 @@ public class MemberService {
     }
 
     public String createToken(Member member) {
+        Claims claims = Jwts.claims().setSubject(member.getKakaoNickname()); // JWT payload에 저장되는 정보단위
+        claims.put("roles", member.getRole());
+        Date now = new Date();
+
+        // Access Token
+        String accessToken = Jwts.builder()
+                .setClaims(claims) // 정보 저장
+                .setIssuedAt(now) // 토큰 발행 시간 정보
+                .setExpiration(new Date(now.getTime() + JwtProperties.ACCESSS_EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, JwtProperties.SECRET)
+                .compact();
+
+        // Refresh Token
+        String refreshToken = Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + JwtProperties.REFRESH_EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, JwtProperties.SECRET)
+                .compact();
+
         // (2-2)
         String jwtToken = JWT.create()
 
