@@ -153,4 +153,21 @@ public class MypageController {
 
         return "mypageBookmarks";
     }
+
+    // 회원 목록 조회
+    @GetMapping("/friends")
+    public String getMemberList(@PathVariable int memberId, Model model, @RequestParam(required = false, defaultValue = "", value = "searchText") String searchText) {
+        List<MemberResponseDto> memberList;
+
+        if (searchText.isEmpty()) {
+            memberList = mypageService.getMemberList();
+        } else {
+            memberList = mypageService.searchMembersByNickname(searchText);
+        }
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("memberList", memberList);
+        model.addAttribute("searchText", searchText);
+
+        return "mypageFriends";
+    }
 }

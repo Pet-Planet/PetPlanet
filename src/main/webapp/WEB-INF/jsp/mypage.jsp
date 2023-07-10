@@ -67,6 +67,13 @@
             ${member.kakaoEmail}
         </td>
     </tr>
+
+</table>
+<table align="center">
+    <tr style="height:50px;">
+        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/friends"/>'>친구 관리</a></td>
+        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/messages"/>'>쪽지함</a></td>
+    </tr>
 </table>
 <br>
 <table align="center">
@@ -96,5 +103,6 @@
     </tr>
 </table>
 <h4 align="center"><a onclick="withdrawn()">탈퇴하기</a></h4>
+<br><br><br>
 </body>
 </html>
