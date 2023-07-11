@@ -43,7 +43,7 @@
         }
 
         input {
-            width: 240px;
+            width: 300px;
             height: 32px;
             font-size: 15px;
             border: 0;
@@ -74,33 +74,22 @@
 <h1>친구 찾기</h1>
 <br><br>
 <form action="/mypage/${memberId}/friends" method="get">
-    <input type="text" name="searchText" placeholder="닉네임을 입력하세요" value="${searchText}">
+    <input type="text" name="searchText" placeholder="닉네임이나 이메일을 입력하세요" value="${searchText}">
     <button class="rev-button" type="submit">검색</button>
 </form>
 <br><br>
 <table align="center">
-    <tr>
-        <td style="width:80px;">사진</td>
-        <td style="width:80px;">닉네임</td>
-        <td style="width:250px;">이메일</td>
-        <td style="width:80px;">종류</td>
-        <td style="width:80px;">이름</td>
-        <td style="width:80px;">친구</td>
-    </tr>
-
     <c:forEach items="${memberList}" var="member">
         <c:if test="${member.memberId != memberId}">
             <tr>
-                <td>
+                <td style="width:50px;">
                     <c:if test="${not empty member.kakaoProfileImg}">
-                        <img src="${member.kakaoProfileImg}" alt="Profile Image" width="50">
+                        <img src="${member.kakaoProfileImg}" alt="Profile Image" width="30">
                     </c:if>
                 </td>
-                <td>${member.nickname}</td>
-                <td>${member.kakaoEmail}</td>
-                <td>${member.petType}</td>
-                <td>${member.petName}</td>
-                <td><button class="rev-button" type="submit">친구추가</button></td>
+                <td style="width:80px;">${member.nickname}</td>
+                <td style="width:250px;">${member.kakaoEmail}</td>
+                <td style="width:80px;"><button class="rev-button" type="submit">친구추가</button></td>
             </tr>
         </c:if>
     </c:forEach>

@@ -102,13 +102,14 @@ public class MypageService {
     }
 
     //회원 검색
-    public List<MemberResponseDto> searchMembersByNickname(String searchText) {
-        List<Member> members = memberRepository.findByNicknameContainingIgnoreCase(searchText);
+    public List<MemberResponseDto> searchMembersByNicknameOrEmail(String searchText) {
+        List<Member> members = memberRepository.findByNicknameOrEmailContainingIgnoreCase(searchText);
         List<MemberResponseDto> memberResponseDtoList = new ArrayList<>();
 
         for (Member member : members) {
             MemberResponseDto memberResponseDto = new MemberResponseDto(member);
             memberResponseDto.setNickname(member.getNickname());
+            memberResponseDto.setKakaoEmail(member.getKakaoEmail());
             memberResponseDtoList.add(memberResponseDto);
         }
 
