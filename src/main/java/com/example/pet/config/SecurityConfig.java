@@ -67,6 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
+        // 세션을 사용하지 않는다고 설정한다
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 //.addFilter(new JwtRequestFilter(authenticationManager(), memberRepository));
 
     }

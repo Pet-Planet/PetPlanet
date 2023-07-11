@@ -16,17 +16,20 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
-public class Member extends BaseEntity {
+public class Member extends BaseEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,5 +119,47 @@ public class Member extends BaseEntity {
         if (requestDto.getPetType() != null) {
             this.petType = requestDto.getPetType();
         }
+    }
+
+    // 해당 유저의 권한을 리턴한다
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> collection = new ArrayList<>();
+        collection.add(()->{ return this.getRole().toString();});
+        return collection;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.getKakaoEmail();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getKakaoNickname();
+    }
+
+    // 계정 만료됐는지 확인 -> true 면 아니요.
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    // 계정 잠겼는지 확인 -> true 면 아니요.
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    // 계정 만료됐는지 확인 -> true 면 아니요.
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    // 계정 만료됐는지 확인 -> true 면 아니요.
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
