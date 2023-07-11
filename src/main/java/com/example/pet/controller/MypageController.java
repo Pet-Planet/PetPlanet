@@ -162,7 +162,7 @@ public class MypageController {
         if (searchText.isEmpty()) {
             memberList = mypageService.getMemberList();
         } else {
-            memberList = mypageService.searchMembersByNickname(searchText);
+            memberList = mypageService.searchMembersByNicknameOrEmail(searchText);
         }
         model.addAttribute("memberId", memberId);
         model.addAttribute("memberList", memberList);
