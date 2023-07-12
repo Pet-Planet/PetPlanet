@@ -89,7 +89,18 @@
                 </td>
                 <td style="width:80px;">${member.nickname}</td>
                 <td style="width:250px;">${member.kakaoEmail}</td>
-                <td style="width:80px;"><button class="rev-button" type="submit">친구추가</button></td>
+                <td style="width:80px;">
+                    <form action="/mypage/${memberId}/friends/send-request" method="post">
+                        <input type="hidden" name="toId" value="${member.memberId}">
+                        <button class="rev-button" type="submit">친구요청</button>
+                    </form>
+                </td>
+                <td style="width:80px;">
+                    <form action="/mypage/${memberId}/friends/approve-request" method="post">
+                        <input type="hidden" name="fromId" value="${member.memberId}">
+                        <button class="rev-button" type="submit">친구승인</button>
+                    </form>
+                </td>
             </tr>
         </c:if>
     </c:forEach>
