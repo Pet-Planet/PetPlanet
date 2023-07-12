@@ -10,7 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Entity @EntityListeners(AuditingEntityListener.class)
+@Entity
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,13 +24,15 @@ public class Friend extends BaseEntity {
     @Column(name = "friend_id")
     private int friendId;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Many = Friend, User = One 한명의 유저는 여러 친구를 둘 수 있다.
-    @JoinColumn(name="to_id") // foreign key (toId) references Member (id)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_id")
     @JsonBackReference
-    private Member member;
+    private Member fromMember;
 
-    @Column(name = "from_id")
-    private int fromId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_id")
+    @JsonBackReference
+    private Member toMember;
 
     @Column(name = "we_id")
     @ColumnDefault("0")
@@ -41,8 +44,10 @@ public class Friend extends BaseEntity {
     @Column
     private String nickname;
 
+    @Column(name = "kakao_email")
+    private String kakaoEmail;
+
     @Column(name = "create_time")
-    // current_timestamp를 설정했다면 어노테이션 설정할 것
     @CreationTimestamp
     private Timestamp createTime;
 }

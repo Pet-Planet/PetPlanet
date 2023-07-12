@@ -1,12 +1,15 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.board.BoardComment;
+import com.example.pet.domain.member.Friend;
+import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.dto.review.GetReviewDto;
+import com.example.pet.repository.MemberRepository;
 import com.example.pet.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,7 +29,7 @@ public class MypageController {
     private final ReviewService reviewService;
     private final ReservationService reservationService;
     private final BoardCommentService boardCommentService;
-    private final BoardService boardService;
+    private final FriendService friendService;
 
     //마이페이지
     @GetMapping("")
