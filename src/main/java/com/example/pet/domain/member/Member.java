@@ -89,9 +89,11 @@ public class Member extends BaseEntity {
     @JsonManagedReference
     private List<BookMark> bookMarkDtoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    @JsonManagedReference
-    private List<Friend> friends = new ArrayList<>();
+    @OneToMany(mappedBy = "fromMember", cascade = CascadeType.ALL)
+    private List<Friend> sentFriendRequests;
+
+    @OneToMany(mappedBy = "toMember", cascade = CascadeType.ALL)
+    private List<Friend> receivedFriendRequests;
 
     @Builder
     public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
