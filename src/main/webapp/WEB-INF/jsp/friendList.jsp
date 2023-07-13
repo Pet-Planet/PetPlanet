@@ -71,28 +71,23 @@
 <jsp:include page="header2.jsp" />
 <body align="center">
 <br><br><br>
-<h1>친구 검색</h1>
-<br><br>
-<form action="/mypage/${memberId}/friends" method="get">
-    <input type="text" name="searchText" placeholder="닉네임이나 이메일을 입력하세요" value="${searchText}">
-    <button class="rev-button" type="submit">검색</button>
-</form>
+<h1>친구 목록</h1>
 <br><br>
 <table align="center">
-    <c:forEach items="${bList}" var="member">
-        <c:if test="${member.memberId != memberId}">
+    <c:forEach items="${friendList}" var="friend">
+        <c:if test="${friend.fromMember.memberId == memberId}">
             <tr>
                 <td style="width:50px;">
-                    <c:if test="${not empty member.kakaoProfileImg}">
-                        <img src="${member.kakaoProfileImg}" alt="Profile Image" width="30">
+                    <c:if test="${not empty friend.toMember.kakaoProfileImg}">
+                        <img src="${friend.toMember.kakaoProfileImg}" alt="Profile Image" width="30">
                     </c:if>
                 </td>
-                <td style="width:80px;">${member.nickname}</td>
-                <td style="width:250px;">${member.kakaoEmail}</td>
+                <td style="width:80px;">${friend.toMember.nickname}</td>
+                <td style="width:250px;">${friend.toMember.kakaoEmail}</td>
                 <td style="width:80px;">
-                    <form action="/mypage/${memberId}/friends/send-request" method="post">
-                        <input type="hidden" name="toId" value="${member.memberId}">
-                        <button class="rev-button" type="submit">요청</button>
+                    <form action="/mypage/${memberId}/friends/delete-request" method="post">
+                        <input type="hidden" name="toId" value="${friend.toMember.memberId}">
+                        <button class="rev-button" type="submit">삭제</button>
                     </form>
                 </td>
             </tr>

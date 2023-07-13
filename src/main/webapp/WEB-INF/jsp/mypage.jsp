@@ -26,6 +26,7 @@
             margin-top: 0;
             margin-bottom: 15px; /* 줄간격을 조절합니다. */
             color: #98C0DC;
+            display: flex;
         }
         p {
             margin-top: 0;
@@ -62,7 +63,12 @@
     <tr>
         <td style="width:100px;"><img src="${member.kakaoProfileImg}" width="100" height="100"></td>
         <td style="width:300px;">
-            <h1 style="font-size: 30px"><b>${member.nickname}</b></h1>
+            <h1 style="font-size: 30px">
+                <b>${member.nickname}</b> &nbsp;
+                <a href='<c:url value="/mypage/${memberId}/messages"/>'>
+                    <img src="/img/myMes.jpg" width="28" height="21">
+                </a>
+            </h1>
             <p>[ ${member.petType} ]&nbsp;&nbsp;${member.petName}</p>
             ${member.kakaoEmail}
         </td>
@@ -71,8 +77,10 @@
 </table>
 <table align="center">
     <tr style="height:50px;">
-        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/friends"/>'>친구 관리</a></td>
-        <td style="width:200px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/messages"/>'>쪽지함</a></td>
+        <td style="width:80px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/friends"/>'>친구 검색</a></td>
+        <td style="width:80px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/friends/friend-sent"/>'>보낸 신청</a></td>
+        <td style="width:80px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/friends/friend-received"/>'>받은 신청</a></td>
+        <td style="width:80px; text-align: center;"><a href='<c:url value="/mypage/${memberId}/friends/friendList"/>'>친구 목록</a></td>
     </tr>
 </table>
 <br>
