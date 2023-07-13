@@ -71,32 +71,25 @@
 <jsp:include page="header2.jsp" />
 <body align="center">
 <br><br><br>
-<h1>친구 검색</h1>
-<br><br>
-<form action="/mypage/${memberId}/friends" method="get">
-    <input type="text" name="searchText" placeholder="닉네임이나 이메일을 입력하세요" value="${searchText}">
-    <button class="rev-button" type="submit">검색</button>
-</form>
+<h1>보낸 친구 신청</h1>
 <br><br>
 <table align="center">
-    <c:forEach items="${bList}" var="member">
-        <c:if test="${member.memberId != memberId}">
-            <tr>
-                <td style="width:50px;">
-                    <c:if test="${not empty member.kakaoProfileImg}">
-                        <img src="${member.kakaoProfileImg}" alt="Profile Image" width="30">
-                    </c:if>
-                </td>
-                <td style="width:80px;">${member.nickname}</td>
-                <td style="width:250px;">${member.kakaoEmail}</td>
-                <td style="width:80px;">
-                    <form action="/mypage/${memberId}/friends/send-request" method="post">
-                        <input type="hidden" name="toId" value="${member.memberId}">
-                        <button class="rev-button" type="submit">요청</button>
-                    </form>
-                </td>
-            </tr>
-        </c:if>
+    <c:forEach items="${sentRequests}" var="request">
+        <tr>
+            <td style="width:50px;">
+                <c:if test="${not empty request.fromMember.kakaoProfileImg}">
+                    <img src="${request.fromMember.kakaoProfileImg}" alt="Profile Image" width="30">
+                </c:if>
+            </td>
+            <td style="width:80px;">${request.fromMember.nickname}</td>
+            <td style="width:250px;">${request.fromMember.kakaoEmail}</td>
+            <td style="width:80px;">
+                <form action="/mypage/${memberId}/friends/cancel-request" method="post">
+                    <input type="hidden" name="fromId" value="${request.fromMember.memberId}">
+                    <button class="rev-button" type="submit">취소</button>
+                </form>
+            </td>
+        </tr>
     </c:forEach>
 </table>
 </body>

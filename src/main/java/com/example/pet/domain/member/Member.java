@@ -119,4 +119,6 @@ public class Member extends BaseEntity {
             this.petType = requestDto.getPetType();
         }
     }
+
+    private boolean friendRequested;
 }

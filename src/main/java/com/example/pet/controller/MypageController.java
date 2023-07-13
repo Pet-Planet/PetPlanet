@@ -157,9 +157,9 @@ public class MypageController {
         return "mypageBookmarks";
     }
 
-    // 회원 목록 조회
+    // 검색, 친구 아닌 회원 목록
     @GetMapping("/friends")
-    public String getMemberList(@PathVariable int memberId, Model model, @RequestParam(required = false, defaultValue = "", value = "searchText") String searchText) {
+    public String getMemberList(@PathVariable("memberId") int memberId, Model model, @RequestParam(required = false, defaultValue = "", value = "searchText") String searchText) {
         List<MemberResponseDto> memberList;
 
         if (searchText.isEmpty()) {
@@ -170,6 +170,9 @@ public class MypageController {
         model.addAttribute("memberId", memberId);
         model.addAttribute("memberList", memberList);
         model.addAttribute("searchText", searchText);
+
+        List<Member> bList = friendService.getBListNotInRelationship(memberId);
+        model.addAttribute("bList", bList);
 
         return "mypageFriends";
     }
