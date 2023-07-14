@@ -66,13 +66,27 @@
             font-size: 13px;
             font-weight: bold;
         }
+
+        .edit-button{
+            background-color: white;
+            color: #98C0DC;
+            padding: 10px 10px;
+            border-width: 2px;
+            border-color: #98C0DC;
+            cursor: pointer;
+            width: 80px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <jsp:include page="header2.jsp" />
 <body align="center">
 <br><br><br>
 <h1>보낸 친구 신청</h1>
-<br><br>
+<br><br><br>
 <table align="center">
     <c:forEach items="${sentRequests}" var="request">
         <tr>
@@ -92,5 +106,7 @@
         </tr>
     </c:forEach>
 </table>
+<br><br>
+<button type="button" class="edit-button"><a href='<c:url value="/mypage/${memberId}"/>'>뒤로가기</a></button>
 </body>
 </html>

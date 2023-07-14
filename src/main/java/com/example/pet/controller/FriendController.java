@@ -81,12 +81,12 @@ public class FriendController {
     }
 
     // 친구 목록
-//    @GetMapping("/friendList")
-//    public String friendList(@PathVariable("memberId") int memberId, Model model) {
-//        List<Friend> friendList = friendService.getFriendList(memberId, memberId);
-//        model.addAttribute("friendList", friendList);
-//        return "friendList";
-//    }
+    @GetMapping("/friendList")
+    public String friendList(@PathVariable("memberId") int memberId, Model model) {
+        List<Friend> friendList = friendService.getFriendListByMemberId(memberId);
+        model.addAttribute("friendList", friendList);
+        return "friendList";
+    }
 
     // 친구 삭제
     @PostMapping("/delete-request")

@@ -110,10 +110,9 @@ public class FriendService {
     }
 
     // 친구 목록
-//    public List<Friend> getFriendList(int fromMemberId, int toMemberId) {
-//        List<Friend> friendList = friendRepository.findFriendList(fromMemberId, toMemberId);
-//        return friendList;
-//    }
+    public List<Friend> getFriendListByMemberId(int memberId) {
+        return friendRepository.findFriendListByMemberId(memberId);
+    }
 
 
     // 친구 삭제
