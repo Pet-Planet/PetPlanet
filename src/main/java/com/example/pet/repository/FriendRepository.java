@@ -27,8 +27,13 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     Friend findByFromMemberMemberIdAndToMemberMemberIdAndWeId(int fromMemberId, int toMemberId, int weId);
 
     // 친구 목록
-//    @Query("SELECT f FROM Friend f WHERE (f.fromMember.memberId = :fromMemberId AND f.toMember.memberId = :toMemberId AND f.weId = 1) AND EXISTS (SELECT 1 FROM Friend f2 WHERE f2.fromMember.memberId = :toMemberId AND f2.toMember.memberId = :fromMemberId AND f2.weId = 1)")
-//    List<Friend> findFriendList(@Param("fromMemberId") int fromMemberId, @Param("toMemberId") int toMemberId);
+    @Query("SELECT f1 FROM Friend f1, Friend f2 " +
+            "WHERE f1.fromMember.memberId = :memberId " +
+            "AND f1.weId = 1 " +
+            "AND f2.fromMember.memberId = f1.toMember.memberId " +
+            "AND f2.toMember.memberId = f1.fromMember.memberId " +
+            "AND f2.weId = 1")
+    List<Friend> findFriendListByMemberId(@Param("memberId") int memberId);
 
     // 친구 아닌 회원 목록
     @Query("SELECT m FROM Member m WHERE m.memberId != :memberId AND m.memberId NOT IN " +

@@ -66,33 +66,47 @@
             font-size: 13px;
             font-weight: bold;
         }
+
+        .edit-button{
+            background-color: white;
+            color: #98C0DC;
+            padding: 10px 10px;
+            border-width: 2px;
+            border-color: #98C0DC;
+            cursor: pointer;
+            width: 80px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <jsp:include page="header2.jsp" />
 <body align="center">
 <br><br><br>
 <h1>친구 목록</h1>
-<br><br>
+<br><br><br>
 <table align="center">
     <c:forEach items="${friendList}" var="friend">
-        <c:if test="${friend.fromMember.memberId == memberId}">
-            <tr>
-                <td style="width:50px;">
-                    <c:if test="${not empty friend.toMember.kakaoProfileImg}">
-                        <img src="${friend.toMember.kakaoProfileImg}" alt="Profile Image" width="30">
-                    </c:if>
-                </td>
-                <td style="width:80px;">${friend.toMember.nickname}</td>
-                <td style="width:250px;">${friend.toMember.kakaoEmail}</td>
-                <td style="width:80px;">
-                    <form action="/mypage/${memberId}/friends/delete-request" method="post">
-                        <input type="hidden" name="toId" value="${friend.toMember.memberId}">
-                        <button class="rev-button" type="submit">삭제</button>
-                    </form>
-                </td>
-            </tr>
-        </c:if>
+        <tr>
+            <td style="width:50px;">
+                <c:if test="${not empty friend.toMember.kakaoProfileImg}">
+                    <img src="${friend.toMember.kakaoProfileImg}" alt="Profile Image" width="30">
+                </c:if>
+            </td>
+            <td style="width:80px;">${friend.toMember.nickname}</td>
+            <td style="width:250px;">${friend.toMember.kakaoEmail}</td>
+            <td style="width:80px;">
+                <form action="/mypage/${memberId}/friends/delete-request" method="post">
+                    <input type="hidden" name="toId" value="${friend.toMember.memberId}">
+                    <button class="rev-button" type="submit">삭제</button>
+                </form>
+            </td>
+        </tr>
     </c:forEach>
 </table>
+<br><br>
+<button type="button" class="edit-button"><a href='<c:url value="/mypage/${memberId}"/>'>뒤로가기</a></button>
 </body>
 </html>
