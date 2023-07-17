@@ -42,6 +42,21 @@ public class BoardService {
         }
         return null;
     }
+    // 인기 게시글 조회
+    public List<BoardListResponseDto> findHotBoard() {
+        try{
+            List<Board> boardList = boardRepository.findTop10ByOrderByCountViewDescCreatedDateDesc();
+            List<BoardListResponseDto> responseDtoList = new ArrayList<>();
+            for(Board board : boardList) {
+                responseDtoList.add(new BoardListResponseDto(board));
+            }
+            return responseDtoList;
+        } catch (Exception e){
+
+        }
+        return null;
+    }
+
     // 페이징 구현을 위한 전체 글 조회
     public Page<Board> findBoardPage(String title, String content, int page, int sortType) {
         Pageable pageable;
