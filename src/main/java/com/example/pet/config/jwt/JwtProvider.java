@@ -45,6 +45,7 @@ public class JwtProvider {
         Date now = new Date();
 
         String accessToken = Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + accessTokenValidMillisecond))
@@ -52,8 +53,7 @@ public class JwtProvider {
                 .compact();
 
         String refreshToken = Jwts.builder()
-                .setClaims(claims) // 정보 저장
-                .setIssuedAt(now)
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setExpiration(new Date(now.getTime() + refreshTokenValidMillisecond))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
@@ -62,7 +62,7 @@ public class JwtProvider {
                 .grantType("Bearer")
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .key(nickname)
+                .accessTokenExpireDate(accessTokenValidMillisecond)
                 .build();
     }
 

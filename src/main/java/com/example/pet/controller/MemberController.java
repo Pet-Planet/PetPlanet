@@ -2,7 +2,6 @@ package com.example.pet.controller;
 
 import com.example.pet.config.jwt.JwtProperties;
 import com.example.pet.domain.member.Member;
-import com.example.pet.domain.member.PrincipalDetails;
 import com.example.pet.domain.oauth.OauthToken;
 import com.example.pet.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -62,7 +61,7 @@ public class MemberController {
         OauthToken oauthToken = memberService.getAccessToken(code);
         log.info("access token 발급");
         //발급 받은 accessToken 으로 카카오 회원 정보 DB 저장 후 JWT 생성
-        String jwtToken = memberService.saveUserAndGetToken(oauthToken.getAccess_token());
+        String jwtToken = memberService.saveUserAndGetToken(oauthToken.getAccess_token()).getAccessToken();
         log.info("access token으로 회원정보 저장");
         log.info("jwt token 발급");
         // 응답 헤더의 Authorization 이라는 항목에 JWT 를 넣어준다
@@ -78,8 +77,8 @@ public class MemberController {
     }
     @GetMapping("/home")
     public String home(Model model,
-                       @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        model.addAttribute("username", principalDetails.getUsername());
+                       @AuthenticationPrincipal Member member) {
+        model.addAttribute("username", member.getUsername());
         return "home";
     }
 
