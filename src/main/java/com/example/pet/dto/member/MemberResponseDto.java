@@ -31,4 +31,5 @@ public class MemberResponseDto {
         this.kakaoId = member.getKakaoId();
     }
 
+    private boolean friendRequested;
 }

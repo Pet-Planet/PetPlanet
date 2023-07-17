@@ -3,7 +3,8 @@
 	<h4>언제 어디서나 반려동물과 함께하는 일상</h4>
 	<img src="https://github.com/ehgmlKim/PetPlanet/assets/102472177/e9a93719-ec9c-4494-8052-b62bbb37d3dd" width="300"> <br/>
 
-
+# 시연 영상
+[시연영상 유튜브](https://www.youtube.com/watch?v=rbEkM0qtYJA)
 	
 # Pet Planet
 동덕여자대학교 컴퓨터학과 소프트웨어시스템개발 01-06팀<br>

@@ -1,12 +1,15 @@
 package com.example.pet.controller;
 
 import com.example.pet.domain.board.BoardComment;
+import com.example.pet.domain.member.Friend;
+import com.example.pet.domain.member.Member;
 import com.example.pet.dto.board.BoardListResponseDto;
 import com.example.pet.dto.boardcomment.BoardCommentUpdateRequestDto;
 import com.example.pet.dto.member.MemberResponseDto;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.example.pet.dto.reservation.ReservationListDto;
 import com.example.pet.dto.review.GetReviewDto;
+import com.example.pet.repository.MemberRepository;
 import com.example.pet.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,7 +29,7 @@ public class MypageController {
     private final ReviewService reviewService;
     private final ReservationService reservationService;
     private final BoardCommentService boardCommentService;
-    private final BoardService boardService;
+    private final FriendService friendService;
 
     //마이페이지
     @GetMapping("")
@@ -154,9 +157,9 @@ public class MypageController {
         return "mypageBookmarks";
     }
 
-    // 회원 목록 조회
+    // 검색, 친구 아닌 회원 목록
     @GetMapping("/friends")
-    public String getMemberList(@PathVariable int memberId, Model model, @RequestParam(required = false, defaultValue = "", value = "searchText") String searchText) {
+    public String getMemberList(@PathVariable("memberId") int memberId, Model model, @RequestParam(required = false, defaultValue = "", value = "searchText") String searchText) {
         List<MemberResponseDto> memberList;
 
         if (searchText.isEmpty()) {
@@ -167,6 +170,9 @@ public class MypageController {
         model.addAttribute("memberId", memberId);
         model.addAttribute("memberList", memberList);
         model.addAttribute("searchText", searchText);
+
+        List<Member> bList = friendService.getBListNotInRelationship(memberId);
+        model.addAttribute("bList", bList);
 
         return "mypageFriends";
     }

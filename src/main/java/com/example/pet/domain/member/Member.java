@@ -16,20 +16,17 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
-public class Member extends BaseEntity implements UserDetails {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,9 +89,11 @@ public class Member extends BaseEntity implements UserDetails {
     @JsonManagedReference
     private List<BookMark> bookMarkDtoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    @JsonManagedReference
-    private List<Friend> friends = new ArrayList<>();
+    @OneToMany(mappedBy = "fromMember", cascade = CascadeType.ALL)
+    private List<Friend> sentFriendRequests;
+
+    @OneToMany(mappedBy = "toMember", cascade = CascadeType.ALL)
+    private List<Friend> receivedFriendRequests;
 
     @Builder
     public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
@@ -121,45 +120,5 @@ public class Member extends BaseEntity implements UserDetails {
         }
     }
 
-    // 해당 유저의 권한을 리턴한다
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(()->{ return this.getRole().toString();});
-        return collection;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.getKakaoEmail();
-    }
-
-    @Override
-    public String getUsername() {
-        return this.getKakaoNickname();
-    }
-
-    // 계정 만료됐는지 확인 -> true 면 아니요.
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    // 계정 잠겼는지 확인 -> true 면 아니요.
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    // 계정 만료됐는지 확인 -> true 면 아니요.
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    // 계정 만료됐는지 확인 -> true 면 아니요.
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    private boolean friendRequested;
 }
