@@ -108,8 +108,8 @@ public class MemberService {
 
             memberRepository.save(member);
         }
-        Authentication authentication = new UsernamePasswordAuthenticationToken(member, null, member.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        //Authentication authentication = new UsernamePasswordAuthenticationToken(member, null, member.getAuthorities());
+        //SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return createToken(member);
     }

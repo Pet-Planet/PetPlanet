@@ -1,6 +1,8 @@
 package com.example.pet.service;
 
 import com.example.pet.domain.member.Member;
+import com.example.pet.domain.member.PrincipalDetails;
+import com.example.pet.domain.member.UserAdapter;
 import com.example.pet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (member == null) {
             return null;
         }
-        return member;
+        return new PrincipalDetails(member);
     }
 }
