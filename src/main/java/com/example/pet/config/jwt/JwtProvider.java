@@ -1,5 +1,6 @@
 package com.example.pet.config.jwt;
 
+import com.example.pet.domain.Role;
 import com.example.pet.dto.member.TokenDto;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
@@ -28,20 +29,23 @@ public class JwtProvider {
     private final Long refreshTokenValidMillisecond = 14 * 24 * 60 * 60 * 1000L; // 14 day
     private final UserDetailsService userDetailsService;
 
+    // 객체 초기화, secretKey를 Base64로 인코딩한다.
     @PostConstruct
     protected void init() {
+
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
     // jwt 토큰 생성
-    public TokenDto createToken(String nickname, List<String> roles) {
+    public TokenDto createToken(String nickname, Role role) {
         // user 구분을 위해 Claims에 nickname 값 넣어줌
         Claims claims = Jwts.claims().setSubject(nickname); // JWT payload에 저장되는 정보단위
-        claims.put(ROLES, roles);
+        claims.put(ROLES, role);
         // 생성날짜, 만료날짜를 위한 Date
         Date now = new Date();
 
         String accessToken = Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + accessTokenValidMillisecond))

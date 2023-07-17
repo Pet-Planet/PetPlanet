@@ -14,7 +14,7 @@ public class PrincipalDetails implements UserDetails {
     public PrincipalDetails(Member member) {
         this.member = member;
     }
-    
+
     // 해당 유저의 권한을 리턴한다
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
