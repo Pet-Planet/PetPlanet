@@ -5,6 +5,7 @@ import com.example.pet.domain.Role;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.board.BookMark;
+import com.example.pet.domain.message.Message;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -88,6 +89,14 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     @JsonManagedReference
     private List<BookMark> bookMarkDtoList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver")
+    @JsonManagedReference
+    private List<Message> receive = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sender")
+    @JsonManagedReference
+    private List<Message> send = new ArrayList<>();
 
     @OneToMany(mappedBy = "fromMember", cascade = CascadeType.ALL)
     private List<Friend> sentFriendRequests;
