@@ -2,10 +2,9 @@
 <div align="center" >
 	<h4>언제 어디서나 반려동물과 함께하는 일상</h4>
 	<img src="https://github.com/ehgmlKim/PetPlanet/assets/102472177/e9a93719-ec9c-4494-8052-b62bbb37d3dd" width="300"> <br/>
-<!-- 	방문자수 -->
-	<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FPet-Planet%2FPetPlanet&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
 
-
+# 시연 영상
+[시연영상 유튜브](https://www.youtube.com/watch?v=rbEkM0qtYJA)
 	
 # Pet Planet
 동덕여자대학교 컴퓨터학과 소프트웨어시스템개발 01-06팀<br>

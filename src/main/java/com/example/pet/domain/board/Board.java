@@ -34,7 +34,8 @@ public class Board extends BaseEntity {
     private String category;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int countView;
-
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int countComment;
     @ManyToOne(fetch = FetchType.LAZY) // Many = Board, User = One 한명의 유저는 여러개의 게시글을 쓸 수 있다.
     @JoinColumn(name="member_id") // foreign key (memberId) references Member (id)
     @JsonBackReference

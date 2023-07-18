@@ -86,4 +86,33 @@ public class MypageService {
 
         return boardDtoList;
     }
+
+    //회원 목록 조회
+    public List<MemberResponseDto> getMemberList() {
+        List<Member> members = memberRepository.findAll();
+        List<MemberResponseDto> memberResponseDtoList = new ArrayList<>();
+
+        for (Member member : members) {
+            MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+            memberResponseDto.setNickname(member.getNickname());
+            memberResponseDtoList.add(memberResponseDto);
+        }
+
+        return memberResponseDtoList;
+    }
+
+    //회원 검색
+    public List<MemberResponseDto> searchMembersByNicknameOrEmail(String searchText) {
+        List<Member> members = memberRepository.findByNicknameOrEmailContainingIgnoreCase(searchText);
+        List<MemberResponseDto> memberResponseDtoList = new ArrayList<>();
+
+        for (Member member : members) {
+            MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+            memberResponseDto.setNickname(member.getNickname());
+            memberResponseDto.setKakaoEmail(member.getKakaoEmail());
+            memberResponseDtoList.add(memberResponseDto);
+        }
+
+        return memberResponseDtoList;
+    }
 }

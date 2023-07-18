@@ -25,6 +25,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true # put, delete 메소드 사용하기 위함
+    pathmatch:
+      matching-strategy: ant_path_matcher
 kakao:
   redirectUrl: http://localhost:8088/oauth/token
 

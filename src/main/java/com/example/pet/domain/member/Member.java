@@ -5,7 +5,6 @@ import com.example.pet.domain.Role;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.board.BookMark;
-import com.example.pet.domain.message.Message;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
@@ -98,6 +97,12 @@ public class Member extends BaseEntity {
     @JsonManagedReference
     private List<Message> send = new ArrayList<>();
 
+    @OneToMany(mappedBy = "fromMember", cascade = CascadeType.ALL)
+    private List<Friend> sentFriendRequests;
+
+    @OneToMany(mappedBy = "toMember", cascade = CascadeType.ALL)
+    private List<Friend> receivedFriendRequests;
+
     @Builder
     public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
                 String kakaoEmail, Role role) {
@@ -122,4 +127,6 @@ public class Member extends BaseEntity {
             this.petType = requestDto.getPetType();
         }
     }
+
+    private boolean friendRequested;
 }

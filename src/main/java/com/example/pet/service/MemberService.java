@@ -3,19 +3,28 @@ package com.example.pet.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.pet.config.jwt.JwtProperties;
+import com.example.pet.config.jwt.JwtProvider;
 import com.example.pet.domain.Role;
 import com.example.pet.domain.member.Member;
 import com.example.pet.domain.oauth.KakaoProfile;
 import com.example.pet.domain.oauth.OauthToken;
+import com.example.pet.dto.member.TokenDto;
 import com.example.pet.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -27,6 +36,7 @@ import java.util.Date;
 
 @Transactional
 @Service
+@Slf4j
 public class MemberService {
 
     @Value("${kakao.clientId}")
@@ -37,6 +47,7 @@ public class MemberService {
     private String RedirectUrl;
     @Autowired
     MemberRepository memberRepository;
+    JwtProvider jwtProvider;
 
     public OauthToken getAccessToken(String code) {
         //(2)RestTemplate 객체를 만든다. 통신에 유용한 클래스이다. 클래스에 대해 자세히 알고싶다면 구글에 서치!
@@ -65,6 +76,8 @@ public class MemberService {
                 kakaoTokenRequest,
                 String.class
         );
+        log.info("응답 내용 : " + accessTokenResponse);
+        log.info("응답 내용 : " + accessTokenResponse.getBody());
         //(7)String으로 받은 Json 형식의 데이터를 ObjectMapper 라는 클래스를 사용해 객체로 변환해줄 것이다. 그러기 위해서는 해당 Json 형식과 맞는 OauthToken 이라는 클래스를 만들어 줘야한다(👇아래 참고).
         //.readValue(Json 데이터, 변환할 클래스) 메소드를 이용해 바디값을 읽어온다.
         ObjectMapper objectMapper = new ObjectMapper();
@@ -78,7 +91,7 @@ public class MemberService {
         return oauthToken; //(8)Json 데이터가 OauthToken 객체에 잘 담기면 리턴해준다.
     }
 
-    public String saveUserAndGetToken(String token) {
+    public TokenDto saveUserAndGetToken(String token) {
         //(1) findProfile()이라는 메소드를 이용해 엑세스 토큰으로 카카오 서버에서 사용자 정보를 가져온다
         // saveUser() 메소드 아래에 구현한다
         KakaoProfile profile = findProfile(token);
@@ -95,30 +108,32 @@ public class MemberService {
 
             memberRepository.save(member);
         }
+        //Authentication authentication = new UsernamePasswordAuthenticationToken(member, null, member.getAuthorities());
+        //SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return createToken(member);
     }
 
-    public String createToken(Member member) {
+    public TokenDto createToken(Member member) {
         // (2-2)
-        String jwtToken = JWT.create()
-
-                // (2-3)Payload에 들어갈 등록된 클레임을 설정한다
-                // withSubject : jwt의 이름을 정한다
-                // withExpiresAt : jwt 만료시간을 지정한다
-                .withSubject(member.getKakaoNickname())
-                .withExpiresAt(new Date(System.currentTimeMillis()+ JwtProperties.EXPIRATION_TIME))
-
-                //(2-4)Payload 에 들어갈 개인 클레임 을 설정한다.
-                //.withClaim(이름, 내용) 형태로 작성한다. 사용자를 식별할 수 있는 값과, 따로 추가하고 싶은 값을 자유롭게 넣는다.
-                .withClaim("id", member.getMemberId())
-                .withClaim("nickname", member.getKakaoNickname())
-
-                //(2-5)Signature 를 설정한다. 위와 같이 알고리즘을 명시하고 앞서 만든 JwtProperties 의 비밀 키 필드를 불러와 넣어준다.
-                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
-
+//        String jwtToken = JWT.create()
+//
+//                // (2-3)Payload에 들어갈 등록된 클레임을 설정한다
+//                // withSubject : jwt의 이름을 정한다
+//                // withExpiresAt : jwt 만료시간을 지정한다
+//                .withSubject(member.getKakaoNickname())
+//                .withExpiresAt(new Date(System.currentTimeMillis()+ JwtProperties.EXPIRATION_TIME))
+//
+//                //(2-4)Payload 에 들어갈 개인 클레임 을 설정한다.
+//                //.withClaim(이름, 내용) 형태로 작성한다. 사용자를 식별할 수 있는 값과, 따로 추가하고 싶은 값을 자유롭게 넣는다.
+//                .withClaim("id", member.getMemberId())
+//                .withClaim("nickname", member.getKakaoNickname())
+//
+//                //(2-5)Signature 를 설정한다. 위와 같이 알고리즘을 명시하고 앞서 만든 JwtProperties 의 비밀 키 필드를 불러와 넣어준다.
+//                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+        TokenDto token = jwtProvider.createToken(member.getKakaoNickname(), member.getRole());
         // (2-6) 만들어진 JWT 를 반환한다
-        return jwtToken;
+        return token;
     }
 
     public String createRefreshToken(Member member, String AccessToken) {
