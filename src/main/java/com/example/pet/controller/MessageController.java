@@ -38,31 +38,35 @@ public class MessageController {
     }
 
 
-    /*
-    발신함 조회 API
-     */
-    @GetMapping("/sendMessage/{memberId}")
-    public List<MessageListDto> sendMessageList(@PathVariable int memberId){
-
-        return messageService.getSendMessage(memberId);
-
-    }
 
     /*
-       수신함 조회 API
-     */
-    @GetMapping("/receiveMessage/{memberId}")
-    public List<MessageListDto> receiveMessageList(@PathVariable int memberId){
+    수신함 조회 API
+    */
+    @GetMapping("/message/inbox/{memberId}")
+    public List<MessageListDto> inbox(@PathVariable int memberId){
 
         return messageService.getReceiveMessage(memberId);
 
     }
 
 
+
+    /*
+    발신함 조회 API
+     */
+    @GetMapping("/message/outbox/{memberId}")
+    public List<MessageListDto> outbox(@PathVariable int memberId){
+
+        return messageService.getSendMessage(memberId);
+
+    }
+
+
+
     /*
       상세 메세지 조회 API
      */
-    @GetMapping("/messageDetail/{memberId}/{msgId}")
+    @GetMapping("/message/{memberId}/{msgId}")
     public MessageDetailDto messageDetail(@PathVariable int memberId, @PathVariable int msgId){
 
        return messageService.getMessageDetail(memberId, msgId) ;
@@ -73,7 +77,7 @@ public class MessageController {
     /*
     메세지 삭제
      */
-    @DeleteMapping("delete/message/{memberId}/{msgId}")
+    @DeleteMapping("/message/delete/{memberId}/{msgId}")
     public String deleteMessage(@PathVariable int memberId, @PathVariable int msgId){
 
         messageService.deleteMessage(memberId, msgId);
