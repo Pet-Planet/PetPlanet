@@ -5,6 +5,7 @@ import com.example.pet.domain.Role;
 import com.example.pet.domain.board.Board;
 import com.example.pet.domain.board.BoardComment;
 import com.example.pet.domain.board.BookMark;
+import com.example.pet.domain.message.Message;
 import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
