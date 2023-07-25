@@ -42,4 +42,10 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
             "(f.fromMember.memberId = :memberId AND f.toMember.memberId != :memberId) AND " +
             "(f.weId = 1 OR f.weId = 0))")
     List<Member> findBListNotInRelationship(@Param("memberId") int memberId);
+
+    // 검색 + 친구 아닌 회원 목록
+    @Query("SELECT m FROM Member m " +
+            "WHERE m.memberId NOT IN (SELECT f.toMember.memberId FROM Friend f WHERE f.fromMember.memberId = :memberId) " +
+            "AND (m.nickname LIKE %:searchText% OR m.kakaoEmail LIKE %:searchText%)")
+    List<Member> searchBListNotInRelationship(@Param("memberId") int memberId, @Param("searchText") String searchText);
 }
