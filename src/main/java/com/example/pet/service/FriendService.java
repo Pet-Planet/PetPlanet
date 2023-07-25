@@ -132,4 +132,9 @@ public class FriendService {
     public List<Member> getBListNotInRelationship(int memberId) {
         return friendRepository.findBListNotInRelationship(memberId);
     }
+
+    // 검색 + 친구 아닌 회원 목록
+    public List<Member> searchBListNotInRelationship(int memberId, String searchText) {
+        return friendRepository.searchBListNotInRelationship(memberId, searchText);
+    }
 }

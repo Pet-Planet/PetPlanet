@@ -106,7 +106,7 @@
                 <td style="width:80px;">
                     <form action="/mypage/${memberId}/friends/send-request" method="post">
                         <input type="hidden" name="toId" value="${member.memberId}">
-                        <button class="rev-button" type="submit">요청</button>
+                        <button class="rev-button" type="submit">신청</button>
                     </form>
                 </td>
             </tr>
