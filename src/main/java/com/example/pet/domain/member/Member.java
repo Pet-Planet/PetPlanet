@@ -10,13 +10,11 @@ import com.example.pet.domain.reservation.Reservation;
 import com.example.pet.domain.review.Review;
 import com.example.pet.dto.member.MemberUpdateRequestDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -27,6 +25,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Member extends BaseEntity {
 
     @Id
@@ -49,11 +49,6 @@ public class Member extends BaseEntity {
     @Column(name="role")
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Column(name = "create_time")
-    // current_timestamp를 설정했다면 어노테이션 설정할 것
-    @CreationTimestamp
-    private Timestamp createTime;
     @Column
     private String nickname;
 
@@ -70,6 +65,16 @@ public class Member extends BaseEntity {
     @ColumnDefault("1") // 0 이면 탈퇴회원
     private int status;
 
+//    일반 로그인을 위한 컬럼
+    @Column(length = 45, unique = true)
+    private String email; // 로그인 하는 아이디
+    @Column(length = 100)
+    private String password;
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
+    }
+//
     @OneToMany(mappedBy = "member")
     @JsonManagedReference
     private List<Reservation> reservations = new ArrayList<>();
@@ -104,15 +109,22 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "toMember", cascade = CascadeType.ALL)
     private List<Friend> receivedFriendRequests;
 
-    @Builder
-    public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
-                String kakaoEmail, Role role) {
-        this.kakaoId = kakaoId;
-        this.kakaoProfileImg = kakaoProfileImg;
-        this.kakaoNickname = kakaoNickname;
-        this.kakaoEmail = kakaoEmail;
-        this.role = role;
-    }
+//    @Builder
+//    public Member(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
+//                String kakaoEmail, Role role) {
+//        this.kakaoId = kakaoId;
+//        this.kakaoProfileImg = kakaoProfileImg;
+//        this.kakaoNickname = kakaoNickname;
+//        this.kakaoEmail = kakaoEmail;
+//        this.role = role;
+//    }
+//    @Builder
+//    public Member(String email, String nickname, String password, Role role) {
+//        this.email = email;
+//        this.nickname = nickname;
+//        this.password = password;
+//        this.role = role;
+//    }
 
     public void memberUpdate(MemberUpdateRequestDto requestDto) {
         if (requestDto.getNickname() != null) {
