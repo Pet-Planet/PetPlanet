@@ -4,6 +4,7 @@ import com.example.pet.config.jwt.CustomAuthenticationEntryPoint;
 import com.example.pet.config.jwt.JwtAuthenticationFilter;
 import com.example.pet.config.jwt.JwtProvider;
 import com.example.pet.config.jwt.JwtRequestFilter;
+import com.example.pet.domain.Role;
 import com.example.pet.repository.MemberRepository;
 import com.example.pet.service.MemberService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
@@ -57,6 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable()
                 .addFilter(corsFilter);
         http.authorizeRequests()
+                .antMatchers("/member/join").permitAll()
+                .antMatchers("/member").hasRole("ROLE_USER")
                 .antMatchers(FRONT_URL+"/**")
                 .authenticated()
                 .anyRequest().permitAll()
@@ -69,5 +74,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 //.addFilter(new JwtRequestFilter(authenticationManager(), memberRepository));
 
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

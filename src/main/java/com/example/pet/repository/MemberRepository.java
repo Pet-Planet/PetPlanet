@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Integer> {
+    Optional<Member> findByEmail(String email);
     public Member findByKakaoEmail(String kakaoEmail);
     public Member findByMemberId(int memberId);
     public Member findByKakaoId(Long kakaoId);
