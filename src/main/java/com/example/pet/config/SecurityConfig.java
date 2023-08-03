@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(corsFilter);
         http.authorizeRequests()
                 .antMatchers("/member/join").permitAll()
-                .antMatchers("/member").hasRole("ROLE_USER")
+                .antMatchers("/member").hasRole(Role.USER.getValue())
                 .antMatchers(FRONT_URL+"/**")
                 .authenticated()
                 .anyRequest().permitAll()
