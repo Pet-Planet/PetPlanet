@@ -26,8 +26,9 @@ public class MemberSignUpDto {
     private String password;
 
     private String checkedPassword;
-
-    private Role role;
+    private String address;
+    private String petType;
+    private String petName;
 
     @Builder
     public Member toEntity(){
@@ -35,7 +36,9 @@ public class MemberSignUpDto {
                 .email(email)
                 .nickname(nickname)
                 .password(password)
-                .role(role)
+                .address(address)
+                .petName(petName)
+                .petType(petType)
                 .build();
     }
 }
