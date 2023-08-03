@@ -70,28 +70,30 @@ public class Member extends BaseEntity {
     private String email; // 로그인 하는 아이디
     @Column(length = 100)
     private String password;
-
+    @Column
+    private String refreshToken;
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
     }
 //
-    @OneToMany(mappedBy = "member")
+// 회원탈퇴 시 작성한 예약, 리뷰, 게시글, 댓글 모두 삭제
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Board> boards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<BoardComment> boardCommentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<BookMark> bookMarkDtoList = new ArrayList<>();
 
@@ -126,6 +128,7 @@ public class Member extends BaseEntity {
 //        this.role = role;
 //    }
 
+    // 정보 수정
     public void memberUpdate(MemberUpdateRequestDto requestDto) {
         if (requestDto.getNickname() != null) {
             this.nickname = requestDto.getNickname();
@@ -141,5 +144,16 @@ public class Member extends BaseEntity {
         }
     }
 
+    public void updatePassword(PasswordEncoder passwordEncoder, String password) {
+        this.password = passwordEncoder.encode(password);
+    }
+    // 비밀번호 병경, 회원 탈퇴 시, 비밀번호를 확인하며, 이때 비밀번호의 일치여부를 판단
+    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword) {
+        return passwordEncoder.matches(checkPassword, getPassword());
+    }
+    // 회원가입시 user 권한을 부여하는 메소드
+    public void addUserAuthority() {
+        this.role = Role.USER;
+    }
     private boolean friendRequested;
 }
